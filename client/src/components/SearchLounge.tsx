@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { addWord, clearUser, getWords } from "../utils/api";
-import { getLoginCookie } from "../utils/cookie";
+// import { getLoginCookie } from "../utils/cookie";
+import ReactDOM from "react-dom";
+import getRelavantLounges from "./Placebox";
 
 /**
  * ClearPins component calls the clearUser function to clear the user's pins in the
@@ -8,39 +8,72 @@ import { getLoginCookie } from "../utils/cookie";
  *
  * @returns div button that on click clears pins
  */
-export default function ClearPins() {
-  // const [words, setWords] = useState<string[]>([]);
+export default function SearchHomePage() {
 
-  const USER_ID = getLoginCookie() || "";
+  // const USER_ID = getLoginCookie() || "";
+
+  function handleSearchSubmit() {
+    const myPlaceId = document.getElementById("myplace");
+    const printedLounge = getRelavantLounges("");
+    if (myPlaceId != null) {
+      ReactDOM.render(printedLounge, myPlaceId);    
+    } 
+  }
 
   return (
-    <div className="firestore-demo">
+    <div>
+       <button 
+        onClick={
+          
+          async () => {
+          handleSearchSubmit();
+        //   // - query the backend to clear the user's words
+        //   // - clear the user's pins in the database
+        //   // await loungeLocator(); // with given parameters,
+        //   //maybe we use data of buttons which have been clicked?
+        }
+      }
+      >
+        Input search to backend...
+       
+      </button>
+      <p></p>
+    <div className="search-choices">
       {/* Receive user input for search function */}
-      <button aria-label="northcampusbutton" onClick={async () => {
-          await addParam("northcampus");
-          // document.querySelector('.northcampusbutton').classList.toggle('button-clicked');
+      <button className="northcampusbutton" id="northcampusbutton" onClick={async () => {
+          // await addParam("northcampus");
+          document.getElementById('northcampusbutton')?.classList.toggle('button-clicked');
         }}
       > {/* Maybe we can have like multiple buttons and each 
       one the user picks well include in their desires? */}
         North campus
       </button>
-      <button aria-label="southcampusbutton" onClick={async () => {
-          await addParam("southcampus");
+      <button className="southcampusbutton" id="southcampusbutton" onClick={async () => {
+          // await addParam("southcampus");
+          document.getElementById('southcampusbutton')?.classList.toggle('button-clicked');
+
         }}
       >
         South campus
       </button>
-      <button 
-        onClick={async () => {
-          // - query the backend to clear the user's words
-          // - clear the user's pins in the database
-          // await loungeLocator(); // with given parameters,
-          //maybe we use data of buttons which have been clicked?
-        }}
-      >
-        Input search to backend...
-      </button>
+     
+      <div><select className="myselector" id="myselector"
+
+      onChange={   //need to add function here which would only toggle when necessary
+        async() => {   document.getElementById("myselector")?.classList.toggle('selector-selected')
+              // document.querySelector('.myselector').classList.toggle('selector-selected');
+    }}>
+        <option value="">Select an option (ex)</option>
+        <option value="option1">Library</option>
+        <option value="option2">Cafe</option>
+        <option value="option3">Lounge</option>
+        </select></div>
       <p></p>
+      </div>
+{/* <div className="places"> */}
+
+<div id="myplace">
+</div>
     </div>
   );
 }
