@@ -1,6 +1,7 @@
 import { useState } from "react";
-import ClearPins from "./ClearPins";
+import ClearPins from "./SearchLounge";
 import Mapbox from "./Mapbox";
+import SearchLounge from "./SearchLounge";
 
 enum Section {
   SEARCH_AND_CLEAR = "SEARCH_AND_CLEAR",
@@ -15,14 +16,9 @@ export default function Maps() {
 
   return (
     <div>
-      <h1 aria-label="Page Title">Maps</h1>
-      {/* {<ClearPins />} */}
-      <button onClick={() => setSection(Section.SEARCH_AND_CLEAR)}>
-        Clear Pins
-      </button>
-      <button onClick={() => setSection(Section.MAP)}>Map</button>
-      {/* {<Mapbox />} */}
-      {section === Section.SEARCH_AND_CLEAR ? <ClearPins /> : null}
+      <h1 aria-label="Page Title">Lounge Locator</h1>
+      <button onClick={() => setSection(Section.MAP)}>Map (Optional implement this)</button>
+      {section === Section.SEARCH_AND_CLEAR ? <SearchLounge /> : null}
       {section === Section.MAP ? <Mapbox /> : null}
     </div>
   );

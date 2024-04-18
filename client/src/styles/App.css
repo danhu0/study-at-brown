@@ -12,3 +12,10 @@
   font-size: calc(1px + 2vmin);
   color: white;
 }
+.northcampusbutton {
+  text-align: center;
+  color: white;
+}
+.button-clicked {
+  background-color: green; /* Change to whatever color you prefer */
+}

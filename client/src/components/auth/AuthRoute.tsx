@@ -7,7 +7,7 @@ interface AuthRouteProps {
 }
 
 function AuthRoute(props: AuthRouteProps) {
-  const [loggedIn, setLogin] = useState(false);
+  const [loggedIn, setLogin] = useState(true);
 
   // SKIP THE LOGIN BUTTON IF YOU HAVE ALREADY LOGGED IN.
   if (!loggedIn && getLoginCookie() !== undefined) {
