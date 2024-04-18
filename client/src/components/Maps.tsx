@@ -17,9 +17,9 @@ export default function Maps() {
   return (
     <div>
       <h1 aria-label="Page Title">Lounge Locator</h1>
-      <button onClick={() => setSection(Section.MAP)}>Map (Optional implement this)</button>
+      {/* <button onClick={() => setSection(Section.MAP)}>Map (Optional implement this)</button> */}
       {section === Section.SEARCH_AND_CLEAR ? <SearchLounge /> : null}
-      {section === Section.MAP ? <Mapbox /> : null}
+      {/* {section === Section.MAP ? <Mapbox /> : null} */}
     </div>
   );
 }

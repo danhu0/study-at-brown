@@ -12,10 +12,45 @@
   font-size: calc(1px + 2vmin);
   color: white;
 }
+
 .northcampusbutton {
   text-align: center;
-  color: white;
+  color: black;
+  text-emphasis-color: blue;
+  border-radius: 20px;
+}
+.southcampusbutton {
+  text-align: center;
+  color: black;
+  text-emphasis-color: blue;
+  border-radius: 20px;
 }
 .button-clicked {
   background-color: green; /* Change to whatever color you prefer */
+}
+.myselector {
+  /* border-color: green;  */
+  border-radius: 20px;
+
+}
+.selector-selected {
+  background-color: green;
+}
+
+.search-choices {
+text-align: center;
+}
+.placebox{
+  background-color: aqua;
+  width: fit-content;
+  height: fit-content;
+  text-align: center;
+  align-self: center;
+  align-items: center;
+  border-radius: 20px;
+
+}
+.starbutton {
+  background-color: transparent;
+  border-color: transparent;
 }
