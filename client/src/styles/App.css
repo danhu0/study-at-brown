@@ -31,16 +31,15 @@
 .myselector {
   /* border-color: green;  */
   border-radius: 20px;
-
 }
 .selector-selected {
   background-color: green;
 }
 
 .search-choices {
-text-align: center;
+  text-align: center;
 }
-.placebox{
+.placebox {
   background-color: aqua;
   width: fit-content;
   height: fit-content;
@@ -49,6 +48,12 @@ text-align: center;
   align-items: center;
   border-radius: 20px;
 
+  .carousel-container {
+    width: 400px;
+    max-width: 500px;
+    overflow: hidden;
+    height: 400px;
+  }
 }
 .starbutton {
   background-color: transparent;
