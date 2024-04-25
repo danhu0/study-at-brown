@@ -29,7 +29,7 @@ public class ClearUserHandler implements Route {
       String uid = request.queryParams("uid");
 
       // Remove the user from the database
-      System.out.println("clearing words for user: " + uid);
+      System.out.println("clearing lounges for user: " + uid);
       this.storageHandler.clearUser(uid);
 
       responseMap.put("response_type", "success");

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ClearPins from "./SearchLounge";
-import Mapbox from "./Mapbox";
+// import Mapbox from "./Mapbox";
 import SearchLounge from "./SearchLounge";
 import UserSavedPlaces from "./UserSavedPlaces";
 

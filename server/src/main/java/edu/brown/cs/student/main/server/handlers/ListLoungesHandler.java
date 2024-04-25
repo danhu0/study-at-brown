@@ -12,11 +12,11 @@ import spark.Route;
  * Lists all pins stored in the Firebase for the user. Used for loading the pin markers on a new
  * session with all the stored coordinates.
  */
-public class ListPinsHandler implements Route {
+public class ListLoungesHandler implements Route {
 
   public StorageInterface storageHandler;
 
-  public ListPinsHandler(StorageInterface storageHandler) {
+  public ListLoungesHandler(StorageInterface storageHandler) {
     this.storageHandler = storageHandler;
   }
 
@@ -33,25 +33,32 @@ public class ListPinsHandler implements Route {
     try {
       String uid = request.queryParams("uid");
 
-      System.out.println("listing pins for user: " + uid);
+      System.out.println("listing lounges for user: " + uid);
 
       // get all the pins for the user
-      List<Map<String, Object>> vals = this.storageHandler.getCollection(uid, "pins");
+      List<Map<String, Object>> vals = this.storageHandler.getCollection(uid, "lounges");
 
       // convert the key,value map to just a list of the pins.
-      List<Map<String, Float>> pins =
+      List<Map<String, Float>> lounges =
           vals.stream()
               .map(
-                  pin -> {
-                    Map<String, Float> tempPin = new HashMap<>();
-                    tempPin.put("lat", Float.parseFloat(pin.get("lat").toString()));
-                    tempPin.put("long", Float.parseFloat(pin.get("long").toString()));
-                    return tempPin;
+                  lounge -> {
+                    Map<String, Float> tempLounge = new HashMap<>();
+
+                    // tempLounge.put("title", Float.parseFloat(lounge.get("title").toString()));
+                    // tempLounge.put(
+                    //     "description", Float.parseFloat(lounge.get("description").toString()));
+                    // tempLounge.put(
+                    //     "attributes", Float.parseFloat(lounge.get("attributes").toString()));
+                    // tempLounge.put(
+                    //     "google_link", Float.parseFloat(lounge.get("google_link").toString()));
+                    // tempLounge.put("images", Float.parseFloat(lounge.get("images").toString()));
+                    return tempLounge;
                   })
               .toList();
 
       responseMap.put("response_type", "success");
-      responseMap.put("pins", pins);
+      responseMap.put("lounges", lounges);
     } catch (Exception e) {
       // error likely occurred in the storage handler
       e.printStackTrace();

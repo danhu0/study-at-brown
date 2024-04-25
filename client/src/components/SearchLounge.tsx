@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import getRelavantLounges from "./Placebox";
 import { MockedData } from "./MockedData";
 import { useState } from "react";
+import getLoungeBox from "./Placebox";
 
 /**
  * ClearPins component calls the clearUser function to clear the user's pins in the
@@ -89,7 +90,7 @@ export default function SearchHomePage() {
         {mocked &&
           MockedData.map((data, index) => (
             <div className="lounge" key={index}>
-              {getRelavantLounges(data)}
+              {getLoungeBox(data)}
             </div>
           ))}
         {/* <div className="places"> */}

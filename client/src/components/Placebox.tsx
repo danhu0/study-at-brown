@@ -2,6 +2,7 @@
  * Each lounge must be printed out in its own box
  */
 
+import { addLounge } from "../utils/api";
 import ImageCarousel from "./Carousel";
 
 export interface PlaceboxProps {
@@ -12,8 +13,7 @@ export interface PlaceboxProps {
   images: string[];
 }
 
-export default function getRelavantLounges(props: PlaceboxProps) {
-  //this will essentially query backend for each of these items
+export default function getLoungeBox(props: PlaceboxProps) {
   return (
     <div className="placebox">
       {/* <li> */}
@@ -28,7 +28,7 @@ export default function getRelavantLounges(props: PlaceboxProps) {
         {" "}
         Find it
       </a>
-      <button
+      <button onClick={() => addLounge(props)}
         className="starbutton" //allows user to add to favorites list
       >
         {" "}
