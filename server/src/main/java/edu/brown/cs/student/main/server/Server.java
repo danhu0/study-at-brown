@@ -28,10 +28,9 @@ public class Server {
     StorageInterface firebaseUtils;
     try {
       firebaseUtils = new FirebaseUtilities();
-
       // Add endpoints
-      Spark.get("add-pin", new AddPinHandler(firebaseUtils));
-      Spark.get("list-pins", new ListPinsHandler(firebaseUtils));
+      Spark.get("add-lounge", new AddLoungeHandler(firebaseUtils));
+      Spark.get("list-lounges", new ListLoungesHandler(firebaseUtils));
       Spark.get("clear-user", new ClearUserHandler(firebaseUtils));
 
       GeoJsonSharedState sharedState = new GeoJsonSharedState();

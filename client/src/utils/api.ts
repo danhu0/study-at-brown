@@ -1,3 +1,4 @@
+import { PlaceboxProps } from "../components/Placebox";
 import { getLoginCookie } from "./cookie";
 
 const HOST = "http://localhost:3232";
@@ -33,11 +34,10 @@ export async function clearUser(uid: string = getLoginCookie() || "") {
  * @param lat latitude
  * @param long longitude
  */
-export async function addCoords(lat: string, long: string) {
-  return await queryAPI("add-pin", {
+export async function addLounge(lounge: PlaceboxProps) {
+  return await queryAPI("add-lounge", {
     uid: getLoginCookie() || "",
-    lat: lat,
-    long: long,
+    lounge: lounge.title   // what if multiple lounges named same thing?
   });
 }
 
@@ -45,31 +45,31 @@ export async function addCoords(lat: string, long: string) {
  * Function which queries the getCoords endpoint. This function is used to get the coordinates from the user's data.
  * @returns a promise that resolves to the response from the server
  */
-export async function getCoords() {
-  return await queryAPI("list-pins", {
+export async function getLounges() {
+  return await queryAPI("list-lounges", {
     uid: getLoginCookie() || "",
   });
 }
 
-/**
- * Function which queries the addWord endpoint. This function is used to add a word to the user's data.
- * @param word the word to add
- * @returns a promise that resolves to the response from the server
- */
-export async function addWord(word: string) {
-  return await queryAPI("add-word", {
-    uid: getLoginCookie() || "",
-    word: word,
-  });
-}
+// /**
+//  * Function which queries the addWord endpoint. This function is used to add a word to the user's data.
+//  * @param word the word to add
+//  * @returns a promise that resolves to the response from the server
+//  */
+// export async function addWord(word: string) {
+//   return await queryAPI("add-word", {
+//     uid: getLoginCookie() || "",
+//     word: word,
+//   });
+// }
 
-/**
- * Function which queries the getWords endpoint. This function is used to get the words from the user's data.
- * @returns a promise that resolves to the response from the server
- */
-export async function getWords() {
-  return await queryAPI("list-words", {
-    uid: getLoginCookie() || "",
-  });
-}
+// /**
+//  * Function which queries the getWords endpoint. This function is used to get the words from the user's data.
+//  * @returns a promise that resolves to the response from the server
+//  */
+// export async function getWords() {
+//   return await queryAPI("list-words", {
+//     uid: getLoginCookie() || "",
+//   });
+// }
 
