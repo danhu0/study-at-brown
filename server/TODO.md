@@ -20,3 +20,8 @@
     - maybe use python libraries we already know or find good java one
  - admin dashboard/make it at least not a humongous pain in the ass to add more study spots
  
+
+ :interrobang: :interrobang: :interrobang:
+ :shipit: :shipit:
+
+ [x]
