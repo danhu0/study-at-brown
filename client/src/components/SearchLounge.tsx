@@ -23,6 +23,7 @@ export default function SearchHomePage() {
   return (
     <div>
       <button
+        className="button"
         onClick={async () => {
           handleSearchSubmit();
           //   // - query the backend to clear the user's words
@@ -37,7 +38,7 @@ export default function SearchHomePage() {
       <div className="search-choices">
         {/* Receive user input for search function */}
         <button
-          className="northcampusbutton"
+          className="campus-selector-button"
           id="northcampusbutton"
           onClick={async () => {
             // await addParam("northcampus");
@@ -52,7 +53,7 @@ export default function SearchHomePage() {
           North campus
         </button>
         <button
-          className="southcampusbutton"
+          className="campus-selector-button"
           id="southcampusbutton"
           onClick={async () => {
             // await addParam("southcampus");
