@@ -31,25 +31,41 @@
 .myselector {
   /* border-color: green;  */
   border-radius: 20px;
-
 }
 .selector-selected {
   background-color: green;
 }
 
 .search-choices {
-text-align: center;
+  text-align: center;
 }
-.placebox{
-  background-color: aqua;
+.placebox {
+  background-color:skyblue;
   width: fit-content;
   height: fit-content;
   text-align: center;
   align-self: center;
   align-items: center;
   border-radius: 20px;
-
 }
+.carousel-container {
+  width: 400px;
+  max-width: 400px;
+  overflow: hidden;
+  height: 400px;
+}
+
+.lounges-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.lounge {
+  flex: 1; /* Adjust flex properties as needed */
+  margin: 20px;
+}
+
 .starbutton {
   background-color: transparent;
   border-color: transparent;

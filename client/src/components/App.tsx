@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import "../styles/App.css";
-import Maps from "./Maps";
+import Maps from "./HomePage";
 import AuthRoute from "./auth/AuthRoute";
 
 // REMEMBER TO PUT YOUR API KEY IN A FOLDER THAT IS GITIGNORED!!

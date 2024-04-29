@@ -8,11 +8,11 @@ import spark.Response;
 import spark.Route;
 
 /** Endpoint add-pin for adding pins to the Firebase database. Takes lat and long as parameters. */
-public class AddPinHandler implements Route {
+public class AddLoungeHandler implements Route {
 
   public StorageInterface storageHandler;
 
-  public AddPinHandler(StorageInterface storageHandler) {
+  public AddLoungeHandler(StorageInterface storageHandler) {
     this.storageHandler = storageHandler;
   }
 
@@ -29,24 +29,22 @@ public class AddPinHandler implements Route {
     try {
       // collect parameters from the request
       String uid = request.queryParams("uid");
-      String lat = request.queryParams("lat");
-      String longitude = request.queryParams("long");
+      String lounge = request.queryParams("lounge");
 
       Map<String, Object> data = new HashMap<>();
-      data.put("lat", lat);
-      data.put("long", longitude);
+      data.put("lounge", lounge);
 
-      System.out.println("adding pin: (" + longitude + ", " + lat + ") for user: " + uid);
+      System.out.println("adding lounge: (" + lounge + ") for user: " + uid);
 
       // get the current word count to make a unique word_id by index.
-      int pinCount = this.storageHandler.getCollection(uid, "pins").size();
-      String pinId = "pin-" + pinCount;
+      int loungeCount = this.storageHandler.getCollection(uid, "lounges").size();
+      String loungeID = "lounge-" + loungeCount;
 
       // use the storage handler to add the document to the database
-      this.storageHandler.addDocument(uid, "pins", pinId, data);
+      this.storageHandler.addDocument(uid, "lounges", loungeID, data);
 
       responseMap.put("response_type", "success");
-      responseMap.put("word", data);
+      responseMap.put("lounge", data);
     } catch (Exception e) {
       // error likely occurred in the storage handler
       e.printStackTrace();
