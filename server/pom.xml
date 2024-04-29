@@ -70,6 +70,23 @@
     </dependency>
 
     <!--
+            Spark ML library for the CSV parsing and decision tree algorithm
+      -->
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-mllib_2.12</artifactId>
+      <version>3.5.1</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-core_2.12</artifactId>
+      <version>3.5.1</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <!--
            JUnit is a unit testing library for Java.
     -->
     <dependency>
