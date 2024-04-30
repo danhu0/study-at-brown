@@ -87,6 +87,28 @@
     </dependency>
 
     <!--
+           CSV parser
+     -->
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-csv</artifactId>
+      <version>1.9.0</version>
+      <scope>compile</scope>
+      <!-- Or the latest version available -->
+    </dependency>
+
+    <!--
+           Math library import for performing vector ops
+     -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-math3</artifactId>
+      <version>3.6.1</version> <!-- or the latest version -->
+    </dependency>
+
+
+    <!--
            JUnit is a unit testing library for Java.
     -->
     <dependency>

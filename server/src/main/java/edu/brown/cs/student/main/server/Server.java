@@ -38,6 +38,7 @@ public class Server {
       Spark.get("get-geodata", new GetGeoDataHandler(sharedState));
 
       Spark.get("get-user", new GetUserDataHandler(firebaseUtils));
+      Spark.get("get-recs", new GetRecsHandler());
 
       // mocked verison of set-geodata, for testing only
       // Spark.get("set-geodata", new SetGeoDataHandler(new MockDataSource(),
