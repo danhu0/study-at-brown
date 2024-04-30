@@ -25,3 +25,10 @@
  :shipit: :shipit:
 
  [x]
+ 
+***FOR 4/30/24 EITAN DAN***
+ - Set up endpoint with all the params and convert the call into a query vector
+   - Handle case when not all params are filled in
+ - For a given user, create taste profile vector from average of data from saved firebase data
+ - Combine user taste vector with query vector
+ - Endpoint: list n random *hot* study spots
