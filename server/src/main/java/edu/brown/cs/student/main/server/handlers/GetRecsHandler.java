@@ -54,7 +54,7 @@ public class GetRecsHandler implements Route {
             public int compare(double[] spot1, double[] spot2) {
               double cosine1 = Utils.cosineSimilarity(queryVector, spot1);
               double cosine2 = Utils.cosineSimilarity(queryVector, spot2);
-              return Double.compare(cosine1, cosine2);
+              return -Double.compare(cosine1, cosine2);
             }
           };
 
