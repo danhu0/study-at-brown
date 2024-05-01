@@ -13,7 +13,6 @@ import spark.Spark;
 
 /** Top Level class for our project, utilizes spark to create and maintain our server. */
 public class Server {
-
   public static void setUpServer() {
     int port = 3232;
     Spark.port(port);
@@ -24,6 +23,17 @@ public class Server {
               response.header("Access-Control-Allow-Origin", "*");
               response.header("Access-Control-Allow-Methods", "*");
             });
+
+    VectorizedData data = null;
+    try {
+      data =
+          Utils.convertCSVToVectors(Constants.STUDY_SPOT_DATA_PATH, Constants.INCLUDED_ATTRIBUTES);
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.err.println(
+          "Error: Could not vectorize data. Likely due to study_spots.csv not being found. Exiting.");
+      System.exit(1);
+    }
 
     StorageInterface firebaseUtils;
     try {
@@ -38,6 +48,9 @@ public class Server {
       Spark.get("get-geodata", new GetGeoDataHandler(sharedState));
 
       Spark.get("get-user", new GetUserDataHandler(firebaseUtils));
+      Spark.get("get-recs", new GetRecsHandler(firebaseUtils, data));
+      Spark.get("get-hot", new HOTStudyHandler(data));
+      Spark.get("get-data", new GetDataHandler(data));
 
       // mocked verison of set-geodata, for testing only
       // Spark.get("set-geodata", new SetGeoDataHandler(new MockDataSource(),
@@ -67,6 +80,7 @@ public class Server {
    * @param args none
    */
   public static void main(String[] args) {
+
     setUpServer();
   }
 }
