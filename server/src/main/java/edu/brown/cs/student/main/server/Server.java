@@ -47,7 +47,7 @@ public class Server {
 //      Spark.get("set-geodata", new SetGeoDataHandler(new GeoDatasource(), sharedState));
 //      Spark.get("get-geodata", new GetGeoDataHandler(sharedState));
 
-      Spark.get("get-user", new GetUserDataHandler(firebaseUtils));
+      Spark.get("get-user", new GetUserDataHandler(firebaseUtils, data));
       Spark.get("get-recs", new GetRecsHandler(firebaseUtils, data));
       Spark.get("get-hot", new HOTStudyHandler(data));
       Spark.get("get-data", new GetDataHandler(data));
