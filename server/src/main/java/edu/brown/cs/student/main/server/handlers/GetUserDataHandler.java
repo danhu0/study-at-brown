@@ -28,7 +28,8 @@ public class GetUserDataHandler implements Route {
       List<Map<String, Object>> vals = this.storageHandler.getCollection(uid, "saved-spots");
 
       // convert the key,value map to just a list of the spots.
-      List<String> spots = vals.stream().map(spot -> spot.get("name").toString()).toList();
+//      List<String> spots = vals.stream().map(spot -> spot.get("name").toString()).toList();
+      List<Integer> spots = vals.stream().map(spot -> Integer.parseInt(spot.get("id").toString())).toList();
 
       responseMap.put("response_type", "success");
       responseMap.put("saved-spots", spots);
