@@ -1,5 +1,5 @@
-id,name,Description,natural_light_level,noise_level,outlet_availability,room_size,private,food,view,home,latitude,longitude,hours_open,hours_close,days_open,hours,building,study_room,google_link ,campus_position
-1,Third Floor Library,,2,0,1,0,0,0,1,2,41.82792,-71.40355,8:30,17:00,0111110,"[
+id,name,building,Description,natural_light_level,noise_level,outlet_availability,room_size,private,food,view,home,latitude,longitude,hours_open,hours_close,days_open,hours,study_room,google_link ,campus_position
+1,Third Floor Library,Philosophy Department Building,,2,0,1,0,0,0,1,2,41.82792,-71.40355,8:30,17:00,0111110,"[
       [""9:30"", ""17:00""],
       [""9:30"", ""17:00""],
       [""9:30"", ""17:00""],
@@ -7,8 +7,8 @@ id,name,Description,natural_light_level,noise_level,outlet_availability,room_siz
       [""9:30"", ""17:00""],
       [""9:30"", ""17:00""],
       [""9:30"", ""17:00""],
-    ]",Philosophy Department Building,0,"https://www.google.com/maps/place/John+D.+Rockefeller,+Jr.+Library/@41.8257007,-71.4051436,15z/data=!4m6!3m5!1s0x89e44446ec7c0d51:0x2fde92d441a35057!8m2!3d41.8257007!4d-71.4051436!16s%2Fm%2F047mq5j?entry=ttu",south
-2,Main Green,,4,2,0,2,0,0,0,1,41.82623,-71.40338,n/a,n/a,1111111,,Outside,0,"https://www.google.com/maps/place/John+D.+Rockefeller,+Jr.+Library/@41.8257007,-71.4051436,15z/data=!4m6!3m5!1s0x89e44446ec7c0d51:0x2fde92d441a35057!8m2!3d41.8257007!4d-71.4051436!16s%2Fm%2F047mq5j?entry=ttu",south
-3,134C,,1,0,2,0,2,1,0,0,41.82568,-71.40502,8:00,2:00 AM,1111111,,The Rock,1,"https://www.google.com/maps/place/John+D.+Rockefeller,+Jr.+Library/@41.8257007,-71.4051436,15z/data=!4m6!3m5!1s0x89e44446ec7c0d51:0x2fde92d441a35057!8m2!3d41.8257007!4d-71.4051436!16s%2Fm%2F047mq5j?entry=ttu",south
-4,Alphabet Room,,3,0,1,2,1,0,1,2,41.82918,-71.40266,,17:00,,,Pembroke Hall,0,"https://www.google.com/maps/place/John+D.+Rockefeller,+Jr.+Library/@41.8257007,-71.4051436,15z/data=!4m6!3m5!1s0x89e44446ec7c0d51:0x2fde92d441a35057!8m2!3d41.8257007!4d-71.4051436!16s%2Fm%2F047mq5j?entry=ttu",north
-5,Kassar FOX,,0,1,1,2,1,0,0,0,41.82527,-71.40003,,17:00,0111110,,Kassar,0,"https://www.google.com/maps/place/John+D.+Rockefeller,+Jr.+Library/@41.8257007,-71.4051436,15z/data=!4m6!3m5!1s0x89e44446ec7c0d51:0x2fde92d441a35057!8m2!3d41.8257007!4d-71.4051436!16s%2Fm%2F047mq5j?entry=ttu",south
+    ]",0,"https://www.google.com/maps/place/John+D.+Rockefeller,+Jr.+Library/@41.8257007,-71.4051436,15z/data=!4m6!3m5!1s0x89e44446ec7c0d51:0x2fde92d441a35057!8m2!3d41.8257007!4d-71.4051436!16s%2Fm%2F047mq5j?entry=ttu",south
+2,Main Green,Outside,,4,2,0,2,0,0,0,1,41.82623,-71.40338,n/a,n/a,1111111,,0,"https://www.google.com/maps/place/John+D.+Rockefeller,+Jr.+Library/@41.8257007,-71.4051436,15z/data=!4m6!3m5!1s0x89e44446ec7c0d51:0x2fde92d441a35057!8m2!3d41.8257007!4d-71.4051436!16s%2Fm%2F047mq5j?entry=ttu",south
+3,134C,The Rock,,1,0,2,0,2,1,0,0,41.82568,-71.40502,8:00,2:00 AM,1111111,,1,"https://www.google.com/maps/place/John+D.+Rockefeller,+Jr.+Library/@41.8257007,-71.4051436,15z/data=!4m6!3m5!1s0x89e44446ec7c0d51:0x2fde92d441a35057!8m2!3d41.8257007!4d-71.4051436!16s%2Fm%2F047mq5j?entry=ttu",south
+4,Alphabet Room,Pembroke Hall,,3,0,1,2,1,0,1,2,41.82918,-71.40266,,17:00,,,0,"https://www.google.com/maps/place/John+D.+Rockefeller,+Jr.+Library/@41.8257007,-71.4051436,15z/data=!4m6!3m5!1s0x89e44446ec7c0d51:0x2fde92d441a35057!8m2!3d41.8257007!4d-71.4051436!16s%2Fm%2F047mq5j?entry=ttu",north
+5,Kassar FOX,Kassar,,0,1,1,2,1,0,0,0,41.82527,-71.40003,,17:00,0111110,,0,"https://www.google.com/maps/place/John+D.+Rockefeller,+Jr.+Library/@41.8257007,-71.4051436,15z/data=!4m6!3m5!1s0x89e44446ec7c0d51:0x2fde92d441a35057!8m2!3d41.8257007!4d-71.4051436!16s%2Fm%2F047mq5j?entry=ttu",south
