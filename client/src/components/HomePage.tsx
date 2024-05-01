@@ -27,16 +27,17 @@ export default function HomePage() {
       {/* <button onClick={() => setSection(Section.MAP)}>Map (Optional implement this)</button> */}
       <button
         className="button"
-        onClick={() => setSection(Section.SAVED_PLACES)}
-      >
-        User's Favorites
-      </button>
-      <button
-        className="button"
         onClick={() => setSection(Section.SEARCH_AND_CLEAR)}
       >
         Home
       </button>
+      <button
+        className="button"
+        onClick={() => setSection(Section.SAVED_PLACES)}
+      >
+        User's Favorites
+      </button>
+      
 
       {section === Section.SEARCH_AND_CLEAR ? <SearchLounge /> : null}
       {/* {section === Section.MAP ? <Mapbox /> : null} */}
