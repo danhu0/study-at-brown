@@ -1,8 +1,8 @@
 // import { getLoginCookie } from "../utils/cookie";
 import ReactDOM from "react-dom";
-import getRelavantLounges from "./Placebox";
+import getRelavantLounges, { getDistance } from "./Placebox";
 import { MockedData } from "./MockedData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import getLoungeBox from "./Placebox";
 
 /**
@@ -15,8 +15,21 @@ export default function SearchHomePage() {
   // const USER_ID = getLoginCookie() || "";
   const [mocked, setMocked] = useState(false);
 
-  function handleSearchSubmit() {
+  async function getUserLocation() {
+    const location = await new Promise<GeolocationPosition>(
+      (resolve, reject) => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        }
+      }
+    );
+    return location.coords;
+  }
+
+  async function handleSearchSubmit() {
     setMocked(true);
+    let location = await getUserLocation();
+    getDistance(location);
     //const myPlaceId = document.getElementById("myplace");
   }
 

@@ -2,6 +2,7 @@
  * Each lounge must be printed out in its own box
  */
 
+import { useState } from "react";
 import { addLounge } from "../utils/api";
 import { getAttributes } from "./Attributes";
 import ImageCarousel from "./Carousel";
@@ -60,4 +61,17 @@ export default function getLoungeBox(props: PlaceboxProps) {
       </div>
     </div>
   );
+}
+
+export async function getDistance(currentLocation: GeolocationCoordinates) {
+  let body = await fetch(
+    "https://maps.googleapis.com/maps/api/distancematrix/json?destinations=" +
+      currentLocation.latitude +
+      "%2C" +
+      currentLocation.longitude +
+      "&mode=walking&origins=41.82634983767247%2C-71.39780942930045&units=imperial&key=AIzaSyCNIoWlECIQxeENJzxXhoqSj4UtbCe6c1I"
+  );
+  const json = await body.json();
+  let distance = json["rows"]["elements"]["distance"]["text"];
+  return distance;
 }
