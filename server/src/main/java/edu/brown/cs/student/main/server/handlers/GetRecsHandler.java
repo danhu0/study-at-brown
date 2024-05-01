@@ -113,16 +113,16 @@ public class GetRecsHandler implements Route {
       }
 
       // Put that shit in the response map
-      List<CSVRecord> bestSpots = new ArrayList<>();
-      List<CSVRecord> rejects = new ArrayList<>();
+      List<Map<String,String>> bestSpots = new ArrayList<>();
+      List<Map<String,String>> rejects = new ArrayList<>();
       while (bestSpots.size() < Constants.NUM_SPOTS_TO_RETURN) {
         if(!pq.isEmpty()) {
           double[] bestVec = pq.poll(); //get most recommended vector
-          CSVRecord record = this.data.vectorToData().get(bestVec);
+          Map<String,String> recordMap = this.data.vectorToData().get(bestVec).toMap();
           if (this.satisfiesOriginalVector(originalVector, bestVec)) {
-            bestSpots.add(record); //if it satisfies search query, add to recs
+            bestSpots.add(recordMap); //if it satisfies search query, add to recs
           } else {
-            rejects.add(record); //else, add to rejects
+            rejects.add(recordMap); //else, add to rejects
           }
         } else { //if fewer than NUM_SPOTS_TO_RETURN spots perfectly satisfy search, dip into rejects
           bestSpots.add(rejects.remove(0));

@@ -36,3 +36,5 @@
 ***FOR 5/1/24 EITAN DAN***
  - make it so json csvrecord has headers/queriable params - .toMap() CSVRecord method
  - Endpoint: list n random *hot* study spots
+
+----need to add filtering by necessary params (hours open, days of week open, room available stretch goal)
