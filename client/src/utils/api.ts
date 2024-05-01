@@ -46,7 +46,7 @@ export async function addLounge(lounge: PlaceboxProps) {
  * @returns a promise that resolves to the response from the server
  */
 export async function getLounges() {
-  return await queryAPI("list-lounges", {
+  return await queryAPI("get-user", {
     uid: getLoginCookie() || "",
   });
 }
