@@ -46,7 +46,7 @@ public class GetRecsHandler implements Route {
   private double[] getQueryVector(Request request) {
     double[] queryVector = new double[Constants.INCLUDED_ATTRIBUTES.size()];
     int i = 0;
-    for (String attr : Constants.INCLUDED_ATTRIBUTES) {
+    for (String attr : Constants.INCLUDED_ATTRIBUTES) { //only consider INCLUDED_ATTRIBUTES
       try {
         queryVector[i] = Double.parseDouble(request.queryParams(attr));
       } catch (Exception e) {
@@ -75,12 +75,13 @@ public class GetRecsHandler implements Route {
 
       double[] originalVector = Utils.copyVector(queryVector);
 
+      //combine with user taste profile if the user is signed in
       final boolean signedIn = request.queryParams().contains("uid");
       if(request.queryParams().contains("uid")) {
         String uid = request.queryParams("uid");
         double[] userPrefsVector = this.getUserTasteProfile(uid);
         for (int j = 0; j < queryVector.length - 1; j++) {
-          if (queryVector[j] == -1.0) {
+          if (queryVector[j] == -1.0) { //update the queryVector with info from taste profile for fields left empty
             queryVector[j] = userPrefsVector[j];
           }
         }
@@ -172,12 +173,15 @@ public class GetRecsHandler implements Route {
     List<Map<String, Object>> vals = this.storageHandler.getCollection(uid, "saved-spots");
 
     // convert the key,value map to just a list of the spots.
-    List<String> spots = vals.stream().map(spot -> spot.get("name").toString()).toList();
+//    List<String> spots = vals.stream().map(spot -> spot.get("name").toString()).toList();
+    List<Integer> spots = vals.stream().map(spot -> Integer.parseInt(spot.get("id").toString())).toList();
 
     // if user has no saved spots, return vector full of -1s
     if (spots.isEmpty()) {
       double values[] = new double[Constants.INCLUDED_ATTRIBUTES.size()];
-      for (int i = 0; i < Constants.INCLUDED_ATTRIBUTES.size(); i++) values[i] = -1;
+      for (int i = 0; i < Constants.INCLUDED_ATTRIBUTES.size(); i++) {
+        values[i] = -1;
+      }
       return values;
     }
 
@@ -185,7 +189,8 @@ public class GetRecsHandler implements Route {
     double averageTasteProfile[] = new double[Constants.INCLUDED_ATTRIBUTES.size()];
     for (int i = 0; i < spots.size(); i++) {
       for (int j = 0; j < Constants.INCLUDED_ATTRIBUTES.size(); j++) {
-        double spotVector[] = this.data.nameToVector().get(spots.get(i));
+//        double spotVector[] = this.data.nameToVector().get(spots.get(i));
+        double spotVector[] = this.data.idsToVector().get(spots.get(i));
         averageTasteProfile[j] += spotVector[j];
       }
     }
