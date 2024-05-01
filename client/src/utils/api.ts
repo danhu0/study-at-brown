@@ -51,6 +51,12 @@ export async function getLounges() {
   });
 }
 
+
+export async function getLoungeData(id: string) { //number in string format
+  return await queryAPI("get-data", {
+    id: id,
+  });
+}
 // /**
 //  * Function which queries the addWord endpoint. This function is used to add a word to the user's data.
 //  * @param word the word to add

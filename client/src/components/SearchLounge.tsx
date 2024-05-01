@@ -39,10 +39,6 @@ export default function SearchHomePage() {
         className="button"
         onClick={async () => {
           handleSearchSubmit();
-          //   // - query the backend to clear the user's words
-          //   // - clear the user's pins in the database
-          //   // await loungeLocator(); // with given parameters,
-          //   //maybe we use data of buttons which have been clicked?
         }}
       >
         Input search to backend...
@@ -50,7 +46,7 @@ export default function SearchHomePage() {
       <p></p>
       <div className="search-choices">
         {/* Receive user input for search function */}
-        <button
+        {/* <button
           className="campus-selector-button"
           id="northcampusbutton"
           onClick={async () => {
@@ -63,7 +59,7 @@ export default function SearchHomePage() {
           {" "}
           {/* Maybe we can have like multiple buttons and each 
       one the user picks well include in their desires? */}
-          North campus
+          {/* North campus
         </button>
         <button
           className="campus-selector-button"
@@ -76,10 +72,10 @@ export default function SearchHomePage() {
           }}
         >
           South campus
-        </button>
+        </button> */} 
 
         <div>
-          <select
+          {/* <select
             className="myselector"
             id="myselector"
             onChange={
@@ -96,7 +92,72 @@ export default function SearchHomePage() {
             <option value="option1">Library</option>
             <option value="option2">Cafe</option>
             <option value="option3">Lounge</option>
+          </select>button which clears all user dat */}
+          <text>Quiet Level</text>
+            <select>
+          <option value="">--</option>
+          <option value="">0</option>
+          <option value="">1</option>
+          <option value="">2</option>
           </select>
+          <text>Natural Light</text>
+            
+          <select>
+          <option value="">--</option>
+          <option value="">0</option>
+          <option value="">1</option>
+          <option value="">2</option>
+          </select>
+          <text>Noise Level</text>
+          <select>
+          <option value="">--</option>
+          <option value="">0</option>
+          <option value="">1</option>
+          <option value="">2</option>
+          </select>
+          <text>Outlet Availability</text>
+          <select>
+          <option value="">--</option>
+          <option value="">0</option>
+          <option value="">1</option>
+          <option value="">2</option>
+          </select>
+          <text>Room Size</text>
+          <select>
+          <option value="">--</option>
+          <option value="">0</option>
+          <option value="">1</option>
+          <option value="">2</option>
+          </select>
+          <text>Private</text>
+          <select>
+          <option value="">--</option>
+          <option value="">0</option>
+          <option value="">1</option>
+          <option value="">2</option>
+          </select>
+          <text>Food</text>
+          <select>
+          <option value="">--</option>
+          <option value="">0</option>
+          <option value="">1</option>
+          <option value="">2</option>
+          </select>
+          <text>View</text>
+          <select>
+          <option value="">--</option>
+          <option value="">0</option>
+          <option value="">1</option>
+          <option value="">2</option>
+          </select>
+          <text>Comfort</text>
+          <select>
+          <option value="">--</option>
+          <option value="">0</option>
+          <option value="">1</option>
+          <option value="">2</option>
+          </select>
+          <input type="time"></input>
         </div>
         <p></p>
       </div>
