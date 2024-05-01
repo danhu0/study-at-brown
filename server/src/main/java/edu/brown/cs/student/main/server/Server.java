@@ -50,6 +50,7 @@ public class Server {
       Spark.get("get-user", new GetUserDataHandler(firebaseUtils));
       Spark.get("get-recs", new GetRecsHandler(firebaseUtils, data));
       Spark.get("get-hot", new HOTStudyHandler(data));
+      Spark.get("get-data", new GetDataHandler(data));
 
       // mocked verison of set-geodata, for testing only
       // Spark.get("set-geodata", new SetGeoDataHandler(new MockDataSource(),
