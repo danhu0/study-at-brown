@@ -89,4 +89,36 @@ public class Utils {
 
     return new VectorizedData(vectorsToData, namesToVector);
   }
+
+  /**
+   * Takes in a query vector. If it has -1.0 values, they are replaced
+   * with the corresponding value in the spot vector.
+   * @param query
+   * @param spot
+   * @return new query vector (double[]) with negatives replaced
+   */
+  public static double[] matchNegatives(double[] query, double[] spot) {
+    assert(query.length == spot.length);
+    double newQ[] = new double[query.length];
+    for(int i = 0; i < query.length; i++) {
+      newQ[i] = query[i];
+      if(query[i] == -1.0) {
+        newQ[i] = spot[i];
+      }
+    }
+    return newQ;
+  }
+
+  /**
+   * Deep copy of a double[] vector
+   * @param vector to be copied
+   * @return copy of original vector
+   */
+  public static double[] copyVector(double[] vector) {
+    double[] newVector = new double[vector.length];
+    for(int i = 0; i < vector.length; i++) {
+      newVector[i] = vector[i];
+    }
+    return newVector;
+  }
 }

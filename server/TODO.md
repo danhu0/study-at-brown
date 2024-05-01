@@ -32,3 +32,7 @@
  - For a given user, create taste profile vector from average of data from saved firebase data
  - Combine user taste vector with query vector
  - Endpoint: list n random *hot* study spots
+
+***FOR 5/1/24 EITAN DAN***
+ - make it so json csvrecord has headers/queriable params - .toMap() CSVRecord method
+ - Endpoint: list n random *hot* study spots
