@@ -16,4 +16,5 @@ public class Constants {
           "view",
           "home");
   public static final int NUM_SPOTS_TO_RETURN = 3;
+  public static final int NUM_HOMEPAGE_SPOTS = 5;
 }

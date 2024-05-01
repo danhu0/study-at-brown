@@ -17,13 +17,12 @@ public class HOTStudyHandler implements Route {
         this.data = data;
     }
 
-    private Set<CSVRecord> getHotSpots(int numToGenerate) {
-        Set<CSVRecord> hotSet = new HashSet<>();
+    private Set<Map<String,String>> getHotSpots(int numToGenerate) {
+        Set<Map<String,String>> hotSet = new HashSet<>();
         List<CSVRecord> hotSpots = new ArrayList<>(this.data.vectorToData().values());
         Collections.shuffle(hotSpots);
-        while(hotSet.size() < numToGenerate) {
-            hotSet.add(hotSpots.get(0));
-            Collections.shuffle(hotSpots);
+        while(hotSet.size() < numToGenerate && !hotSpots.isEmpty()) {
+            hotSet.add(hotSpots.remove(0).toMap());
         }
 
         return hotSet;
@@ -33,14 +32,14 @@ public class HOTStudyHandler implements Route {
     public Object handle(Request request, Response response) throws Exception {
         Map<String, Object> responseMap = new HashMap<>();
         try {
-            Set<CSVRecord> hotSpots = this.getHotSpots(Constants.NUM_SPOTS_TO_RETURN);
-            List<Map<String, String>> returnList = new ArrayList<>();
-            for (CSVRecord spot : hotSpots) {
-                Map<String, String> spotMap = spot.toMap();
-                returnList.add(spotMap);
-            }
+            int n = Constants.NUM_SPOTS_TO_RETURN;
+            if(request.queryParams().contains("num_spots"))
+                n = Integer.parseInt(request.queryParams("num_spots"));
+            Set<Map<String, String>> hotSpots = this.getHotSpots(n);
+            List<Map<String, String>> returnList = new ArrayList<>(hotSpots);
+
             responseMap.put("response_type", "success");
-            responseMap.put("best_spots", hotSpots);
+            responseMap.put("best_spots", returnList);
         }
         catch(Exception e) {
             responseMap.put("response_type", "failure");
