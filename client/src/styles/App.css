@@ -2,6 +2,19 @@
   text-align: center;
 }
 
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-weight: 400;
+}
+
+h1,
+h3 {
+  font-weight: 600;
+  font-style: normal;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 20vh;
@@ -13,24 +26,34 @@
   color: white;
 }
 
-.northcampusbutton {
+.button {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-weight: 500;
+}
+
+.campus-selector-button {
   text-align: center;
   color: black;
   text-emphasis-color: blue;
   border-radius: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-weight: 500;
 }
-.southcampusbutton {
-  text-align: center;
-  color: black;
-  text-emphasis-color: blue;
-  border-radius: 20px;
-}
+
 .button-clicked {
   background-color: green; /* Change to whatever color you prefer */
 }
 .myselector {
   /* border-color: green;  */
   border-radius: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-weight: 500;
 }
 .selector-selected {
   background-color: green;
@@ -40,14 +63,21 @@
   text-align: center;
 }
 .placebox {
-  background-color:skyblue;
+  background-color: skyblue;
   width: fit-content;
-  height: fit-content;
-  text-align: center;
+  max-width: 400px;
+  height: 600px;
   align-self: center;
   align-items: center;
+  text-align: center;
   border-radius: 20px;
 }
+
+.placebox img {
+  width: 100%;
+  max-width: 350px;
+}
+
 .carousel-container {
   width: 400px;
   max-width: 400px;
@@ -56,9 +86,10 @@
 }
 
 .lounges-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  grid-auto-flow: dense row;
+  justify-content: space-around;
 }
 
 .lounge {
@@ -70,3 +101,18 @@
   background-color: transparent;
   border-color: transparent;
 }
+
+.attributes {
+  overflow: hidden;
+  white-space: normal;
+  word-wrap: break-word;
+}
+.attributes-container {
+  max-width: 100%;
+}
+
+.reviewprompt {
+font-size: 15px;
+background-color: aquamarine;
+}
+

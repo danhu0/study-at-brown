@@ -1,8 +1,8 @@
 // import { getLoginCookie } from "../utils/cookie";
 import ReactDOM from "react-dom";
-import getRelavantLounges from "./Placebox";
+import getRelavantLounges, { getDistance } from "./Placebox";
 import { MockedData } from "./MockedData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import getLoungeBox from "./Placebox";
 
 /**
@@ -15,14 +15,28 @@ export default function SearchHomePage() {
   // const USER_ID = getLoginCookie() || "";
   const [mocked, setMocked] = useState(false);
 
-  function handleSearchSubmit() {
+  async function getUserLocation() {
+    const location = await new Promise<GeolocationPosition>(
+      (resolve, reject) => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        }
+      }
+    );
+    return location.coords;
+  }
+
+  async function handleSearchSubmit() {
     setMocked(true);
+    let location = await getUserLocation();
+    getDistance(location);
     //const myPlaceId = document.getElementById("myplace");
   }
 
   return (
     <div>
       <button
+        className="button"
         onClick={async () => {
           handleSearchSubmit();
           //   // - query the backend to clear the user's words
@@ -37,7 +51,7 @@ export default function SearchHomePage() {
       <div className="search-choices">
         {/* Receive user input for search function */}
         <button
-          className="northcampusbutton"
+          className="campus-selector-button"
           id="northcampusbutton"
           onClick={async () => {
             // await addParam("northcampus");
@@ -52,7 +66,7 @@ export default function SearchHomePage() {
           North campus
         </button>
         <button
-          className="southcampusbutton"
+          className="campus-selector-button"
           id="southcampusbutton"
           onClick={async () => {
             // await addParam("southcampus");

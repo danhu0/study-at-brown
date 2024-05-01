@@ -31,18 +31,19 @@ public class AddLoungeHandler implements Route {
       // collect parameters from the request
       String uid = request.queryParams("uid");
       String lounge = request.queryParams("lounge");
-
+      System.out.println(lounge);
       Map<String, Object> data = new HashMap<>();
-      data.put("lounge", lounge);
+      System.out.println(lounge);
+      data.put("name", lounge);
 
       System.out.println("adding lounge: (" + lounge + ") for user: " + uid);
 
       // get the current word count to make a unique word_id by index.
-      int loungeCount = this.storageHandler.getCollection(uid, "lounges").size();
+      int loungeCount = this.storageHandler.getCollection(uid, "saved-spots").size();
       String loungeID = "lounge-" + loungeCount;
 
       // use the storage handler to add the document to the database
-      this.storageHandler.addDocument(uid, "lounges", loungeID, data);
+      this.storageHandler.addDocument(uid, "saved-spots", loungeID, data);
 
       responseMap.put("response_type", "success");
       responseMap.put("lounge", data);

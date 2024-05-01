@@ -35,7 +35,7 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
     <div className="login-box">
       <h1>Login Page</h1>
       <button
-        className="google-login-button"
+        className="button"
         onClick={() => signInWithGoogle()}
         disabled={props.loggedIn}
       >
@@ -53,7 +53,7 @@ const Logout: React.FunctionComponent<ILoginPageProps> = (props) => {
 
   return (
     <div className="logout-box">
-      <button className="SignOut" onClick={() => signOut()}>
+      <button className="button" onClick={() => signOut()}>
         Sign Out
       </button>
     </div>
