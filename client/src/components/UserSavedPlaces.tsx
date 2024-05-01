@@ -1,14 +1,14 @@
 import { Key, useEffect, useState } from "react";
 import { MockedData } from "./MockedData";
-import { addLounge, clearUser, getLounges } from "../utils/api";
+import { addLounge, clearUser, getLoungeData, getLounges } from "../utils/api";
 import getLoungeBox, { PlaceboxProps } from "./Placebox";
 
 export default function GetUserData() {
   //   const USER_ID = getLoginCookie() || "";
   const [mocked, setMocked] = useState(false);
-  //   const [lounges, setLounges] = useState<PlaceboxProps[]>([]);
-  const [lounges, setLounges] = useState<string[]>([]);
-  //
+    const [lounges, setLounges] = useState<PlaceboxProps[]>([]);
+  const [loungeIDS, setLoungeIDS] = useState<string[]>([]);
+  // list of ids
   async function handleSearchSubmit() {
     setMocked(true);
   }
@@ -16,10 +16,11 @@ export default function GetUserData() {
   useEffect(() => {
     getLounges().then((data) => {
       if (data["saved-spots"]) {
-        setLounges(data["saved-spots"]);
+        setLoungeIDS(data["saved-spots"])
       }
     });
   }, []);
+  
 
   return (
     <div>
@@ -27,8 +28,10 @@ export default function GetUserData() {
       {lounges.map((lounge, index) => (
         <div key={index}>
           <p>
+            {getLoungeBox(lounge)}
             {" "}
-            {index + 1}: {lounge}
+            {index + 1}
+            {/* {index + 1}: {lounge} */}
           </p>
         </div>
       ))}
