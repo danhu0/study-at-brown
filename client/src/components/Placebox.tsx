@@ -3,7 +3,7 @@
  */
 
 import { useState } from "react";
-import { addLounge } from "../utils/api";
+import { addLounge, isFavorited } from "../utils/api";
 import { getAttributes } from "./Attributes";
 import ImageCarousel from "./Carousel";
 
@@ -48,10 +48,12 @@ export default function getLoungeBox(props: PlaceboxProps) {
         {" "}
         Find it
       </a>
+      {/* {isFavorited(props.id)} then we can have the button, else remove favorited*/}
       <button
         onClick={() => addLounge(props)}
         className="starbutton" //allows user to add to favorites list
       >
+        
         {" "}
         ⭐{" "}
       </button>
