@@ -57,6 +57,12 @@ export async function getLoungeData(id: string) { //number in string format
     id: id,
   });
 }
+export async function isFavorited(id: string) { //number in string format
+  return await queryAPI("is-favorited", {
+    uid: getLoginCookie() || "",
+    id: id,
+  });
+}
 // /**
 //  * Function which queries the addWord endpoint. This function is used to add a word to the user's data.
 //  * @param word the word to add

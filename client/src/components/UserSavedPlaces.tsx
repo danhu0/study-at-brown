@@ -20,11 +20,14 @@ export default function GetUserData() {
       }
     });
   }, []);
-  
+  const handleClearFavorites = () => {
+    clearUser();
+    setLounges([]);
+  };
 
   return (
     <div>
-      <button onClick={() => clearUser()}>Clear Favorites </button>
+      <button onClick={() => handleClearFavorites()}>Clear Favorites </button>
       <div className="lounges-container">
       {lounges.map((lounge, index) => (
         <div key={index}>
