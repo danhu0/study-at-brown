@@ -14,10 +14,10 @@ export enum CampusPosition {
 }
 
 export interface PlaceboxProps {
+  id: number
   title: string;
   description: string;
   google_link: string;
-  images: string[];
   natural_light_level: number;
   noise_level: number;
   food_available: Array<String>;
@@ -28,6 +28,7 @@ export interface PlaceboxProps {
   lat: number;
   long: number;
   campusposition: CampusPosition;
+  images: string[];
 }
 
 export default function getLoungeBox(props: PlaceboxProps) {
@@ -55,8 +56,8 @@ export default function getLoungeBox(props: PlaceboxProps) {
         ⭐{" "}
       </button>
       <p></p>
-      <div className="carousel-container">
-        <ImageCarousel images={props.images} />/{/* </li> */}
+      <div className="carousel-container">        
+        <ImageCarousel images={props.images} />/
         {/* here we will put the table of places, with their images, etcetra */}
       </div>
     </div>

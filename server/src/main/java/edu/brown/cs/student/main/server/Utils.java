@@ -57,7 +57,7 @@ public class Utils {
   public static VectorizedData convertCSVToVectors(
       String filePath, List<String> attributesToInclude) throws IOException, NumberFormatException {
     Map<double[], CSVRecord> vectorsToData = new HashMap<>();
-//    Map<String, double[]> namesToVector = new HashMap<>();
+    //    Map<String, double[]> namesToVector = new HashMap<>();
     Map<Integer, double[]> idsToVector = new HashMap<>();
 
     // Open the CSV file for reading
@@ -81,8 +81,9 @@ public class Utils {
         //          System.out.print(d+", ");
         //        }
         //        System.out.println();
-//        namesToVector.put(csvRecord.get("name"), values); //changing to id triggers error
-        idsToVector.put(Integer.parseInt(csvRecord.get("id")), values); //changing to id triggers error
+        //        namesToVector.put(csvRecord.get("name"), values); //changing to id triggers error
+        idsToVector.put(
+            Integer.parseInt(csvRecord.get("id")), values); // changing to id triggers error
         vectorsToData.put(values, csvRecord);
       }
 
@@ -90,7 +91,7 @@ public class Utils {
       throw new NumberFormatException(e.getMessage());
     }
 
-//    return new VectorizedData(vectorsToData, namesToVector);
+    //    return new VectorizedData(vectorsToData, namesToVector);
     return new VectorizedData(vectorsToData, idsToVector);
   }
 

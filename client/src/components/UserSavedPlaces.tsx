@@ -16,7 +16,7 @@ export default function GetUserData() {
   useEffect(() => {
     getLounges().then((data) => {
       if (data["saved-spots"]) {
-        setLoungeIDS(data["saved-spots"])
+        setLounges(data["saved-spots"])
       }
     });
   }, []);
@@ -25,16 +25,13 @@ export default function GetUserData() {
   return (
     <div>
       <button onClick={() => clearUser()}>Clear Favorites </button>
+      <div className="lounges-container">
       {lounges.map((lounge, index) => (
         <div key={index}>
-          <p>
             {getLoungeBox(lounge)}
-            {" "}
-            {index + 1}
-            {/* {index + 1}: {lounge} */}
-          </p>
-        </div>
-      ))}
+        </div> 
+        
+      ))}</div>
       {/* {lounges.map((data: PlaceboxProps, index: number) => (
         <div className="lounge" key={index}>
           {getLoungeBox(data)}

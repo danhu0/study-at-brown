@@ -37,7 +37,7 @@ export async function clearUser(uid: string = getLoginCookie() || "") {
 export async function addLounge(lounge: PlaceboxProps) {
   return await queryAPI("add-lounge", {
     uid: getLoginCookie() || "",
-    lounge: lounge.title   // what if multiple lounges named same thing?
+    "spot-id": lounge.id.toString()   // what if multiple lounges named same thing?
   });
 }
 

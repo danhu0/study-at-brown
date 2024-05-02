@@ -2,6 +2,7 @@ import { CampusPosition, PlaceboxProps } from "./Placebox";
 
 export const MockedData: PlaceboxProps[] = [
   {
+    id: 1,
     title: "CIT [Dummy]",
     description: "CIT Rooms on the fifth floor",
     google_link:
@@ -19,6 +20,7 @@ export const MockedData: PlaceboxProps[] = [
     campusposition: CampusPosition.SOUTH,
   },
   {
+    id: 2,
     title: "Rockefeller Library [Dummy]",
     description: "Anywhere in the library :)",
     google_link:
@@ -37,6 +39,7 @@ export const MockedData: PlaceboxProps[] = [
   },
 
   {
+    id: 3,
     title: "German Studies Department [Dummy]",
     description: "German Studies First Floor Library",
     google_link:
@@ -58,6 +61,7 @@ export const MockedData: PlaceboxProps[] = [
   },
 
   {
+    id: 4,
     title: "Ceremony [Dummy]",
     description: "Must I say more :)",
     google_link:

@@ -19,20 +19,18 @@ public class GetDataHandler implements Route {
   public Object handle(Request request, Response response) throws Exception {
     Map<String, Object> responseMap = new HashMap<>();
 
-        try {
-//            String requestedName = request.queryParams("name");
-//            double[] vector = this.data.nameToVector().get(requestedName);
-            int requestedName = Integer.parseInt(request.queryParams("id"));
-            double[] vector = this.data.idsToVector().get(requestedName);
-            Map<String, String> returnData = this.data.vectorToData().get(vector).toMap();
-            responseMap.put("response_type", "success");
-            responseMap.put("best_spots", returnData);
-        }
-        catch(Exception e) {
-            responseMap.put("response_type", "failure");
-            responseMap.put("error", e.getMessage());
-        }
-        return Utils.toMoshiJson(responseMap);
-    
+    try {
+      //            String requestedName = request.queryParams("name");
+      //            double[] vector = this.data.nameToVector().get(requestedName);
+      int requestedName = Integer.parseInt(request.queryParams("id"));
+      double[] vector = this.data.idsToVector().get(requestedName);
+      Map<String, String> returnData = this.data.vectorToData().get(vector).toMap();
+      responseMap.put("response_type", "success");
+      responseMap.put("best_spots", returnData);
+    } catch (Exception e) {
+      responseMap.put("response_type", "failure");
+      responseMap.put("error", e.getMessage());
+    }
+    return Utils.toMoshiJson(responseMap);
   }
 }

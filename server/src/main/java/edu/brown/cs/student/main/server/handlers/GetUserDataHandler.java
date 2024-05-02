@@ -3,7 +3,6 @@ package edu.brown.cs.student.main.server.handlers;
 import edu.brown.cs.student.main.server.Utils;
 import edu.brown.cs.student.main.server.VectorizedData;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,10 +32,11 @@ public class GetUserDataHandler implements Route {
       List<Map<String, Object>> vals = this.storageHandler.getCollection(uid, "saved-spots");
 
       // convert the key,value map to just a list of the spots.
-//      List<String> spots = vals.stream().map(spot -> spot.get("name").toString()).toList();
-      List<Integer> spots = vals.stream().map(spot -> Integer.parseInt(spot.get("id").toString())).toList();
-      List<Map<String,String>> spotRecords = new ArrayList<>();
-      for(int spotId : spots) {
+      //      List<String> spots = vals.stream().map(spot -> spot.get("name").toString()).toList();
+      List<Integer> spots =
+          vals.stream().map(spot -> Integer.parseInt(spot.get("id").toString())).toList();
+      List<Map<String, String>> spotRecords = new ArrayList<>();
+      for (int spotId : spots) {
         double vector[] = this.data.idsToVector().get(spotId);
         spotRecords.add(this.data.vectorToData().get(vector).toMap());
       }
