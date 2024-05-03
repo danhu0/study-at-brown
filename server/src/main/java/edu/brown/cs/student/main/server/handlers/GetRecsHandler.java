@@ -130,6 +130,9 @@ public class GetRecsHandler implements Route {
           bestSpots.add(rejects.remove(0));
         }
       }
+      System.out.println("bestspots: " + bestSpots.toString() + "\n");
+      System.out.println("query vector: " + queryVector.toString() + "\n");
+      System.out.println("request: " + request.toString() + "\n");
 
       responseMap.put("response_type", "success");
       responseMap.put("best_spots", bestSpots);

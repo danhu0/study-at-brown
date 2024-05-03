@@ -38,16 +38,18 @@ public class AddLoungeHandler implements Route {
       Map<String, Object> data = new HashMap<>();
 
       data.put("id", id);
-
       // get the current word count to make a unique word_id by index.
-      // int loungeCount = this.storageHandler.getCollection(uid, "saved-spots").size();
+      // System.out.println(this.storageHandler.getCollection(uid, "saved-spots").);
       String loungeID = "spot-" + id;
-      if (this.storageHandler.getCollection(uid, "saved-spots").contains(loungeID)) {
-        System.out.println("Lounge " + id + " already added to user preferences");
-        responseMap.put("spot", data);
-        responseMap.put("response_type", "success-- already added");
-        return Utils.toMoshiJson(responseMap);
-      }
+
+      // if (this.storageHandler.getCollection(uid, "saved-spots").contains(id)) {
+      // System.out.println("Lounge " + id + " already added to user preferences");
+      // // this.storageHandler.getCollection(uid, "saved-spots").remove(loungeID);
+
+      // responseMap.put("spot", data);
+      // responseMap.put("response_type", "success");
+      // return Utils.toMoshiJson(responseMap);
+      // }
 
       System.out.println("adding lounge: (" + id + ") for user: " + uid);
       // use the storage handler to add the document to the database

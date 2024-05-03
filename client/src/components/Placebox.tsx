@@ -3,7 +3,7 @@
  */
 
 import { useState } from "react";
-import { addLounge, isFavorited } from "../utils/api";
+import { addLounge } from "../utils/api";
 import { getAttributes } from "./Attributes";
 import ImageCarousel from "./Carousel";
 
@@ -32,6 +32,12 @@ export interface PlaceboxProps {
 }
 
 export default function getLoungeBox(props: PlaceboxProps) {
+
+  async function starButtonHandler() {
+    alert(props.title +" added to favorites")
+    await addLounge(props)
+    }
+
   return (
     <div className="placebox">
       {/* <li> */}
@@ -50,7 +56,7 @@ export default function getLoungeBox(props: PlaceboxProps) {
       </a>
       {/* {isFavorited(props.id)} then we can have the button, else remove favorited*/}
       <button
-        onClick={() => addLounge(props)}
+        onClick={() => starButtonHandler()}
         className="starbutton" //allows user to add to favorites list
       >
         
