@@ -11,6 +11,7 @@ async function queryAPI(
   // query_params is a dictionary of key-value pairs that gets added to the URL as query parameters
   // e.g. { foo: "bar", hell: "o" } becomes "?foo=bar&hell=o"
   const paramsString = new URLSearchParams(query_params).toString();
+  console.log(paramsString);
   const url = `${HOST}/${endpoint}?${paramsString}`;
   const response = await fetch(url);
   if (!response.ok) {
@@ -60,19 +61,29 @@ export async function getLoungeData(id: string) {
 }
 
 export async function getRecs(attributes: SearchParameters) {
-  const response = await queryAPI("get-recs", {
-    uid: getLoginCookie() || "",
-    natural_light_level: attributes.natural_light_level,
-    noise_level: attributes.noise_level,
-    outlet_availability: attributes.outlet_availability,
-    room_size: attributes.room_size,
-    private: attributes.private,
-    food: attributes.food,
-    view: attributes.view,
-    home: attributes.home,
-  });
-  console.log(response);
-  return deserializeResponse(response);
+  const url =
+    "http://localhost:3232/get-recs?" +
+    "natural_light_level=" +
+    encodeURIComponent(attributes.natural_light_level) +
+    "&noise_level=" +
+    encodeURIComponent(attributes.noise_level) +
+    "&outlet_availability=" +
+    encodeURIComponent(attributes.outlet_availability) +
+    "&room_size=" +
+    encodeURIComponent(attributes.room_size) +
+    "&private=" +
+    encodeURIComponent(attributes.private) +
+    "&food=" +
+    encodeURIComponent(attributes.food) +
+    "&view=" +
+    encodeURIComponent(attributes.view) +
+    "&home=" +
+    encodeURIComponent(attributes.home);
+
+  const response = await fetch(url);
+  const json = await response.json();
+  console.log(json);
+  return deserializeResponse(json);
 }
 
 export async function deserializeResponse(
