@@ -1,7 +1,9 @@
 package edu.brown.cs.student.main.server.handlers;
 
 import edu.brown.cs.student.main.server.Utils;
+import edu.brown.cs.student.main.server.VectorizedData;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,10 +12,12 @@ import spark.Response;
 import spark.Route;
 
 public class GetUserDataHandler implements Route {
-  public StorageInterface storageHandler;
+  private StorageInterface storageHandler;
+  private VectorizedData data;
 
-  public GetUserDataHandler(StorageInterface storageHandler) {
+  public GetUserDataHandler(StorageInterface storageHandler, VectorizedData data) {
     this.storageHandler = storageHandler;
+    this.data = data;
   }
 
   @Override
@@ -28,10 +32,16 @@ public class GetUserDataHandler implements Route {
       List<Map<String, Object>> vals = this.storageHandler.getCollection(uid, "saved-spots");
 
       // convert the key,value map to just a list of the spots.
-      List<String> spots = vals.stream().map(spot -> spot.get("name").toString()).toList();
-
+      //      List<String> spots = vals.stream().map(spot -> spot.get("name").toString()).toList();
+      List<Integer> spots =
+          vals.stream().map(spot -> Integer.parseInt(spot.get("id").toString())).toList();
+      List<Map<String, String>> spotRecords = new ArrayList<>();
+      for (int spotId : spots) {
+        double vector[] = this.data.idsToVector().get(spotId);
+        spotRecords.add(this.data.vectorToData().get(vector).toMap());
+      }
       responseMap.put("response_type", "success");
-      responseMap.put("saved-spots", spots);
+      responseMap.put("saved-spots", spotRecords);
     } catch (Exception e) {
       // error likely occurred in the storage handler
       e.printStackTrace();

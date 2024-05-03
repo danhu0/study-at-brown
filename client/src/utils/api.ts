@@ -1,6 +1,7 @@
+import { Attributes } from "react";
 import { PlaceboxProps } from "../components/Placebox";
 import { getLoginCookie } from "./cookie";
-
+import { SearchParameters } from "../components/SearchParameters";
 const HOST = "http://localhost:3232";
 
 async function queryAPI(
@@ -37,7 +38,7 @@ export async function clearUser(uid: string = getLoginCookie() || "") {
 export async function addLounge(lounge: PlaceboxProps) {
   return await queryAPI("add-lounge", {
     uid: getLoginCookie() || "",
-    lounge: lounge.title   // what if multiple lounges named same thing?
+    "spot-id": lounge.id.toString()   // what if multiple lounges named same thing?
   });
 }
 
@@ -51,6 +52,33 @@ export async function getLounges() {
   });
 }
 
+
+export async function getLoungeData(id: string) { //number in string format
+  return await queryAPI("get-data", {
+    id: id,
+  });
+}
+
+export async function getRecs(attributes: SearchParameters){
+  return await queryAPI("get-recs", {
+    uid: getLoginCookie() || "",
+    natural_light_level: attributes.natural_light_level,
+    noise_level:attributes.noise_level,
+    outlet_availability: attributes.outlet_availability,
+    room_size:attributes.room_size,
+    private:attributes.private,
+    food:attributes.food,
+    view:attributes.view,
+    home:attributes.home,
+  })
+}
+
+// export async function isFavorited(id: string) { //number in string format
+//   return await queryAPI("is-favorited", {
+//     uid: getLoginCookie() || "",
+//     id: id,
+//   });
+// }
 // /**
 //  * Function which queries the addWord endpoint. This function is used to add a word to the user's data.
 //  * @param word the word to add

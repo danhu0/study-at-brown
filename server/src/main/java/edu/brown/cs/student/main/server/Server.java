@@ -2,9 +2,7 @@ package edu.brown.cs.student.main.server;
 
 import static spark.Spark.after;
 
-import edu.brown.cs.student.main.server.datasource.GeoDatasource;
 import edu.brown.cs.student.main.server.handlers.*;
-import edu.brown.cs.student.main.server.parserNestedClasses.GeoJsonSharedState;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
@@ -40,14 +38,14 @@ public class Server {
       firebaseUtils = new FirebaseUtilities();
       // Add endpoints
       Spark.get("add-lounge", new AddLoungeHandler(firebaseUtils));
-      Spark.get("list-lounges", new ListLoungesHandler(firebaseUtils));
+      //      Spark.get("list-lounges", new ListLoungesHandler(firebaseUtils));
       Spark.get("clear-user", new ClearUserHandler(firebaseUtils));
 
-      GeoJsonSharedState sharedState = new GeoJsonSharedState();
-      Spark.get("set-geodata", new SetGeoDataHandler(new GeoDatasource(), sharedState));
-      Spark.get("get-geodata", new GetGeoDataHandler(sharedState));
+      //      GeoJsonSharedState sharedState = new GeoJsonSharedState();
+      //      Spark.get("set-geodata", new SetGeoDataHandler(new GeoDatasource(), sharedState));
+      //      Spark.get("get-geodata", new GetGeoDataHandler(sharedState));
 
-      Spark.get("get-user", new GetUserDataHandler(firebaseUtils));
+      Spark.get("get-user", new GetUserDataHandler(firebaseUtils, data));
       Spark.get("get-recs", new GetRecsHandler(firebaseUtils, data));
       Spark.get("get-hot", new HOTStudyHandler(data));
       Spark.get("get-data", new GetDataHandler(data));
