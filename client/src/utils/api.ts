@@ -38,7 +38,7 @@ export async function clearUser(uid: string = getLoginCookie() || "") {
 export async function addLounge(lounge: PlaceboxProps) {
   return await queryAPI("add-lounge", {
     uid: getLoginCookie() || "",
-    "spot-id": lounge.id.toString()   // what if multiple lounges named same thing?
+    "spot-id": lounge.id.toString(), // what if multiple lounges named same thing?
   });
 }
 
@@ -52,25 +52,50 @@ export async function getLounges() {
   });
 }
 
-
-export async function getLoungeData(id: string) { //number in string format
+export async function getLoungeData(id: string) {
+  //number in string format
   return await queryAPI("get-data", {
     id: id,
   });
 }
 
-export async function getRecs(attributes: SearchParameters){
-  return await queryAPI("get-recs", {
+export async function getRecs(attributes: SearchParameters) {
+  const response = await queryAPI("get-recs", {
     uid: getLoginCookie() || "",
     natural_light_level: attributes.natural_light_level,
-    noise_level:attributes.noise_level,
+    noise_level: attributes.noise_level,
     outlet_availability: attributes.outlet_availability,
-    room_size:attributes.room_size,
-    private:attributes.private,
-    food:attributes.food,
-    view:attributes.view,
-    home:attributes.home,
-  })
+    room_size: attributes.room_size,
+    private: attributes.private,
+    food: attributes.food,
+    view: attributes.view,
+    home: attributes.home,
+  });
+  console.log(response);
+  return deserializeResponse(response);
+}
+
+export async function deserializeResponse(
+  response: any
+): Promise<PlaceboxProps[]> {
+  return response.best_spots.map((spot: any) => ({
+    id: spot.id,
+    title: spot.title,
+    description: "", // Add description if available
+    natural_light_level: parseInt(spot.natural_light_level),
+    noise_level: parseInt(spot.noise_level),
+    outlet_availability: parseInt(spot.outlet_availability),
+    room_size: parseInt(spot.room_size),
+    private: parseInt(spot.private),
+    food: parseInt(spot.food),
+    view: spot.view,
+    comfort: 0, // Add comfort if available
+    lat: parseFloat(spot.latitude),
+    long: parseFloat(spot.longitude),
+    building: spot.building,
+    study_room: "", // Add study_room if available
+    google_link: "", // Add google_link if available
+  }));
 }
 
 // export async function isFavorited(id: string) { //number in string format
@@ -100,4 +125,3 @@ export async function getRecs(attributes: SearchParameters){
 //     uid: getLoginCookie() || "",
 //   });
 // }
-

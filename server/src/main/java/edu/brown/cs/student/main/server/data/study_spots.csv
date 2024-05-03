@@ -1,4 +1,4 @@
-id,name,building,Description,natural_light_level,noise_level,outlet_availability,room_size,private,food,view,home,latitude,longitude,hours_open,hours_close,days_open,hours,study_room,google_link ,campus_position
+id,title,building,Description,natural_light_level,noise_level,outlet_availability,room_size,private,food,view,home,latitude,longitude,hours_open,hours_close,days_open,hours,study_room,google_link ,campus_position
 1,Third Floor Library,Philosophy Department Building,,2,0,1,0,0,0,1,2,41.82792,-71.40355,8:30,17:00,0111110,"[
       [""9:30"", ""17:00""],
       [""9:30"", ""17:00""],
@@ -12,3 +12,6 @@ id,name,building,Description,natural_light_level,noise_level,outlet_availability
 3,134C,The Rock,,1,0,2,0,2,1,0,0,41.82568,-71.40502,8:00,2:00 AM,1111111,,1,"https://www.google.com/maps/place/John+D.+Rockefeller,+Jr.+Library/@41.8257007,-71.4051436,15z/data=!4m6!3m5!1s0x89e44446ec7c0d51:0x2fde92d441a35057!8m2!3d41.8257007!4d-71.4051436!16s%2Fm%2F047mq5j?entry=ttu",south
 4,Alphabet Room,Pembroke Hall,,3,0,1,2,1,0,1,2,41.82918,-71.40266,,17:00,,,0,"https://www.google.com/maps/place/John+D.+Rockefeller,+Jr.+Library/@41.8257007,-71.4051436,15z/data=!4m6!3m5!1s0x89e44446ec7c0d51:0x2fde92d441a35057!8m2!3d41.8257007!4d-71.4051436!16s%2Fm%2F047mq5j?entry=ttu",north
 5,Kassar FOX,Kassar,,0,1,1,2,1,0,0,0,41.82527,-71.40003,,17:00,0111110,,0,"https://www.google.com/maps/place/John+D.+Rockefeller,+Jr.+Library/@41.8257007,-71.4051436,15z/data=!4m6!3m5!1s0x89e44446ec7c0d51:0x2fde92d441a35057!8m2!3d41.8257007!4d-71.4051436!16s%2Fm%2F047mq5j?entry=ttu",south
+6,German Studies Library,190 Hope St,,3,1,1,1,1,0,0,3,41.82709859,-71.39958376,8:00,17:00,111110,,0,"https://www.google.com/maps/place/Thomas+J.+Watson+Sr.+Center+for+Information+Technology,+115+Waterman+St,+Providence,+RI+02912/@41.8269387,-71.4021372,17z/data=!3m1!4b1!4m6!3m5!1s0x89e4453b529c2f87:0x99037ce1419dbf7c!8m2!3d41.8269387!4d-71.3995623!16s%2Fg%2F1v2kyfqz?entry=ttu",south
+7,CIT Lobby,CIT,,1,1,1,2,1,1,0,1,41.82709859,-71.39958376,8:00,17:00,111110,,1,"https://www.google.com/maps/place/Thomas+J.+Watson+Sr.+Center+for+Information+Technology,+115+Waterman+St,+Providence,+RI+02912/@41.8269387,-71.4021372,17z/data=!3m1!4b1!4m6!3m5!1s0x89e4453b529c2f87:0x99037ce1419dbf7c!8m2!3d41.8269387!4d-71.3995623!16s%2Fg%2F1v2kyfqz?entry=ttu",south
+8,Ceremony,Ceremony ,,3,2,2,1,0,2,0,2,41.82867741,-71.3996425,8:00,17:00,111110,,0,"https://www.google.com/maps/place/Ceremony/@41.8285895,-71.3997176,15z/data=!4m2!3m1!1s0x0:0x3eb1e5885a840ab8?sa=X&ved=1t:2428&ictx=111&cshid=1713672763848988",off

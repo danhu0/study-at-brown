@@ -4,7 +4,7 @@ import getRelavantLounges, { PlaceboxProps, getDistance } from "./Placebox";
 import { MockedData } from "./MockedData";
 import { useEffect, useState } from "react";
 import getLoungeBox from "./Placebox";
-import { getRecs } from "../utils/api";
+import { getRecs, deserializeResponse } from "../utils/api";
 import { SearchParameters } from "./SearchParameters";
 /**
  * ClearPins component calls the clearUser function to clear the user's pins in the
@@ -19,33 +19,10 @@ export default function SearchHomePage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:3232/get-hot");
-        const json = await response.json();
-        const mappedData = json.best_spots.map((spot: any) => ({
-          id: spot.id,
-          title: spot.name,
-          description: "", // Add description if available
-          natural_light_level: parseInt(spot.natural_light_level),
-          noise_level: parseInt(spot.noise_level),
-          outlet_availability: parseInt(spot.outlet_availability),
-          room_size: parseInt(spot.room_size),
-          private: parseInt(spot.private),
-          food: parseInt(spot.food),
-          view: spot.view,
-          comfort: 0, // Add comfort if available
-          lat: parseFloat(spot.latitude),
-          long: parseFloat(spot.longitude),
-          building: spot.building,
-          study_room: "", // Add study_room if available
-          google_link: "", // Add google_link if available
-        }));
-        setData(await mappedData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+      const response = await fetch("http://localhost:3232/get-hot");
+      const json = await response.json();
+      setData(await deserializeResponse(json));
     };
-
     fetchData();
   }, []);
 
@@ -101,7 +78,7 @@ export default function SearchHomePage() {
       home: comfortparam,
     };
     const newData = await getRecs(searchParams);
-    setSearchedData(newData["best_spots"]); ///////////Change
+    setData(await getRecs(searchParams)); ///////////Change
   }
 
   return (

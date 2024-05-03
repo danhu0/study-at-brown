@@ -40,6 +40,7 @@ export default function getLoungeBox(props: PlaceboxProps) {
     alert(props.title + " added to favorites");
     await addLounge(props);
   }
+  console.log(props.comfort);
   return (
     <div className="placebox">
       {/* <li> */}
