@@ -1,6 +1,6 @@
 import { Key, useEffect, useState } from "react";
 import { MockedData } from "./MockedData";
-import { addLounge, clearUser, getLoungeData, getLounges } from "../utils/api";
+import { addLounge, clearUser, deserializeFavoritesResponse, getLoungeData, getLounges } from "../utils/api";
 import getLoungeBox, { PlaceboxProps } from "./Placebox";
 
 export default function GetUserData() {
@@ -16,7 +16,8 @@ export default function GetUserData() {
   useEffect(() => {
     getLounges().then((data) => {
       if (data["saved-spots"]) {
-        setLounges(data["saved-spots"])
+        setLounges(deserializeFavoritesResponse(data))
+        // setLounges(data["saved-spots"])
       }
     });
   }, []);

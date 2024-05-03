@@ -24,6 +24,7 @@ public class GetDataHandler implements Route {
       //            double[] vector = this.data.nameToVector().get(requestedName);
       int requestedName = Integer.parseInt(request.queryParams("id"));
       double[] vector = this.data.idsToVector().get(requestedName);
+
       Map<String, String> returnData = this.data.vectorToData().get(vector).toMap();
       responseMap.put("response_type", "success");
       responseMap.put("best_spots", returnData);

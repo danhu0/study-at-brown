@@ -17,12 +17,8 @@ export default function Carousel(props: CarouselProps) {
   };
   return (
     <Slider {...settings}>
-      {Array.isArray(props.images) ? 
-      (props.images.map((image, index) => (
+      {props.images.map((image, index) => (
         <img key={index} src={image} alt={"alt text goes here"} />
-      ))) : 
-      Array.from(JSON.parse(props.images)).map((image, index) => (
-       <img key={index} src={image} alt={"alt text goes here"} />
       ))}
     </Slider>
   );

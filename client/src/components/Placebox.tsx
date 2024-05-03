@@ -2,10 +2,10 @@
  * Each lounge must be printed out in its own box
  */
 
-import { useState } from "react";
-import { addLounge, isFavorited } from "../utils/api";
+import { addLounge } from "../utils/api";
 import { getAttributes } from "./Attributes";
 import ImageCarousel from "./Carousel";
+import { Images } from "./ImageDirectory";
 
 export enum CampusPosition {
   NORTH = "north campus",
@@ -14,24 +14,32 @@ export enum CampusPosition {
 }
 
 export interface PlaceboxProps {
-  id: number
+  id: number;
   title: string;
   description: string;
-  google_link: string;
   natural_light_level: number;
   noise_level: number;
-  food_available: Array<String>;
+  outlet_availability: number;
+  room_size: number;
+  private: number;
+  food: number;
   view: boolean;
-  private: boolean;
-  hours: Array<Array<String>>;
   comfort: number;
   lat: number;
   long: number;
-  campusposition: CampusPosition;
-  images: string[];
-}
+  building: string;
+  study_room: string;
+  google_link: string;
 
+  // hours: Array<Array<String>>;
+
+  // campusposition: CampusPosition;
+}
 export default function getLoungeBox(props: PlaceboxProps) {
+  async function starButtonHandler() {
+    alert(props.title + " added to favorites");
+    await addLounge(props);
+  }
   return (
     <div className="placebox">
       {/* <li> */}
@@ -50,16 +58,15 @@ export default function getLoungeBox(props: PlaceboxProps) {
       </a>
       {/* {isFavorited(props.id)} then we can have the button, else remove favorited*/}
       <button
-        onClick={() => addLounge(props)}
+        onClick={() => starButtonHandler()}
         className="starbutton" //allows user to add to favorites list
       >
-        
         {" "}
         ⭐{" "}
       </button>
       <p></p>
-      <div className="carousel-container">        
-        <ImageCarousel images={props.images} />/
+      <div className="carousel-container">
+        <ImageCarousel images={Images[props.id]} />/{/* </li> */}
         {/* here we will put the table of places, with their images, etcetra */}
       </div>
     </div>

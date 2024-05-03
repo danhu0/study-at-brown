@@ -32,7 +32,7 @@ export function getAttributes(props: PlaceboxProps): Array<String> {
   attributes.push(strengthThreshold(props.comfort) + " comfort");
 
   // Campus positioning
-  attributes.push("location: " + props.campusposition);
+  // attributes.push("location: " + props.campusposition);
 
   return attributes;
 }
