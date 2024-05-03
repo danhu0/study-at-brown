@@ -1,6 +1,6 @@
 // import { getLoginCookie } from "../utils/cookie";
 import ReactDOM from "react-dom";
-import getRelavantLounges, { getDistance } from "./Placebox";
+import getRelavantLounges, { PlaceboxProps, getDistance } from "./Placebox";
 import { MockedData } from "./MockedData";
 import { useEffect, useState } from "react";
 import getLoungeBox from "./Placebox";
@@ -14,6 +14,39 @@ import getLoungeBox from "./Placebox";
 export default function SearchHomePage() {
   // const USER_ID = getLoginCookie() || "";
   const [mocked, setMocked] = useState(false);
+  const [data, setData] = useState<PlaceboxProps[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:3232/get-hot");
+        const json = await response.json();
+        const mappedData = json.best_spots.map((spot: any) => ({
+          id: spot.id,
+          title: spot.name,
+          description: "", // Add description if available
+          natural_light_level: parseInt(spot.natural_light_level),
+          noise_level: parseInt(spot.noise_level),
+          outlet_availability: parseInt(spot.outlet_availability),
+          room_size: parseInt(spot.room_size),
+          private: parseInt(spot.private),
+          food: parseInt(spot.food),
+          view: spot.view,
+          comfort: 0, // Add comfort if available
+          lat: parseFloat(spot.latitude),
+          long: parseFloat(spot.longitude),
+          building: spot.building,
+          study_room: "", // Add study_room if available
+          google_link: "", // Add google_link if available
+        }));
+        setData(await mappedData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   async function getUserLocation() {
     const location = await new Promise<GeolocationPosition>(
@@ -27,9 +60,8 @@ export default function SearchHomePage() {
   }
 
   async function handleSearchSubmit() {
-    setMocked(true);
     let location = await getUserLocation();
-    getDistance(location);
+    // getDistance(location);
     //const myPlaceId = document.getElementById("myplace");
   }
 
@@ -101,12 +133,11 @@ export default function SearchHomePage() {
         <p></p>
       </div>
       <div className="lounges-container">
-        {mocked &&
-          MockedData.map((data, index) => (
-            <div className="lounge" key={index}>
-              {getLoungeBox(data)}
-            </div>
-          ))}
+        {data.map((data, index) => (
+          <div className="lounge" key={index}>
+            {getLoungeBox(data)}
+          </div>
+        ))}
         {/* <div className="places"> */}
       </div>
       <div id="myplace"></div>

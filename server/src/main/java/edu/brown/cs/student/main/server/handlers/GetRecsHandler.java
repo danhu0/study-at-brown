@@ -6,12 +6,9 @@ import edu.brown.cs.student.main.server.VectorizedData;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
-
-import org.apache.commons.csv.CSVRecord;
 import spark.Request;
 import spark.Response;
 import spark.Route;
-import spire.random.Const;
 
 public class GetRecsHandler implements Route {
 
@@ -23,23 +20,24 @@ public class GetRecsHandler implements Route {
     this.storageHandler = storageHandler;
   }
 
-//    try
-//    {
-//      double[] thing = this.getUserTasteProfile("mock-user");
-//      for(double thinG: thing) {
-//        System.out.print(thinG+", ");
-//      }
-//      System.out.println();
-//    }
-//    catch(Exception e){
-//      e.printStackTrace();
-//    }
+  //    try
+  //    {
+  //      double[] thing = this.getUserTasteProfile("mock-user");
+  //      for(double thinG: thing) {
+  //        System.out.print(thinG+", ");
+  //      }
+  //      System.out.println();
+  //    }
+  //    catch(Exception e){
+  //      e.printStackTrace();
+  //    }
 
   /**
-   * Set up query vector for a request based on the included attributes specified
-   * in the Constants class.
+   * Set up query vector for a request based on the included attributes specified in the Constants
+   * class.
    *
-   * For included attributes not specified in the request, values are set to -1.
+   * <p>For included attributes not specified in the request, values are set to -1.
+   *
    * @param request
    * @return double[] queryVector
    */
@@ -76,7 +74,7 @@ public class GetRecsHandler implements Route {
       double[] originalVector = Utils.copyVector(queryVector);
 
       final boolean signedIn = request.queryParams().contains("uid");
-      if(request.queryParams().contains("uid")) {
+      if (request.queryParams().contains("uid")) {
         String uid = request.queryParams("uid");
         double[] userPrefsVector = this.getUserTasteProfile(uid);
         for (int j = 0; j < queryVector.length - 1; j++) {
@@ -92,9 +90,9 @@ public class GetRecsHandler implements Route {
             @Override
             public int compare(double[] spot1, double[] spot2) {
               double cosine1, cosine2;
-              //if not signed in, replace queryVector with identical vector with -1s info from spot
-              //so that those attributes don't affect the cosine val
-              if(!signedIn) {
+              // if not signed in, replace queryVector with identical vector with -1s info from spot
+              // so that those attributes don't affect the cosine val
+              if (!signedIn) {
                 cosine1 = Utils.cosineSimilarity(Utils.matchNegatives(queryVector, spot1), spot1);
                 cosine2 = Utils.cosineSimilarity(Utils.matchNegatives(queryVector, spot2), spot2);
               } else {
@@ -105,7 +103,7 @@ public class GetRecsHandler implements Route {
             }
           };
 
-      //priority queue is sorted in order of spots' cosine similarity to query vector
+      // priority queue is sorted in order of spots' cosine similarity to query vector
       PriorityQueue<double[]> pq = new PriorityQueue<>(comparator);
       for (double[] vector : this.data.vectorToData().keySet()) {
         // calc a vector's cosine sim
@@ -113,18 +111,19 @@ public class GetRecsHandler implements Route {
       }
 
       // Put that shit in the response map
-      List<Map<String,String>> bestSpots = new ArrayList<>();
-      List<Map<String,String>> rejects = new ArrayList<>();
+      List<Map<String, String>> bestSpots = new ArrayList<>();
+      List<Map<String, String>> rejects = new ArrayList<>();
       while (bestSpots.size() < Constants.NUM_SPOTS_TO_RETURN) {
-        if(!pq.isEmpty()) {
-          double[] bestVec = pq.poll(); //get most recommended vector
-          Map<String,String> recordMap = this.data.vectorToData().get(bestVec).toMap();
+        if (!pq.isEmpty()) {
+          double[] bestVec = pq.poll(); // get most recommended vector
+          Map<String, String> recordMap = this.data.vectorToData().get(bestVec).toMap();
           if (this.satisfiesOriginalVector(originalVector, bestVec)) {
-            bestSpots.add(recordMap); //if it satisfies search query, add to recs
+            bestSpots.add(recordMap); // if it satisfies search query, add to recs
           } else {
-            rejects.add(recordMap); //else, add to rejects
+            rejects.add(recordMap); // else, add to rejects
           }
-        } else { //if fewer than NUM_SPOTS_TO_RETURN spots perfectly satisfy search, dip into rejects
+        } else { // if fewer than NUM_SPOTS_TO_RETURN spots perfectly satisfy search, dip into
+          // rejects
           bestSpots.add(rejects.remove(0));
         }
       }
@@ -141,18 +140,18 @@ public class GetRecsHandler implements Route {
   }
 
   /**
-   * Helper method to ensure that a recommended vector satisfies the query
-   * criteria.
+   * Helper method to ensure that a recommended vector satisfies the query criteria.
+   *
    * @param originalVector double[] vector with positive values for specified params and -1 else
    * @param recommendedVector double[] vector corresponding to a recommended study spot
    * @return false if recommendedVector does not match one of the requested params, else true
    */
   private boolean satisfiesOriginalVector(double[] originalVector, double[] recommendedVector) {
-    assert(originalVector.length == recommendedVector.length);
-    for(int j = 0; j  < originalVector.length; j++) {
-      if(originalVector[j] != -1.0) { //if not -1, then was a value specified by user query
-        if(originalVector[j] != recommendedVector[j]) {
-          return false; //if not matching original vector, doesn't satisfy request
+    assert (originalVector.length == recommendedVector.length);
+    for (int j = 0; j < originalVector.length; j++) {
+      if (originalVector[j] != -1.0) { // if not -1, then was a value specified by user query
+        if (originalVector[j] != recommendedVector[j]) {
+          return false; // if not matching original vector, doesn't satisfy request
         }
       }
     }

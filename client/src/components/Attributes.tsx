@@ -8,11 +8,11 @@ export function getAttributes(props: PlaceboxProps): Array<String> {
   let attributes: Array<String> = [];
 
   // Food availability
-  if (props.food_available.length > 0) {
-    props.food_available.forEach((currentValue) => {
-      attributes.push(currentValue + " available");
-    });
-  }
+  // if (props.food_available.length > 0) {
+  //   props.food_available.forEach((currentValue) => {
+  //     attributes.push(currentValue + " available");
+  //   });
+  // }
 
   // Natural Light
   attributes.push(
@@ -32,7 +32,7 @@ export function getAttributes(props: PlaceboxProps): Array<String> {
   attributes.push(strengthThreshold(props.comfort) + " comfort");
 
   // Campus positioning
-  attributes.push("location: " + props.campusposition);
+  // attributes.push("location: " + props.campusposition);
 
   return attributes;
 }
