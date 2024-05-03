@@ -109,6 +109,29 @@ export async function deserializeResponse(
   }));
 }
 
+export function deserializeFavoritesResponse(
+  response: any
+): PlaceboxProps[] {
+  return response["saved-spots"].map((spot: any) => ({
+    id: spot.id,
+    title: spot.title,
+    description: "", // Add description if available
+    natural_light_level: parseInt(spot.natural_light_level),
+    noise_level: parseInt(spot.noise_level),
+    outlet_availability: parseInt(spot.outlet_availability),
+    room_size: parseInt(spot.room_size),
+    private: parseInt(spot.private),
+    food: parseInt(spot.food),
+    view: spot.view,
+    comfort: 0, // Add comfort if available
+    lat: parseFloat(spot.latitude),
+    long: parseFloat(spot.longitude),
+    building: spot.building,
+    study_room: "", // Add study_room if available
+    google_link: "", // Add google_link if available
+  }));
+}
+
 // export async function isFavorited(id: string) { //number in string format
 //   return await queryAPI("is-favorited", {
 //     uid: getLoginCookie() || "",
