@@ -1,0 +1,6 @@
+name,natural_light_level,noise_level,outlet_availability,room_size,private,food,view,home,latitude,longitude,hours_open,hours_close,days_open,pictures_filepath,building
+Third Floor Library,2,0,1,0,0,0,1,2,41.82792,-71.40355,,17:00,0111110,,Philosophy Department Building
+Main Green,4,2,0,2,0,0,0,1,41.82623,-71.40338,n/a,n/a,1111111,,Outside
+134C,1,0,2,0,2,1,0,0,41.82568,-71.40502,,,,,The Rock
+Alphabet Room,3,0,1,2,1,0,1,2,41.82918,-71.40266,,17:00,,,Pembroke Hall
+Kassar FOX,0,1,1,2,1,0,0,0,41.82527,-71.40003,,17:00,0111110,,Kassar

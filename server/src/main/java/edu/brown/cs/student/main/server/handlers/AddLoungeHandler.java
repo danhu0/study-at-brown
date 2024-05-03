@@ -20,7 +20,7 @@ public class AddLoungeHandler implements Route {
   /**
    * Invoked when a request is made on this route's corresponding path e.g. '/hello'
    *
-   * Request params: uid = user ID, spot-id = id corresponding to spot to be saved
+   * <p>Request params: uid = user ID, spot-id = id corresponding to spot to be saved
    *
    * @param request The request object providing information about the HTTP request
    * @param response The response object providing functionality for modifying the response
@@ -32,21 +32,26 @@ public class AddLoungeHandler implements Route {
     try {
       // collect parameters from the request
       String uid = request.queryParams("uid");
-//      String lounge = request.queryParams("lounge");
+      //      String lounge = request.queryParams("lounge");
       int id = Integer.parseInt(request.queryParams("spot-id"));
-//      System.out.println(lounge);
+      //      System.out.println(lounge);
       Map<String, Object> data = new HashMap<>();
-//      System.out.println(lounge);
-//      data.put("name", lounge);
+
       data.put("id", id);
-
-//      System.out.println("adding lounge: (" + lounge + ") for user: " + uid);
-      System.out.println("adding lounge: (" + id + ") for user: " + uid);
-
       // get the current word count to make a unique word_id by index.
-      int loungeCount = this.storageHandler.getCollection(uid, "saved-spots").size();
-      String loungeID = "spot-" + loungeCount;
+      // System.out.println(this.storageHandler.getCollection(uid, "saved-spots").);
+      String loungeID = "spot-" + id;
 
+      // if (this.storageHandler.getCollection(uid, "saved-spots").contains(id)) {
+      // System.out.println("Lounge " + id + " already added to user preferences");
+      // // this.storageHandler.getCollection(uid, "saved-spots").remove(loungeID);
+
+      // responseMap.put("spot", data);
+      // responseMap.put("response_type", "success");
+      // return Utils.toMoshiJson(responseMap);
+      // }
+
+      System.out.println("adding lounge: (" + id + ") for user: " + uid);
       // use the storage handler to add the document to the database
       this.storageHandler.addDocument(uid, "saved-spots", loungeID, data);
 

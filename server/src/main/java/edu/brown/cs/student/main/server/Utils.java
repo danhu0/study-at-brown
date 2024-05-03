@@ -65,7 +65,7 @@ public class Utils {
   public static VectorizedData convertCSVToVectors(
       String filePath, List<String> attributesToInclude) throws IOException, NumberFormatException {
     Map<double[], CSVRecord> vectorsToData = new HashMap<>();
-//    Map<String, double[]> namesToVector = new HashMap<>();
+    //    Map<String, double[]> namesToVector = new HashMap<>();
     Map<Integer, double[]> idsToVector = new HashMap<>();
 
     // Open the CSV file for reading
@@ -89,8 +89,9 @@ public class Utils {
         //          System.out.print(d+", ");
         //        }
         //        System.out.println();
-//        namesToVector.put(csvRecord.get("name"), values); //changing to id triggers error
-        idsToVector.put(Integer.parseInt(csvRecord.get("id")), values); //changing to id triggers error
+        //        namesToVector.put(csvRecord.get("name"), values); //changing to id triggers error
+        idsToVector.put(
+            Integer.parseInt(csvRecord.get("id")), values); // changing to id triggers error
         vectorsToData.put(values, csvRecord);
       }
 
@@ -98,23 +99,24 @@ public class Utils {
       throw new NumberFormatException(e.getMessage());
     }
 
-//    return new VectorizedData(vectorsToData, namesToVector);
+    //    return new VectorizedData(vectorsToData, namesToVector);
     return new VectorizedData(vectorsToData, idsToVector);
   }
 
   /**
-   * Takes in a query vector. If it has -1.0 values, they are replaced
-   * with the corresponding value in the spot vector.
+   * Takes in a query vector. If it has -1.0 values, they are replaced with the corresponding value
+   * in the spot vector.
+   *
    * @param query
    * @param spot
    * @return new query vector (double[]) with negatives replaced
    */
   public static double[] matchNegatives(double[] query, double[] spot) {
-    assert(query.length == spot.length);
+    assert (query.length == spot.length);
     double newQ[] = new double[query.length];
-    for(int i = 0; i < query.length; i++) {
+    for (int i = 0; i < query.length; i++) {
       newQ[i] = query[i];
-      if(query[i] == -1.0) {
+      if (query[i] == -1.0) {
         newQ[i] = spot[i];
       }
     }
@@ -123,12 +125,13 @@ public class Utils {
 
   /**
    * Deep copy of a double[] vector
+   *
    * @param vector to be copied
    * @return copy of original vector
    */
   public static double[] copyVector(double[] vector) {
     double[] newVector = new double[vector.length];
-    for(int i = 0; i < vector.length; i++) {
+    for (int i = 0; i < vector.length; i++) {
       newVector[i] = vector[i];
     }
     return newVector;
