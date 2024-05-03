@@ -101,7 +101,7 @@ export default function SearchHomePage() {
       home: comfortparam,
     };
     const newData = await getRecs(searchParams);
-    //setSearchedData(newData["best_spots"]); ///////////Change
+    setSearchedData(newData["best_spots"]); ///////////Change
   }
 
   return (
