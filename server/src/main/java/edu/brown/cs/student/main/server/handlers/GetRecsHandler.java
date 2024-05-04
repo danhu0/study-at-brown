@@ -115,18 +115,23 @@ public class GetRecsHandler implements Route {
 
       // Allow param num_spots to request a specific number of spots
       int num_spots = Constants.NUM_SPOTS_TO_RETURN;
-      if(request.queryParams().contains("num_spots")) {
-        num_spots = Math.min(Integer.parseInt(request.queryParams("num_spots")),
-                this.data.idsToVector().keySet().size()); // make sure it does not exceed max num spots
+      if (request.queryParams().contains("num_spots")) {
+        num_spots =
+            Math.min(
+                Integer.parseInt(request.queryParams("num_spots")),
+                this.data
+                    .idsToVector()
+                    .keySet()
+                    .size()); // make sure it does not exceed max num spots
       }
 
       // Put that shit in the response map
-      List<Map<String,String>> bestSpots = new ArrayList<>();
-      List<Map<String,String>> rejects = new ArrayList<>();
+      List<Map<String, String>> bestSpots = new ArrayList<>();
+      List<Map<String, String>> rejects = new ArrayList<>();
       while (bestSpots.size() < num_spots) {
-        if(!pq.isEmpty()) {
-          double[] bestVec = pq.poll(); //get most recommended vector
-          Map<String,String> recordMap = this.data.vectorToData().get(bestVec).toMap();
+        if (!pq.isEmpty()) {
+          double[] bestVec = pq.poll(); // get most recommended vector
+          Map<String, String> recordMap = this.data.vectorToData().get(bestVec).toMap();
           if (this.satisfiesOriginalVector(originalVector, bestVec)) {
             bestSpots.add(recordMap); // if it satisfies search query, add to recs
           } else {

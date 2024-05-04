@@ -16,6 +16,17 @@ export default function SearchHomePage() {
   // const USER_ID = getLoginCookie() || "";
   const [mocked, setMocked] = useState(false);
   const [data, setData] = useState<PlaceboxProps[]>([]);
+  const [userLocation, setUserLocation] = useState(getUserLocation());
+  const [searchParams, setSearchParams] = useState<SearchParameters>({
+    natural_light_level: "",
+    noise_level: "",
+    outlet_availability: "",
+    room_size: "",
+    private: "",
+    food: "",
+    view: "",
+    home: "",
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,47 +49,22 @@ export default function SearchHomePage() {
     return location.coords;
   }
 
+  function updateSearchParameters(
+    parameter: keyof SearchParameters,
+    updatedValue: string
+  ) {
+    setSearchParams((searchParams) => ({
+      ...searchParams,
+      [parameter]: updatedValue,
+    }));
+  }
+
   async function handleSearchSubmit() {
-    let location = await getUserLocation();
-
-    getDistance(location);
-
-    const quietparam: string = document
-      .getElementsByClassName("quietparam")
-      .toString();
-    const natlightparam: string = document
-      .getElementsByClassName("natlightparam")
-      .toString();
-    const viewparam: string = document
-      .getElementsByClassName("viewparam")
-      .toString();
-    const outletparam: string = document
-      .getElementsByClassName("outletparam")
-      .toString();
-    const roomsizeparam: string = document
-      .getElementsByClassName("roomsizeparam")
-      .toString();
-    const privateparam: string = document
-      .getElementsByClassName("privateparam")
-      .toString();
-    const comfortparam: string = document
-      .getElementsByClassName("comfortparam")
-      .toString();
-    const foodparam: string = document
-      .getElementsByClassName("foodparam")
-      .toString();
-    const searchParams: SearchParameters = {
-      natural_light_level: natlightparam,
-      noise_level: quietparam,
-      outlet_availability: outletparam,
-      room_size: roomsizeparam,
-      private: privateparam,
-      food: foodparam,
-      view: viewparam,
-      home: comfortparam,
-    };
+    //getDistance(location);
+    console.log(searchParams);
     const newData = await getRecs(searchParams);
-    setData(await getRecs(searchParams)); ///////////Change
+    console.log(newData);
+    setData(newData); ///////////Change
   }
 
   return (
@@ -141,71 +127,116 @@ export default function SearchHomePage() {
             <option value="option2">Cafe</option>
             <option value="option3">Lounge</option>
           </select>button which clears all user dat */}
-          <text>Quiet Level</text>
-          <select className="quietparam">
+          <label>Quiet Level</label>
+          <select
+            className="quietparam"
+            onChange={(e) => {
+              updateSearchParameters("noise_level", e.target.value);
+            }}
+          >
             <option value="">--</option>
-            <option value="">0</option>
-            <option value="">1</option>
-            <option value="">2</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
           </select>
-          <text>Natural Light</text>
+          <label>Natural Light</label>
 
-          <select className="natlightparam">
+          <select
+            className="natlightparam"
+            onChange={(e) => {
+              updateSearchParameters("natural_light_level", e.target.value);
+            }}
+          >
             <option value="">--</option>
-            <option value="">0</option>
-            <option value="">1</option>
-            <option value="">2</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
           </select>
-          <text>Noise Level</text>
-          <select className="noiseparam">
+          <label>Noise Level</label>
+          <select
+            className="noiseparam"
+            onChange={(e) => {
+              updateSearchParameters("noise_level", e.target.value);
+            }}
+          >
             <option value="">--</option>
-            <option value="">0</option>
-            <option value="">1</option>
-            <option value="">2</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
           </select>
-          <text>Outlet Availability</text>
-          <select className="outletparam">
+          <label>Outlet Availability</label>
+          <select
+            className="outletparam"
+            onChange={(e) => {
+              updateSearchParameters("outlet_availability", e.target.value);
+            }}
+          >
             <option value="">--</option>
-            <option value="">0</option>
-            <option value="">1</option>
-            <option value="">2</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
           </select>
-          <text>Room Size</text>
-          <select className="roomsizeparam">
+          <label>Room Size</label>
+          <select
+            className="roomsizeparam"
+            onChange={(e) => {
+              updateSearchParameters("room_size", e.target.value);
+            }}
+          >
             <option value="">--</option>
-            <option value="">0</option>
-            <option value="">1</option>
-            <option value="">2</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
           </select>
-          <text>Private</text>
-          <select className="privateparam">
+          <label>Private</label>
+          <select
+            className="privateparam"
+            onChange={(e) => {
+              updateSearchParameters("private", e.target.value);
+            }}
+          >
             <option value="">--</option>
-            <option value="">0</option>
-            <option value="">1</option>
-            <option value="">2</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
           </select>
-          <text>Food</text>
-          <select className="foodparam">
+          <label>Food</label>
+          <select
+            className="foodparam"
+            onChange={(e) => {
+              updateSearchParameters("food", e.target.value);
+            }}
+          >
             <option value="">--</option>
-            <option value="">0</option>
-            <option value="">1</option>
-            <option value="">2</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
           </select>
-          <text>View</text>
-          <select className="viewparam">
+          <label>View</label>
+          <select
+            className="viewparam"
+            onChange={(e) => {
+              updateSearchParameters("view", e.target.value);
+            }}
+          >
             <option value="">--</option>
-            <option value="">0</option>
-            <option value="">1</option>
-            <option value="">2</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
           </select>
-          <text>Comfort</text>
-          <select className="comfortparam">
+          <label>Comfort</label>
+          <select
+            className="comfortparam"
+            onChange={(e) => {
+              updateSearchParameters("home", e.target.value);
+            }}
+          >
             <option value="">--</option>
-            <option value="">0</option>
-            <option value="">1</option>
-            <option value="">2</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
           </select>
-          <text>Time</text>
+          <label>Time</label>
           <input type="time"></input>
         </div>
         <p></p>

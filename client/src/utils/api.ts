@@ -78,11 +78,14 @@ export async function getRecs(attributes: SearchParameters) {
     "&view=" +
     encodeURIComponent(attributes.view) +
     "&home=" +
-    encodeURIComponent(attributes.home);
+    encodeURIComponent(attributes.home) +
+    "&num_spots=7";
 
+  console.log(url);
+  console.log(attributes.home);
   const response = await fetch(url);
+
   const json = await response.json();
-  console.log(json);
   return deserializeResponse(json);
 }
 
@@ -109,9 +112,7 @@ export async function deserializeResponse(
   }));
 }
 
-export function deserializeFavoritesResponse(
-  response: any
-): PlaceboxProps[] {
+export function deserializeFavoritesResponse(response: any): PlaceboxProps[] {
   return response["saved-spots"].map((spot: any) => ({
     id: spot.id,
     title: spot.title,
