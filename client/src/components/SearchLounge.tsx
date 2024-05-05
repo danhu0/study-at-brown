@@ -6,6 +6,16 @@ import { useEffect, useState } from "react";
 import getLoungeBox from "./Placebox";
 import { getRecs, deserializeResponse } from "../utils/api";
 import { SearchParameters } from "./SearchParameters";
+
+async function getUserLocation() {
+  const location = await new Promise<GeolocationPosition>((resolve, reject) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    }
+  });
+  return location.coords;
+}
+
 /**
  * ClearPins component calls the clearUser function to clear the user's pins in the
  * database when the button is clicked.
@@ -16,7 +26,9 @@ export default function SearchHomePage() {
   // const USER_ID = getLoginCookie() || "";
   const [mocked, setMocked] = useState(false);
   const [data, setData] = useState<PlaceboxProps[]>([]);
-  const [userLocation, setUserLocation] = useState(getUserLocation());
+  const [userLocation, setUserLocation] = useState<GeolocationCoordinates>();
+  const [loading, setLoading] = useState<boolean>(false);
+
   const [searchParams, setSearchParams] = useState<SearchParameters>({
     natural_light_level: "",
     noise_level: "",
@@ -30,24 +42,16 @@ export default function SearchHomePage() {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const response = await fetch("http://localhost:3232/get-hot");
       const json = await response.json();
       setData(await deserializeResponse(json));
+      setLoading(false);
     };
     fetchData();
   }, []);
 
   const [searchedData, setSearchedData] = useState<PlaceboxProps[]>(MockedData);
-  async function getUserLocation() {
-    const location = await new Promise<GeolocationPosition>(
-      (resolve, reject) => {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(resolve, reject);
-        }
-      }
-    );
-    return location.coords;
-  }
 
   function updateSearchParameters(
     parameter: keyof SearchParameters,
@@ -60,11 +64,9 @@ export default function SearchHomePage() {
   }
 
   async function handleSearchSubmit() {
-    //getDistance(location);
-    console.log(searchParams);
     const newData = await getRecs(searchParams);
-    console.log(newData);
     setData(newData); ///////////Change
+    console.log(userLocation);
   }
 
   return (
@@ -241,15 +243,22 @@ export default function SearchHomePage() {
         </div>
         <p></p>
       </div>
-      <div className="lounges-container">
-        {data.map((data, index) => (
-          <div className="lounge" key={index}>
-            {getLoungeBox(data)}
+      {loading ? (
+        <div className="loading-text">
+          <p>Loading...</p>
+        </div>
+      ) : (
+        <div>
+          <div className="lounges-container">
+            {data.map((data, index) => (
+              <div className="lounge" key={index}>
+                {getLoungeBox(data)}
+              </div>
+            ))}
           </div>
-        ))}
-        {/* <div className="places"> */}
-      </div>
-      <div id="myplace"></div>
+          <div id="myplace"></div>
+        </div>
+      )}
     </div>
   );
 }
