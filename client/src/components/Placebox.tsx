@@ -2,6 +2,7 @@
  * Each lounge must be printed out in its own box
  */
 
+import { useEffect, useState } from "react";
 import { addLounge } from "../utils/api";
 import { getAttributes } from "./Attributes";
 import ImageCarousel from "./Carousel";
@@ -25,11 +26,12 @@ export interface PlaceboxProps {
   food: number;
   view: boolean;
   comfort: number;
-  lat: number;
-  long: number;
+  lat: string;
+  long: string;
   building: string;
   study_room: string;
   google_link: string;
+  distance: string;
 
   // hours: Array<Array<String>>;
 
@@ -40,10 +42,11 @@ export default function getLoungeBox(props: PlaceboxProps) {
     alert(props.title + " added to favorites");
     await addLounge(props);
   }
+  console.log(props);
   return (
     <div className="placebox">
       {/* <li> */}
-      <h3>{props.title}</h3>
+      <h3>{props.title + " [" + props.distance + "]"}</h3>
       <p>{props.description}</p>
       <div className="attributes-container">
         <p className="attributes">{getAttributes(props).join(", ")}</p>
@@ -73,15 +76,22 @@ export default function getLoungeBox(props: PlaceboxProps) {
   );
 }
 
-export async function getDistance(currentLocation: GeolocationCoordinates) {
+export async function getDistance(
+  currentLocation: GeolocationCoordinates,
+  targetLat: string,
+  targetLong: string
+) {
   let body = await fetch(
-    "https://maps.googleapis.com/maps/api/distancematrix/json?destinations=" +
+    "http://localhost:3232/get-distance?current_lat=" +
       currentLocation.latitude +
-      "%2C" +
+      "&current_long=" +
       currentLocation.longitude +
-      "&mode=walking&origins=41.82634983767247%2C-71.39780942930045&units=imperial&key=AIzaSyCNIoWlECIQxeENJzxXhoqSj4UtbCe6c1I"
+      "&target_lat=" +
+      targetLat +
+      "&target_long=" +
+      targetLong
   );
   const json = await body.json();
-  let distance = json["rows"]["elements"]["distance"]["text"];
+  let distance = json["distance"]["rows"][0]["elements"][0]["distance"]["text"];
   return distance;
 }

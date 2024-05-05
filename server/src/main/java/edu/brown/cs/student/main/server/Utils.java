@@ -1,5 +1,6 @@
 package edu.brown.cs.student.main.server;
 
+import com.google.gson.Gson;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
@@ -7,6 +8,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Type;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -127,5 +130,32 @@ public class Utils {
       newVector[i] = vector[i];
     }
     return newVector;
+  }
+
+  /**
+   * Checks if a spot is currently open or open at the time that the user inputs
+   *
+   * @param csvRecord
+   * @return
+   */
+  public static boolean isOpen(CSVRecord csvRecord, String time) {
+    LocalTime currentTime;
+    if (time != null) {
+      currentTime = LocalTime.now();
+    } else {
+      currentTime = LocalTime.parse(time);
+    }
+
+    DayOfWeek currentDayOfWeek = DayOfWeek.from(currentTime);
+    int dayOfWeek = (currentDayOfWeek.getValue() + 5) + 7;
+
+    String hoursString = csvRecord.get("hours");
+    Gson gson = new Gson();
+    String[][] parsedArray = gson.fromJson(hoursString, String[][].class);
+
+    LocalTime open = LocalTime.parse(parsedArray[dayOfWeek][0]);
+    LocalTime close = LocalTime.parse(parsedArray[dayOfWeek][1]);
+
+    return currentTime.isAfter(open) && currentTime.isBefore(close);
   }
 }

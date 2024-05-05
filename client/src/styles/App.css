@@ -94,7 +94,7 @@ h3 {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
   grid-auto-flow: dense row;
-  justify-content: space-around;
+  place-items: center;
 }
 
 .lounge {
@@ -117,7 +117,14 @@ h3 {
 }
 
 .reviewprompt {
-font-size: 15px;
-background-color: aquamarine;
+  font-size: 15px;
+  background-color: aquamarine;
 }
 
+.loading-text {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  text-align: center;
+  width: 100%;
+}
