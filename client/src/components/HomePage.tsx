@@ -17,7 +17,7 @@ export default function HomePage() {
   const [section, setSection] = useState<Section>(Section.SEARCH_AND_CLEAR);
 
   return (
-    <div>
+    <div className="header">
       <h1
         onClick={() => setSection(Section.SEARCH_AND_CLEAR)}
         aria-label="Page Title"
