@@ -2,7 +2,7 @@ package edu.brown.cs.student.main.server.handlers;
 
 import edu.brown.cs.student.main.server.constants.Constants;
 import edu.brown.cs.student.main.server.utils.Utils;
-import edu.brown.cs.student.main.server.algorithm.VectorizedData;
+import edu.brown.cs.student.main.server.utils.VectorizedData;
 import java.util.*;
 import org.apache.commons.csv.CSVRecord;
 import spark.Request;

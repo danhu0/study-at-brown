@@ -1,4 +1,4 @@
-package edu.brown.cs.student.main.server.algorithm;
+package edu.brown.cs.student.main.server.utils;
 
 import java.util.Map;
 import org.apache.commons.csv.CSVRecord;

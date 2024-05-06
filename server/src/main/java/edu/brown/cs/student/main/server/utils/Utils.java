@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.brown.cs.student.main.server.algorithm.VectorizedData;
 import edu.brown.cs.student.main.server.constants.Constants;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
