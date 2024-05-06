@@ -1,7 +1,7 @@
 package edu.brown.cs.student.main.server.handlers;
 
-import edu.brown.cs.student.main.server.Utils;
-import edu.brown.cs.student.main.server.VectorizedData;
+import edu.brown.cs.student.main.server.utils.Utils;
+import edu.brown.cs.student.main.server.algorithm.VectorizedData;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.util.ArrayList;
 import java.util.HashMap;

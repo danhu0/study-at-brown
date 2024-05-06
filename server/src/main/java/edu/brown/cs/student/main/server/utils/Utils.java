@@ -1,4 +1,4 @@
-package edu.brown.cs.student.main.server;
+package edu.brown.cs.student.main.server.utils;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
@@ -10,17 +10,18 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import edu.brown.cs.student.main.server.algorithm.VectorizedData;
+import edu.brown.cs.student.main.server.constants.Constants;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealVector;
-import org.apache.hadoop.shaded.net.minidev.json.JSONArray;
 
 import java.time.LocalTime;
 import java.time.DayOfWeek;
-import java.time.format.TextStyle;
-import java.util.Locale;
+
 import com.google.gson.Gson;
 
 

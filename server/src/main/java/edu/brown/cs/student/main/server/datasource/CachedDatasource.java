@@ -4,7 +4,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.CacheStats;
 import com.google.common.cache.LoadingCache;
-import edu.brown.cs.student.main.server.CoordBounds;
+import edu.brown.cs.student.main.server.constants.CoordBounds;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
