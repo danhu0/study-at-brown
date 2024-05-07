@@ -69,7 +69,8 @@ export default function getLoungeBox(props: PlaceboxProps) {
       </button>
       <p></p>
       <div className="carousel-container">
-        <ImageCarousel images={Images[props.id]} />/{/* </li> */}
+        <ImageCarousel images={Images[props.id]} />
+        {/* </li> */}
         {/* here we will put the table of places, with their images, etcetra */}
       </div>
     </div>

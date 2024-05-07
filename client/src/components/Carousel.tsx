@@ -9,7 +9,7 @@ export interface CarouselProps {
 
 export default function Carousel(props: CarouselProps) {
   const settings = {
-    dots: props.images.length > 1,
+    dots: true,
     infinite: false,
     speed: 500,
     slidesToShow: 1,
@@ -18,7 +18,11 @@ export default function Carousel(props: CarouselProps) {
   return (
     <Slider {...settings}>
       {props.images.map((image, index) => (
-        <img key={index} src={image} alt={"alt text goes here"} />
+        <img
+          key={index}
+          src={image}
+          alt={"Image " + index + " of this study spot"}
+        />
       ))}
     </Slider>
   );
