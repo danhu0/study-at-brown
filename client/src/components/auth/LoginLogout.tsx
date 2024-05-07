@@ -36,6 +36,7 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
       <h1>Login Page</h1>
       <button
         className="button"
+        aria-label="login-button"
         onClick={() => signInWithGoogle()}
         disabled={props.loggedIn}
       >
@@ -53,7 +54,11 @@ const Logout: React.FunctionComponent<ILoginPageProps> = (props) => {
 
   return (
     <div className="logout-box">
-      <button className="button" onClick={() => signOut()}>
+      <button
+        aria-label="logout-button"
+        className="button"
+        onClick={() => signOut()}
+      >
         Sign Out
       </button>
     </div>

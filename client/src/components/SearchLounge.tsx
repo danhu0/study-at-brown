@@ -73,6 +73,7 @@ export default function SearchHomePage() {
     <div>
       <button
         className="button"
+        aria-label="search-button"
         onClick={async () => {
           handleSearchSubmit();
         }}
@@ -99,6 +100,7 @@ export default function SearchHomePage() {
           <label className="search-label">Natural Light</label>
 
           <select
+            aria-label="natlightdropdown"
             className="search-choices-selector"
             onChange={(e) => {
               updateSearchParameters("natural_light_level", e.target.value);
@@ -113,6 +115,7 @@ export default function SearchHomePage() {
         <div className="search-choices">
           <label className="search-label">Noise Level</label>
           <select
+            aria-label="noisedropdown"
             className="search-choices-selector"
             onChange={(e) => {
               updateSearchParameters("noise_level", e.target.value);
@@ -127,6 +130,7 @@ export default function SearchHomePage() {
         <div className="search-choices">
           <label className="search-label">Outlet Availability</label>
           <select
+            aria-label="outletdropdown"
             className="search-choices-selector"
             onChange={(e) => {
               updateSearchParameters("outlet_availability", e.target.value);
@@ -141,6 +145,7 @@ export default function SearchHomePage() {
         <div className="search-choices">
           <label className="search-label">Room Size</label>
           <select
+            aria-label="roomsizedropdown"
             className="search-choices-selector"
             onChange={(e) => {
               updateSearchParameters("room_size", e.target.value);
@@ -155,6 +160,7 @@ export default function SearchHomePage() {
         <div className="search-choices">
           <label className="search-label">Private</label>
           <select
+            aria-label="privatedropdown"
             className="search-choices-selector"
             onChange={(e) => {
               updateSearchParameters("private", e.target.value);
@@ -169,6 +175,7 @@ export default function SearchHomePage() {
         <div className="search-choices">
           <label className="search-label">Food</label>
           <select
+            aria-label="fooddropdown"
             className="search-choices-selector"
             onChange={(e) => {
               updateSearchParameters("food", e.target.value);
@@ -183,6 +190,7 @@ export default function SearchHomePage() {
         <div className="search-choices">
           <label className="search-label">View</label>
           <select
+            aria-label="viewdropdown"
             className="search-choices-selector"
             onChange={(e) => {
               updateSearchParameters("view", e.target.value);
@@ -197,6 +205,7 @@ export default function SearchHomePage() {
         <div className="search-choices">
           <label className="search-label">Comfort</label>
           <select
+            aria-label="comfortdropdown"
             className="search-choices-selector"
             onChange={(e) => {
               updateSearchParameters("home", e.target.value);
@@ -221,7 +230,7 @@ export default function SearchHomePage() {
         </div>
       ) : (
         <div>
-          <div className="lounges-container">
+          <div className="lounges-container" aria-label="lounges-container">
             {data.map((data, index) => (
               <div className="lounge" key={index}>
                 {getLoungeBox(data)}

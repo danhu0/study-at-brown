@@ -28,7 +28,7 @@ export default function GetUserData() {
 
   return (
     <div>
-      <button onClick={() => handleClearFavorites()}>Clear Favorites </button>
+      <button className="button" onClick={() => handleClearFavorites()}>Clear Favorites </button>
       <div className="lounges-container">
       {lounges.map((lounge, index) => (
         <div key={index}>
@@ -50,7 +50,7 @@ export default function GetUserData() {
         Review this website/ give us place suggestions!
       </p>
       <input className="reviewInput"></input>
-      <button onClick={() => {}}>Submit </button>
+      <button className="button" onClick={() => {}}>Submit </button>
       {/* Not sure where these suggestions will go yet */}
     </div>
   );
