@@ -7,6 +7,7 @@ import { addLounge } from "../utils/api";
 import { getAttributes } from "./Attributes";
 import ImageCarousel from "./Carousel";
 import { Images } from "./ImageDirectory";
+import Popup from "react-map-gl/dist/esm/components/popup";
 
 export enum CampusPosition {
   NORTH = "north campus",
@@ -37,19 +38,35 @@ export interface PlaceboxProps {
 
   // campusposition: CampusPosition;
 }
+
+const PlacePopup = ({ description }: { description: string }) => {
+//  ({
+  return (
+    <div className="popup">
+      <p>{description}</p>
+      {/* <button onClick={onClose}>Close</button> */}
+    </div>
+  );
+}
+// })
+
 export default function getLoungeBox(props: PlaceboxProps) {
   async function starButtonHandler() {
     alert(props.title + " added to favorites");
     await addLounge(props);
   }
+  function popupHandler(){
+    return <p>hi</p>
+  }
   console.log(props);
   return (
-    <div className="placebox">
+    <div className="placebox" aria-label="placebox">
       {/* <li> */}
+      <PlacePopup description="hihihi" onClose={""}></PlacePopup>
       <h3>{props.title + " [" + props.distance + "]"}</h3>
       <p>{props.description}</p>
-      <div className="attributes-container">
-        <p className="attributes">{getAttributes(props).join(", ")}</p>
+      <div className="attributes-container" aria-label="attributes-container">
+        <p className="attributes" aria-label="attributes">{getAttributes(props).join(", ")}</p>
       </div>
       <a
         target="_blank"
@@ -62,13 +79,13 @@ export default function getLoungeBox(props: PlaceboxProps) {
       {/* {isFavorited(props.id)} then we can have the button, else remove favorited*/}
       <button
         onClick={() => starButtonHandler()}
-        className="starbutton" //allows user to add to favorites list
+        className="starbutton" aria-label="star-button"//allows user to add to favorites list
       >
         {" "}
         ⭐{" "}
       </button>
       <p></p>
-      <div className="carousel-container">
+      <div className="carousel-container" aria-label="carousel-container">
         <ImageCarousel images={Images[props.id]} />/{/* </li> */}
         {/* here we will put the table of places, with their images, etcetra */}
       </div>

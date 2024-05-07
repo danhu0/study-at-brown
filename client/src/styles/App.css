@@ -33,34 +33,11 @@ h3 {
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   font-weight: 500;
-  color:darkslategrey
+  color:darkslategrey;
+  background-color: white;
+  
 }
 
-.campus-selector-button {
-  text-align: center;
-  color: black;
-  text-emphasis-color: blue;
-  border-radius: 20px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  font-weight: 500;
-}
-
-.button-clicked {
-  background-color: green; /* Change to whatever color you prefer */
-}
-.myselector {
-  /* border-color: green;  */
-  border-radius: 20px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  font-weight: 500;
-}
-.selector-selected {
-  background-color: green;
-}
 
 .search-choices {
   text-align: center;

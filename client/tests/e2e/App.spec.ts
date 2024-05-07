@@ -34,109 +34,78 @@ test.beforeEach(
  * you put before parts of your test that might take time to run,
  * like any interaction with the page.
  */
-test("on page load, I see the maps screen and skip auth.", async ({
+test("on page load, I see the home screen and skip auth.", async ({ page }) => {
+  // Notice: http, not https! Our front-end is not set up for HTTPs.
+  await page.goto("http://localhost:8000/");
+  await expect(page.getByText("Lounge Locator")).toBeVisible();
+  await expect(page.getByText("Home")).toBeVisible();
+  await expect(page.getByText("User's Favorites")).toBeVisible();
+  await expect(page.getByText("Quiet Level")).toBeVisible();
+  await expect(page.getByText("Natural Light")).toBeVisible();
+  await expect(page.getByText("Noise Level")).toBeVisible();
+  await expect(page.getByText("Sign Out")).toBeVisible();
+
+  // checking whether initial buttons/ dropdowns are visible
+});
+
+test("load the page, click the user's favorites button, i see that page", async ({
   page,
 }) => {
   // Notice: http, not https! Our front-end is not set up for HTTPs.
   await page.goto("http://localhost:8000/");
-  await expect(page.getByText("Maps")).toBeVisible();
-  await expect(page.getByText("Map")).toBeVisible();
-  await expect(page.getByText("Clear Pins")).toBeVisible();
-  await expect(page.getByText("Clear Pins (CLICK ME CLICK ME")).toBeVisible();
+  await page.click("text=User's Favorites");
+  await expect(page.getByTitle);
+  await expect(page.getByText("Clear Favorites")).toBeVisible();
+  await expect(
+    page.getByText("Review this website/ give us place suggestions!")
+  ).toBeVisible();
+  await expect(page.getByText("Sign Out")).toBeVisible();
+  await expect(page.getByText("Lounge Locator")).toBeVisible();
+
+  // now when i go back to home page, goes there
+  await page.click("text=Home");
+  await expect(page.getByText("Quiet Level")).toBeVisible();
 });
 
-test("load the page, click the map button, i can see the map. click back and forth multiple times!", async ({
+test("load the page, default random places are listed", async ({
   page,
 }) => {
   // Notice: http, not https! Our front-end is not set up for HTTPs.
   await page.goto("http://localhost:8000/");
-  await page.click("text=Map");
-  await expect(page.getByTitle)
-  let mapDiv = await page.$('div.map');
-  expect(mapDiv).toBeTruthy();
+  await expect(page.getByLabel("lounges-container")).toBeVisible();
+  await expect(page.getByLabel("placebox")).toBeVisible();
+  await expect(page.getByLabel("lounge-image")).toBeVisible();
+  await expect(page.getByLabel("attributes")).toBeVisible();
 
-  //click back
-  await page.click("text=Clear Pins");
-  await expect(page.getByText("Clear Pins (CLICK ME CLICK ME)")).toBeVisible();
-
-  //back to the map
-  await page.click("text=Map");
-  await expect(page.getByTitle)
-  mapDiv = await page.$('div.map');
-  expect(mapDiv).toBeTruthy();
+  //if star-button is visible, placebox is visible too presumably
+  await expect(page.getByLabel("star-button")).toBeVisible()
 });
 
-test("load the page, click the map button. drop a couple pins, clear pins, go back", async ({
+
+test("after favoriting a lounge, it shows up in user favorites section", async ({
   page,
 }) => {
   // Notice: http, not https! Our front-end is not set up for HTTPs.
   await page.goto("http://localhost:8000/");
-  await page.click("text=Map");
-  await expect(page.getByTitle)
-  let mapDiv = await page.$('div.map');
-  expect(mapDiv).toBeTruthy();
-  await page.click("div.map");
-  let markers = await page.$$('Marker');
-  expect(markers.length).toBe(1);
-  await page.click("div.map");
-  await page.reload();
-  markers = await page.$$('Marker');
-  expect(markers.length).toBe(2);
-  
-  //click back
-  await page.click("text=Clear Pins");
-  await expect(page.getByText("Clear Pins (CLICK ME CLICK ME)")).toBeVisible();
-  await page.click("Clear Pins (CLICK ME CLICK ME)");
-  await page.click("Clear Pins (CLICK ME CLICK ME)");
 
+  await page.getByLabel("star-button").click()
+  await page.getByLabel("User-favorites-button").click();
 
-  //back to the map
-  await page.click("text=Map");
-  await expect(page.getByTitle)
-  mapDiv = await page.$('div.map');
-  expect(mapDiv).toBeTruthy();
-  expect(markers.length).toBe(0);
-  await page.reload();
-  await page.click("div.map");
-  markers = await page.$$('Marker');
-  expect(markers.length).toBe(1);
+  await expect(page.getByLabel("lounges-container")).toBeVisible();
+  await expect(page.getByLabel("placebox")).toBeVisible();
+  await expect(page.getByLabel("lounge-image")).toBeVisible();
+  await expect(page.getByLabel("attributes")).toBeVisible();
+
+  //if star-button is visible, placebox is visible too presumably
+  await expect(page.getByLabel("star-button")).toBeVisible()
 });
 
-test("load the page, click the map button. drag the map around", async ({
+test("load the page, sign out, google logged out page", async ({
   page,
 }) => {
+  // Notice: http, not https! Our front-end is not set up for HTTPs.
   await page.goto("http://localhost:8000/");
-  await page.click("text=Map");
-  await expect(page.getByTitle)
-  let mapDiv = await page.$('.map');
-  expect(mapDiv).toBeTruthy();
-
-
-  const startX = 700;
-  const startY =  700;
-  const endX = startX + 100;
-  const endY = startY + 100; 
-
-  await page.mouse.move(startX, startY);
-  await page.mouse.down(); 
-  await page.mouse.move(endX, endY); 
-  await page.mouse.up();
-  expect(mapDiv).toBeTruthy();
-
-
-  await page.click("text=Clear Pins");
-  await expect(page.getByText("Clear Pins (CLICK ME CLICK ME)")).toBeVisible();
-  await page.click("Clear Pins (CLICK ME CLICK ME)");
-
-  await page.click("text=Map");
-  await expect(page.getByTitle)
-  mapDiv = await page.$('.map');
-  expect(mapDiv).toBeTruthy();
-
-
-  await page.mouse.move(startX, startY);
-  await page.mouse.down(); 
-  await page.mouse.move(endX, endY); 
-  await page.mouse.up();
-  expect(mapDiv).toBeTruthy();
+  await expect(page.getByLabel("logout-button")).toBeVisible();
+  await page.getByLabel("logout-button").click()
+  await expect(page.getByLabel("login-button")).toBeVisible();
 });
