@@ -2,6 +2,7 @@ import { Attributes } from "react";
 import { PlaceboxProps, getDistance } from "../components/Placebox";
 import { getLoginCookie } from "./cookie";
 import { SearchParameters } from "../components/SearchParameters";
+import { userLocation } from "../components/SearchLounge";
 const HOST = "http://localhost:3232";
 
 async function queryAPI(
@@ -102,11 +103,12 @@ export async function deserializeResponse(
 ): Promise<PlaceboxProps[]> {
   console.log("HERE");
 
-  const userLocation = await getUserLocation();
+  const loc = userLocation;
+  // const userLocation = await getUserLocation();
   const deserializedResponse = await Promise.all(
     response.best_spots.map(async (spot: any) => {
       const distance = await getDistance(
-        userLocation,
+        await loc,
         spot.latitude,
         spot.longitude
       );
@@ -131,7 +133,6 @@ export async function deserializeResponse(
       };
     })
   );
-  console.log("HERE");
   return deserializedResponse;
 }
 

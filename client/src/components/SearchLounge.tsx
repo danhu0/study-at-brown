@@ -16,6 +16,8 @@ async function getUserLocation() {
   return location.coords;
 }
 
+export const userLocation = getUserLocation();
+
 /**
  * ClearPins component calls the clearUser function to clear the user's pins in the
  * database when the button is clicked.
@@ -26,7 +28,6 @@ export default function SearchHomePage() {
   // const USER_ID = getLoginCookie() || "";
   const [mocked, setMocked] = useState(false);
   const [data, setData] = useState<PlaceboxProps[]>([]);
-  const [userLocation, setUserLocation] = useState<GeolocationCoordinates>();
   const [loading, setLoading] = useState<boolean>(false);
 
   const [searchParams, setSearchParams] = useState<SearchParameters>({
@@ -64,9 +65,10 @@ export default function SearchHomePage() {
   }
 
   async function handleSearchSubmit() {
+    setLoading(true);
     const newData = await getRecs(searchParams);
     setData(newData); ///////////Change
-    console.log(userLocation);
+    setLoading(false);
   }
 
   return (
@@ -80,58 +82,11 @@ export default function SearchHomePage() {
         Input search to backend...
       </button>
       <p></p>
-      <div className="search-choices">
-        {/* Receive user input for search function */}
-        {/* <button
-          className="campus-selector-button"
-          id="northcampusbutton"
-          onClick={async () => {
-            // await addParam("northcampus");
-            document
-              .getElementById("northcampusbutton")
-              ?.classList.toggle("button-clicked");
-          }}
-        >
-          {" "}
-          {/* Maybe we can have like multiple buttons and each 
-      one the user picks well include in their desires? */}
-        {/* North campus
-        </button>
-        <button
-          className="campus-selector-button"
-          id="southcampusbutton"
-          onClick={async () => {
-            // await addParam("southcampus");
-            document
-              .getElementById("southcampusbutton")
-              ?.classList.toggle("button-clicked");
-          }}
-        >
-          South campus
-        </button> */}
-
-        <div>
-          {/* <select
-            className="myselector"
-            id="myselector"
-            onChange={
-              //need to add function here which would only toggle when necessary
-              async () => {
-                document
-                  .getElementById("myselector")
-                  ?.classList.toggle("selector-selected");
-                // document.querySelector('.myselector').classList.toggle('selector-selected');
-              }
-            }
-          >
-            <option value="">Select an option (ex)</option>
-            <option value="option1">Library</option>
-            <option value="option2">Cafe</option>
-            <option value="option3">Lounge</option>
-          </select>button which clears all user dat */}
-          <label>Quiet Level</label>
+      <div className="search-choices-container">
+        <div className="search-choices">
+          <label className="search-label">Quiet Level</label>
           <select
-            className="quietparam"
+            className="search-choices-selector"
             onChange={(e) => {
               updateSearchParameters("noise_level", e.target.value);
             }}
@@ -141,10 +96,12 @@ export default function SearchHomePage() {
             <option value="1">1</option>
             <option value="2">2</option>
           </select>
-          <label>Natural Light</label>
+        </div>
+        <div className="search-choices">
+          <label className="search-label">Natural Light</label>
 
           <select
-            className="natlightparam"
+            className="search-choices-selector"
             onChange={(e) => {
               updateSearchParameters("natural_light_level", e.target.value);
             }}
@@ -154,9 +111,11 @@ export default function SearchHomePage() {
             <option value="1">1</option>
             <option value="2">2</option>
           </select>
-          <label>Noise Level</label>
+        </div>
+        <div className="search-choices">
+          <label className="search-label">Noise Level</label>
           <select
-            className="noiseparam"
+            className="search-choices-selector"
             onChange={(e) => {
               updateSearchParameters("noise_level", e.target.value);
             }}
@@ -166,9 +125,11 @@ export default function SearchHomePage() {
             <option value="1">1</option>
             <option value="2">2</option>
           </select>
-          <label>Outlet Availability</label>
+        </div>
+        <div className="search-choices">
+          <label className="search-label">Outlet Availability</label>
           <select
-            className="outletparam"
+            className="search-choices-selector"
             onChange={(e) => {
               updateSearchParameters("outlet_availability", e.target.value);
             }}
@@ -178,9 +139,11 @@ export default function SearchHomePage() {
             <option value="1">1</option>
             <option value="2">2</option>
           </select>
-          <label>Room Size</label>
+        </div>
+        <div className="search-choices">
+          <label className="search-label">Room Size</label>
           <select
-            className="roomsizeparam"
+            className="search-choices-selector"
             onChange={(e) => {
               updateSearchParameters("room_size", e.target.value);
             }}
@@ -190,9 +153,11 @@ export default function SearchHomePage() {
             <option value="1">1</option>
             <option value="2">2</option>
           </select>
-          <label>Private</label>
+        </div>
+        <div className="search-choices">
+          <label className="search-label">Private</label>
           <select
-            className="privateparam"
+            className="search-choices-selector"
             onChange={(e) => {
               updateSearchParameters("private", e.target.value);
             }}
@@ -202,9 +167,11 @@ export default function SearchHomePage() {
             <option value="1">1</option>
             <option value="2">2</option>
           </select>
-          <label>Food</label>
+        </div>
+        <div className="search-choices">
+          <label className="search-label">Food</label>
           <select
-            className="foodparam"
+            className="search-choices-selector"
             onChange={(e) => {
               updateSearchParameters("food", e.target.value);
             }}
@@ -214,9 +181,11 @@ export default function SearchHomePage() {
             <option value="1">1</option>
             <option value="2">2</option>
           </select>
-          <label>View</label>
+        </div>
+        <div className="search-choices">
+          <label className="search-label">View</label>
           <select
-            className="viewparam"
+            className="search-choices-selector"
             onChange={(e) => {
               updateSearchParameters("view", e.target.value);
             }}
@@ -226,9 +195,11 @@ export default function SearchHomePage() {
             <option value="1">1</option>
             <option value="2">2</option>
           </select>
-          <label>Comfort</label>
+        </div>
+        <div className="search-choices">
+          <label className="search-label">Comfort</label>
           <select
-            className="comfortparam"
+            className="search-choices-selector"
             onChange={(e) => {
               updateSearchParameters("home", e.target.value);
             }}
@@ -238,10 +209,11 @@ export default function SearchHomePage() {
             <option value="1">1</option>
             <option value="2">2</option>
           </select>
-          <label>Time</label>
-          <input type="time"></input>
         </div>
-        <p></p>
+        {/* <div className="search-choices">
+          <label className="search-label">Time</label>
+          <input type="time"></input>
+        </div> */}
       </div>
       {loading ? (
         <div className="loading-text">

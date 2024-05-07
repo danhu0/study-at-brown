@@ -9,7 +9,7 @@ export interface CarouselProps {
 
 export default function Carousel(props: CarouselProps) {
   const settings = {
-    dots: true,
+    dots: props.images.length > 1,
     infinite: false,
     speed: 500,
     slidesToShow: 1,

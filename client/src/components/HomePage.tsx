@@ -22,7 +22,7 @@ export default function HomePage() {
         onClick={() => setSection(Section.SEARCH_AND_CLEAR)}
         aria-label="Page Title"
       >
-        Lounge Locator
+        Study @ Brown
       </h1>
       {/* <button onClick={() => setSection(Section.MAP)}>Map (Optional implement this)</button> */}
       <button
@@ -37,7 +37,6 @@ export default function HomePage() {
       >
         User's Favorites
       </button>
-      
 
       {section === Section.SEARCH_AND_CLEAR ? <SearchLounge /> : null}
       {/* {section === Section.MAP ? <Mapbox /> : null} */}
