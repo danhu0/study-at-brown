@@ -3,7 +3,7 @@
  */
 
 import { useEffect, useState } from "react";
-import { addLounge } from "../utils/api";
+import { addLounge, getReviews } from "../utils/api";
 import { getAttributes } from "./Attributes";
 import ImageCarousel from "./Carousel";
 import { Images } from "./ImageDirectory";
@@ -39,30 +39,23 @@ export interface PlaceboxProps {
   // campusposition: CampusPosition;
 }
 
-const PlacePopup = ({ description }: { description: string }) => {
-  //  ({
-  return (
-    <div className="popup">
-      <p>{description}</p>
-      {/* <button onClick={onClose}>Close</button> */}
-    </div>
-  );
-};
-// })
 
 export default function getLoungeBox(props: PlaceboxProps) {
   async function starButtonHandler() {
     alert(props.title + " added to favorites");
     await addLounge(props);
   }
-  function popupHandler() {
-    return <p>hi</p>;
-  }
-  console.log(props);
+
   return (
     <div className="placebox" aria-label="placebox">
-      {/* <li> */}
-      <h3>{props.title + " [" + props.distance + "]"}</h3>
+
+            <h3>{props.title + " [" + props.distance + "]"}<button
+        onClick={() => starButtonHandler()}
+        className="starbutton" aria-label="star-button"//allows user to add to favorites list
+      >
+        {" "}
+        ⭐{" "}
+      </button></h3>
       <p>{props.description}</p>
       <div className="attributes-container" aria-label="attributes-container">
         <p className="attributes" aria-label="attributes">
@@ -78,20 +71,15 @@ export default function getLoungeBox(props: PlaceboxProps) {
         Find it
       </a>
       {/* {isFavorited(props.id)} then we can have the button, else remove favorited*/}
-      <button
-        onClick={() => starButtonHandler()}
-        className="starbutton"
-        aria-label="star-button" //allows user to add to favorites list
-      >
-        {" "}
-        ⭐{" "}
-      </button>
+      
       <p></p>
       <div className="carousel-container" aria-label="carousel-container">
         <ImageCarousel images={Images[props.id]} />
-        {/* </li> */}
-        {/* here we will put the table of places, with their images, etcetra */}
+        
       </div>
+      <button className="button" onClick={() => getReviews(props.id)}>See Reviews</button>
+      <text>Leave a review!    </text>
+      <input className="reviewInput"></input>
     </div>
   );
 }

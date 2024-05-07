@@ -110,6 +110,9 @@ export default function SearchHomePage() {
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+
           </select>
         </div>
         <div className="search-choices">
@@ -215,6 +218,7 @@ export default function SearchHomePage() {
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
+            <option value="3">3</option>
           </select>
         </div>
         {/* <div className="search-choices">
