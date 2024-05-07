@@ -1,7 +1,8 @@
 import { Attributes } from "react";
-import { PlaceboxProps } from "../components/Placebox";
+import { PlaceboxProps, getDistance } from "../components/Placebox";
 import { getLoginCookie } from "./cookie";
 import { SearchParameters } from "../components/SearchParameters";
+import { userLocation } from "../components/SearchLounge";
 const HOST = "http://localhost:3232";
 
 async function queryAPI(
@@ -78,40 +79,64 @@ export async function getRecs(attributes: SearchParameters) {
     "&view=" +
     encodeURIComponent(attributes.view) +
     "&home=" +
-    encodeURIComponent(attributes.home);
+    encodeURIComponent(attributes.home) +
+    "&num_spots=7";
 
+  console.log(url);
   const response = await fetch(url);
+
   const json = await response.json();
-  console.log(json);
   return deserializeResponse(json);
+}
+
+async function getUserLocation() {
+  const location = await new Promise<GeolocationPosition>((resolve, reject) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    }
+  });
+  return location.coords;
 }
 
 export async function deserializeResponse(
   response: any
 ): Promise<PlaceboxProps[]> {
-  return response.best_spots.map((spot: any) => ({
-    id: spot.id,
-    title: spot.title,
-    description: "", // Add description if available
-    natural_light_level: parseInt(spot.natural_light_level),
-    noise_level: parseInt(spot.noise_level),
-    outlet_availability: parseInt(spot.outlet_availability),
-    room_size: parseInt(spot.room_size),
-    private: parseInt(spot.private),
-    food: parseInt(spot.food),
-    view: spot.view,
-    comfort: 0, // Add comfort if available
-    lat: parseFloat(spot.latitude),
-    long: parseFloat(spot.longitude),
-    building: spot.building,
-    study_room: "", // Add study_room if available
-    google_link: "", // Add google_link if available
-  }));
+  console.log("HERE");
+
+  const loc = userLocation;
+  // const userLocation = await getUserLocation();
+  const deserializedResponse = await Promise.all(
+    response.best_spots.map(async (spot: any) => {
+      const distance = await getDistance(
+        await loc,
+        spot.latitude,
+        spot.longitude
+      );
+      return {
+        id: spot.id,
+        title: spot.title,
+        description: "", // Add description if available
+        natural_light_level: parseInt(spot.natural_light_level),
+        noise_level: parseInt(spot.noise_level),
+        outlet_availability: parseInt(spot.outlet_availability),
+        room_size: parseInt(spot.room_size),
+        private: parseInt(spot.private),
+        food: parseInt(spot.food),
+        view: spot.view,
+        comfort: 0, // Add comfort if available
+        lat: parseFloat(spot.latitude),
+        long: parseFloat(spot.longitude),
+        building: spot.building,
+        study_room: "", // Add study_room if available
+        google_link: "", // Add google_link if available
+        distance: distance,
+      };
+    })
+  );
+  return deserializedResponse;
 }
 
-export function deserializeFavoritesResponse(
-  response: any
-): PlaceboxProps[] {
+export function deserializeFavoritesResponse(response: any): PlaceboxProps[] {
   return response["saved-spots"].map((spot: any) => ({
     id: spot.id,
     title: spot.title,

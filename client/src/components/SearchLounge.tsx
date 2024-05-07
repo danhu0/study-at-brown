@@ -6,6 +6,18 @@ import { useEffect, useState } from "react";
 import getLoungeBox from "./Placebox";
 import { getRecs, deserializeResponse } from "../utils/api";
 import { SearchParameters } from "./SearchParameters";
+
+async function getUserLocation() {
+  const location = await new Promise<GeolocationPosition>((resolve, reject) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    }
+  });
+  return location.coords;
+}
+
+export const userLocation = getUserLocation();
+
 /**
  * ClearPins component calls the clearUser function to clear the user's pins in the
  * database when the button is clicked.
@@ -16,75 +28,52 @@ export default function SearchHomePage() {
   // const USER_ID = getLoginCookie() || "";
   const [mocked, setMocked] = useState(false);
   const [data, setData] = useState<PlaceboxProps[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const [searchParams, setSearchParams] = useState<SearchParameters>({
+    natural_light_level: "",
+    noise_level: "",
+    outlet_availability: "",
+    room_size: "",
+    private: "",
+    food: "",
+    view: "",
+    home: "",
+  });
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const response = await fetch("http://localhost:3232/get-hot");
       const json = await response.json();
       setData(await deserializeResponse(json));
+      setLoading(false);
     };
     fetchData();
   }, []);
 
-  const [searchedData, setSearchedData] = useState<PlaceboxProps[]>(MockedData);
-  async function getUserLocation() {
-    const location = await new Promise<GeolocationPosition>(
-      (resolve, reject) => {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(resolve, reject);
-        }
-      }
-    );
-    return location.coords;
+  function updateSearchParameters(
+    parameter: keyof SearchParameters,
+    updatedValue: string
+  ) {
+    setSearchParams((searchParams) => ({
+      ...searchParams,
+      [parameter]: updatedValue,
+    }));
   }
 
   async function handleSearchSubmit() {
-    let location = await getUserLocation();
-
-    getDistance(location);
-
-    const quietparam: string = document
-      .getElementsByClassName("quietparam")
-      .toString();
-    const natlightparam: string = document
-      .getElementsByClassName("natlightparam")
-      .toString();
-    const viewparam: string = document
-      .getElementsByClassName("viewparam")
-      .toString();
-    const outletparam: string = document
-      .getElementsByClassName("outletparam")
-      .toString();
-    const roomsizeparam: string = document
-      .getElementsByClassName("roomsizeparam")
-      .toString();
-    const privateparam: string = document
-      .getElementsByClassName("privateparam")
-      .toString();
-    const comfortparam: string = document
-      .getElementsByClassName("comfortparam")
-      .toString();
-    const foodparam: string = document
-      .getElementsByClassName("foodparam")
-      .toString();
-    const searchParams: SearchParameters = {
-      natural_light_level: natlightparam,
-      noise_level: quietparam,
-      outlet_availability: outletparam,
-      room_size: roomsizeparam,
-      private: privateparam,
-      food: foodparam,
-      view: viewparam,
-      home: comfortparam,
-    };
+    setLoading(true);
     const newData = await getRecs(searchParams);
-    setData(await getRecs(searchParams)); ///////////Change
+    setData(newData);
+    setLoading(false);
   }
 
   return (
     <div>
       <button
         className="button"
+        aria-label="search-button"
         onClick={async () => {
           handleSearchSubmit();
         }}
@@ -92,133 +81,165 @@ export default function SearchHomePage() {
         Input search to backend...
       </button>
       <p></p>
-      <div className="search-choices">
-        {/* Receive user input for search function */}
-        {/* <button
-          className="campus-selector-button"
-          id="northcampusbutton"
-          onClick={async () => {
-            // await addParam("northcampus");
-            document
-              .getElementById("northcampusbutton")
-              ?.classList.toggle("button-clicked");
-          }}
-        >
-          {" "}
-          {/* Maybe we can have like multiple buttons and each 
-      one the user picks well include in their desires? */}
-        {/* North campus
-        </button>
-        <button
-          className="campus-selector-button"
-          id="southcampusbutton"
-          onClick={async () => {
-            // await addParam("southcampus");
-            document
-              .getElementById("southcampusbutton")
-              ?.classList.toggle("button-clicked");
-          }}
-        >
-          South campus
-        </button> */}
-
-        <div>
-          {/* <select
-            className="myselector"
-            id="myselector"
-            onChange={
-              //need to add function here which would only toggle when necessary
-              async () => {
-                document
-                  .getElementById("myselector")
-                  ?.classList.toggle("selector-selected");
-                // document.querySelector('.myselector').classList.toggle('selector-selected');
-              }
-            }
+      <div className="search-choices-container">
+        <div className="search-choices">
+          <label className="search-label">Quiet Level</label>
+          <select
+            className="search-choices-selector"
+            onChange={(e) => {
+              updateSearchParameters("noise_level", e.target.value);
+            }}
           >
-            <option value="">Select an option (ex)</option>
-            <option value="option1">Library</option>
-            <option value="option2">Cafe</option>
-            <option value="option3">Lounge</option>
-          </select>button which clears all user dat */}
-          <text>Quiet Level</text>
-          <select className="quietparam">
             <option value="">--</option>
-            <option value="">0</option>
-            <option value="">1</option>
-            <option value="">2</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
           </select>
-          <text>Natural Light</text>
-
-          <select className="natlightparam">
-            <option value="">--</option>
-            <option value="">0</option>
-            <option value="">1</option>
-            <option value="">2</option>
-          </select>
-          <text>Noise Level</text>
-          <select className="noiseparam">
-            <option value="">--</option>
-            <option value="">0</option>
-            <option value="">1</option>
-            <option value="">2</option>
-          </select>
-          <text>Outlet Availability</text>
-          <select className="outletparam">
-            <option value="">--</option>
-            <option value="">0</option>
-            <option value="">1</option>
-            <option value="">2</option>
-          </select>
-          <text>Room Size</text>
-          <select className="roomsizeparam">
-            <option value="">--</option>
-            <option value="">0</option>
-            <option value="">1</option>
-            <option value="">2</option>
-          </select>
-          <text>Private</text>
-          <select className="privateparam">
-            <option value="">--</option>
-            <option value="">0</option>
-            <option value="">1</option>
-            <option value="">2</option>
-          </select>
-          <text>Food</text>
-          <select className="foodparam">
-            <option value="">--</option>
-            <option value="">0</option>
-            <option value="">1</option>
-            <option value="">2</option>
-          </select>
-          <text>View</text>
-          <select className="viewparam">
-            <option value="">--</option>
-            <option value="">0</option>
-            <option value="">1</option>
-            <option value="">2</option>
-          </select>
-          <text>Comfort</text>
-          <select className="comfortparam">
-            <option value="">--</option>
-            <option value="">0</option>
-            <option value="">1</option>
-            <option value="">2</option>
-          </select>
-          <text>Time</text>
-          <input type="time"></input>
         </div>
-        <p></p>
+        <div className="search-choices">
+          <label className="search-label">Natural Light</label>
+
+          <select
+            aria-label="natlightdropdown"
+            className="search-choices-selector"
+            onChange={(e) => {
+              updateSearchParameters("natural_light_level", e.target.value);
+            }}
+          >
+            <option value="">--</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        </div>
+        <div className="search-choices">
+          <label className="search-label">Noise Level</label>
+          <select
+            aria-label="noisedropdown"
+            className="search-choices-selector"
+            onChange={(e) => {
+              updateSearchParameters("noise_level", e.target.value);
+            }}
+          >
+            <option value="">--</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        </div>
+        <div className="search-choices">
+          <label className="search-label">Outlet Availability</label>
+          <select
+            aria-label="outletdropdown"
+            className="search-choices-selector"
+            onChange={(e) => {
+              updateSearchParameters("outlet_availability", e.target.value);
+            }}
+          >
+            <option value="">--</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        </div>
+        <div className="search-choices">
+          <label className="search-label">Room Size</label>
+          <select
+            aria-label="roomsizedropdown"
+            className="search-choices-selector"
+            onChange={(e) => {
+              updateSearchParameters("room_size", e.target.value);
+            }}
+          >
+            <option value="">--</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        </div>
+        <div className="search-choices">
+          <label className="search-label">Private</label>
+          <select
+            aria-label="privatedropdown"
+            className="search-choices-selector"
+            onChange={(e) => {
+              updateSearchParameters("private", e.target.value);
+            }}
+          >
+            <option value="">--</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        </div>
+        <div className="search-choices">
+          <label className="search-label">Food</label>
+          <select
+            aria-label="fooddropdown"
+            className="search-choices-selector"
+            onChange={(e) => {
+              updateSearchParameters("food", e.target.value);
+            }}
+          >
+            <option value="">--</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        </div>
+        <div className="search-choices">
+          <label className="search-label">View</label>
+          <select
+            aria-label="viewdropdown"
+            className="search-choices-selector"
+            onChange={(e) => {
+              updateSearchParameters("view", e.target.value);
+            }}
+          >
+            <option value="">--</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        </div>
+        <div className="search-choices">
+          <label className="search-label">Comfort</label>
+          <select
+            aria-label="comfortdropdown"
+            className="search-choices-selector"
+            onChange={(e) => {
+              updateSearchParameters("home", e.target.value);
+            }}
+          >
+            <option value="">--</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        </div>
+        {/* <div className="search-choices">
+          <label className="search-label">Time</label>
+          <input type="time"></input>
+        </div> */}
       </div>
-      <div className="lounges-container">
-        {data.map((data, index) => (
-          <div className="lounge" key={index}>
-            {getLoungeBox(data)}
+      {loading ? (
+        <div className="loading-container">
+          <div className="loading-text">
+            <p>Loading...</p>
           </div>
-        ))}
-        {/* <div className="places"> */}
-      </div>
-      <div id="myplace"></div>
+        </div>
+      ) : (
+        <div>
+          <div className="lounges-container" aria-label="lounges-container">
+            {data.map((data, index) => (
+              <div className="lounge" key={index}>
+                {getLoungeBox(data)}
+              </div>
+            ))}
+          </div>
+          <div id="myplace"></div>
+        </div>
+      )}
     </div>
   );
 }

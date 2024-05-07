@@ -1,15 +1,14 @@
-package edu.brown.cs.student.main.server.localRun;
+package edu.brown.cs.student.main.server;
 
 import static spark.Spark.after;
 
-import edu.brown.cs.student.main.server.utils.VectorizedData;
 import edu.brown.cs.student.main.server.constants.Constants;
 import edu.brown.cs.student.main.server.handlers.*;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
-import java.io.IOException;
-
 import edu.brown.cs.student.main.server.utils.Utils;
+import edu.brown.cs.student.main.server.utils.VectorizedData;
+import java.io.IOException;
 import spark.Filter;
 import spark.Spark;
 
@@ -53,6 +52,7 @@ public class Server {
       Spark.get("get-recs", new GetRecsHandler(firebaseUtils, data));
       Spark.get("get-hot", new HOTStudyHandler(data));
       Spark.get("get-data", new GetDataHandler(data));
+      Spark.get("get-distance", new DistanceHandler());
 
       // mocked verison of set-geodata, for testing only
       // Spark.get("set-geodata", new SetGeoDataHandler(new MockDataSource(),
