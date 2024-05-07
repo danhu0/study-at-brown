@@ -1,4 +1,4 @@
-package edu.brown.cs.student.main.server;
+package edu.brown.cs.student.main.server.constants;
 
 /**
  * Enum with names for the bounds in all directions for a coordinate bounding box. Eliminates need

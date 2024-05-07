@@ -26,29 +26,41 @@ h3 {
   font-size: calc(1px + 2vmin);
   color: white;
 }
+
 .brown-logo{
   block-size: 100px;
   position: absolute;
   top: 8px;
   left: 16px;
 }
-.button {
+
+.button,
+.campus-selector-button,
+.myselector,
+.search-label,
+.search-choices-selector,
+.reviewprompt {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   font-weight: 500;
+}
+
+.button {
   color: black;
   border-radius: 8px;
   border: 3px solid;
   padding: 0.6em 1.2em;
   font-size: 1em;
   margin: 5px 5px;
-  /* background-color: #1a1a1a; */
   cursor: pointer;
   transition: border-color 0.25s;
 }
-.button:hover {
-  background-color: lightgreen; /* Change to the color you prefer on hover */
+
+.button:hover,
+.campus-selector-button:hover,
+.search-choices-selector:hover {
+  background-color: lightgreen;
 }
 
 .campus-selector-button {
@@ -56,26 +68,13 @@ h3 {
   color: black;
   text-emphasis-color: blue;
   border-radius: 20px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  font-weight: 500;
-}
-.campus-selector-button:hover {
-  background-color: lightgreen; /* Change to the color you prefer on hover */
 }
 
 .button-clicked {
-  background-color: green; /* Change to whatever color you prefer */
+  background-color: green;
 }
-.myselector {
-  /* border-color: green;  */
-  border-radius: 20px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  font-weight: 500;
-}
+
+.myselector,
 .selector-selected {
   background-color: green;
 }
@@ -87,10 +86,6 @@ h3 {
 }
 
 .search-label {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  font-weight: 500;
   color: black;
   border-radius: 8px;
   border: 3px solid;
@@ -118,9 +113,6 @@ h3 {
   background-color: rgba(236, 241, 236, 0.722);
   border-radius: 8px;
   border: 3px solid;
-}
-.search-choices-selector:hover {
-  background-color: lightgreen;
 }
 
 .search-choices-selector:focus {
@@ -179,20 +171,18 @@ h3 {
   max-width: 100%;
 }
 
-.reviewprompt {
-  font-size: 15px;
-  background-color: aquamarine;
+.loading-text,
+.loading-container {
+  text-align: center;
+  justify-content: center;
 }
 
 .loading-text {
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
-  text-align: center;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   font-weight: 500;
+  background-color: rgba(236, 241, 236, 0.722);
   color: black;
   border-radius: 8px;
   border: 3px solid;
@@ -312,5 +302,6 @@ h3 {
   justify-content: center;
   align-items: center; */
   text-align: center;
-  width: 100%;
+  /* width: 100%; */
+  width: 300px;
 }

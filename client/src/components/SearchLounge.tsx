@@ -52,8 +52,6 @@ export default function SearchHomePage() {
     fetchData();
   }, []);
 
-  const [searchedData, setSearchedData] = useState<PlaceboxProps[]>(MockedData);
-
   function updateSearchParameters(
     parameter: keyof SearchParameters,
     updatedValue: string
@@ -67,7 +65,7 @@ export default function SearchHomePage() {
   async function handleSearchSubmit() {
     setLoading(true);
     const newData = await getRecs(searchParams);
-    setData(newData); ///////////Change
+    setData(newData);
     setLoading(false);
   }
 
@@ -102,7 +100,6 @@ export default function SearchHomePage() {
           <label className="search-label">Natural Light</label>
 
           <select
-
             aria-label="natlightdropdown"
             className="search-choices-selector"
             onChange={(e) => {
@@ -121,7 +118,6 @@ export default function SearchHomePage() {
         <div className="search-choices">
           <label className="search-label">Noise Level</label>
           <select
-
             aria-label="noisedropdown"
             className="search-choices-selector"
             onChange={(e) => {
@@ -152,9 +148,7 @@ export default function SearchHomePage() {
         <div className="search-choices">
           <label className="search-label">Room Size</label>
           <select
-
             aria-label="roomsizedropdown"
-
             className="search-choices-selector"
             onChange={(e) => {
               updateSearchParameters("room_size", e.target.value);
@@ -169,9 +163,7 @@ export default function SearchHomePage() {
         <div className="search-choices">
           <label className="search-label">Private</label>
           <select
-
             aria-label="privatedropdown"
-
             className="search-choices-selector"
             onChange={(e) => {
               updateSearchParameters("private", e.target.value);
@@ -201,7 +193,6 @@ export default function SearchHomePage() {
         <div className="search-choices">
           <label className="search-label">View</label>
           <select
-
             aria-label="viewdropdown"
             className="search-choices-selector"
             onChange={(e) => {
@@ -217,7 +208,6 @@ export default function SearchHomePage() {
         <div className="search-choices">
           <label className="search-label">Comfort</label>
           <select
-
             aria-label="comfortdropdown"
             className="search-choices-selector"
             onChange={(e) => {
@@ -237,14 +227,14 @@ export default function SearchHomePage() {
         </div> */}
       </div>
       {loading ? (
-        <div className="loading-text" aria-label="loading-text">
-          <p>Loading...</p>
+        <div className="loading-container">
+          <div className="loading-text">
+            <p>Loading...</p>
+          </div>
         </div>
       ) : (
         <div>
-          <div className="lounges-container"
-                      aria-label="lounges-container"
-                      >
+          <div className="lounges-container" aria-label="lounges-container">
             {data.map((data, index) => (
               <div className="lounge" key={index}>
                 {getLoungeBox(data)}

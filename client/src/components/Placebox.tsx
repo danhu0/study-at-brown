@@ -40,7 +40,6 @@ export interface PlaceboxProps {
 }
 
 
-
 export default function getLoungeBox(props: PlaceboxProps) {
   async function starButtonHandler() {
     alert(props.title + " added to favorites");
@@ -59,7 +58,9 @@ export default function getLoungeBox(props: PlaceboxProps) {
       </button></h3>
       <p>{props.description}</p>
       <div className="attributes-container" aria-label="attributes-container">
-        <p className="attributes" aria-label="attributes">{getAttributes(props).join(", ")}</p>
+        <p className="attributes" aria-label="attributes">
+          {getAttributes(props).join(", ")}
+        </p>
       </div>
       <a
         target="_blank"
