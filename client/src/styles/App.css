@@ -27,23 +27,90 @@ h3 {
   color: white;
 }
 
-
 .button {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   font-weight: 500;
-  color:darkslategrey;
-  background-color: white;
-  
+  color: black;
+  border-radius: 8px;
+  border: 3px solid;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  margin: 5px 5px;
+  /* background-color: #1a1a1a; */
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+.button:hover {
+  background-color: lightgreen; /* Change to the color you prefer on hover */
+}
+
+.campus-selector-button {
+  text-align: center;
+  color: black;
+  text-emphasis-color: blue;
+  border-radius: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-weight: 500;
+}
+.campus-selector-button:hover {
+  background-color: lightgreen; /* Change to the color you prefer on hover */
 }
 
 
 .search-choices {
-  text-align: center;
+  display: flex;
+  height: 50px;
+  margin: 2px 0px 2px 0px;
 }
+
+.search-label {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-weight: 500;
+  color: black;
+  border-radius: 8px;
+  border: 3px solid;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  margin: 0px 4px 0px 4px;
+  min-width: 150px;
+}
+
+.search-choices-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.search-choices-selector {
+  display: block;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: rgba(236, 241, 236, 0.722);
+  border-radius: 8px;
+  border: 3px solid;
+}
+.search-choices-selector:hover {
+  background-color: lightgreen;
+}
+
+.search-choices-selector:focus {
+  outline: none;
+  border-color: lightgreen;
+}
+
 .placebox {
-  background-color:rgba(236, 241, 236, 0.722);
+  background-color: rgba(236, 241, 236, 0.722);
   width: fit-content;
   max-width: 400px;
   height: 600px;
@@ -51,7 +118,7 @@ h3 {
   align-items: center;
   text-align: center;
   border-radius: 20px;
-  border-style:double;
+  border-style: double;
   border-width: 15px;
 }
 
@@ -103,5 +170,15 @@ h3 {
   justify-content: center;
   align-items: center; */
   text-align: center;
-  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-weight: 500;
+  color: black;
+  border-radius: 8px;
+  border: 3px solid;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  margin: 2px 2px 10px 2px;
+  min-width: 150px;
 }

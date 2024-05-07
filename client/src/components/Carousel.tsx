@@ -18,7 +18,12 @@ export default function Carousel(props: CarouselProps) {
   return (
     <Slider {...settings}>
       {props.images.map((image, index) => (
-        <img aria-label="lounge-image" key={index} src={image} alt={"Fetching image"} />
+        <img
+        aria-label="lounge-image"
+          key={index}
+          src={image}
+          alt={"Image " + index + " of this study spot"}
+        />
       ))}
     </Slider>
   );
