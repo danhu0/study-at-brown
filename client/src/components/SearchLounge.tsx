@@ -52,8 +52,6 @@ export default function SearchHomePage() {
     fetchData();
   }, []);
 
-  const [searchedData, setSearchedData] = useState<PlaceboxProps[]>(MockedData);
-
   function updateSearchParameters(
     parameter: keyof SearchParameters,
     updatedValue: string
@@ -67,7 +65,7 @@ export default function SearchHomePage() {
   async function handleSearchSubmit() {
     setLoading(true);
     const newData = await getRecs(searchParams);
-    setData(newData); ///////////Change
+    setData(newData);
     setLoading(false);
   }
 
@@ -216,8 +214,10 @@ export default function SearchHomePage() {
         </div> */}
       </div>
       {loading ? (
-        <div className="loading-text">
-          <p>Loading...</p>
+        <div className="loading-container">
+          <div className="loading-text">
+            <p>Loading...</p>
+          </div>
         </div>
       ) : (
         <div>
