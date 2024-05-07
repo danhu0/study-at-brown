@@ -1,6 +1,6 @@
 package edu.brown.cs.student.main.server.datasource;
 
-import edu.brown.cs.student.main.server.CoordBounds;
+import edu.brown.cs.student.main.server.constants.CoordBounds;
 import edu.brown.cs.student.main.server.parserNestedClasses.GeoJsonObject;
 import edu.brown.cs.student.main.server.parserNestedClasses.GeoJsonObject.Feature;
 import edu.brown.cs.student.main.server.parserNestedClasses.GeoJsonObject.Properties;

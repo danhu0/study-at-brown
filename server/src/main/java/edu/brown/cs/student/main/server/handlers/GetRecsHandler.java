@@ -1,9 +1,9 @@
 package edu.brown.cs.student.main.server.handlers;
 
-import edu.brown.cs.student.main.server.Constants;
-import edu.brown.cs.student.main.server.Utils;
-import edu.brown.cs.student.main.server.VectorizedData;
+import edu.brown.cs.student.main.server.constants.Constants;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
+import edu.brown.cs.student.main.server.utils.Utils;
+import edu.brown.cs.student.main.server.utils.VectorizedData;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import spark.Request;

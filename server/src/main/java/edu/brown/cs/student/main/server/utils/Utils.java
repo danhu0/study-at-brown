@@ -1,9 +1,10 @@
-package edu.brown.cs.student.main.server;
+package edu.brown.cs.student.main.server.utils;
 
 import com.google.gson.Gson;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+import edu.brown.cs.student.main.server.constants.Constants;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;

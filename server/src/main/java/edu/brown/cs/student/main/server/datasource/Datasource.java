@@ -1,6 +1,6 @@
 package edu.brown.cs.student.main.server.datasource;
 
-import edu.brown.cs.student.main.server.CoordBounds;
+import edu.brown.cs.student.main.server.constants.CoordBounds;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
