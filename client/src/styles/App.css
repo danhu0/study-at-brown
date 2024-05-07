@@ -26,7 +26,12 @@ h3 {
   font-size: calc(1px + 2vmin);
   color: white;
 }
-
+.brown-logo{
+  block-size: 100px;
+  position: absolute;
+  top: 8px;
+  left: 16px;
+}
 .button {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -279,8 +284,13 @@ h3 {
 }
 
 .starbutton {
+  
+  border-radius: 40px;
   background-color: transparent;
   border-color: transparent;
+}
+.starbutton:hover {
+  background-color: rgb(228, 196, 202);
 }
 
 .attributes {
