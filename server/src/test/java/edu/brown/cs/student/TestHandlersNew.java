@@ -1,14 +1,22 @@
 package edu.brown.cs.student;
 
+
+import com.squareup.moshi.Moshi;
+import edu.brown.cs.student.main.server.Server;
+import edu.brown.cs.student.main.server.handlers.*;
+import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
+import edu.brown.cs.student.main.server.storage.StorageInterface;
+import edu.brown.cs.student.main.server.utils.VectorizedData;
+import org.eclipse.jetty.util.IO;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import spark.Spark;
+
+import java.util.logging.*;
+
+import static edu.brown.cs.student.main.server.Server.setUpServer;
 import static org.testng.AssertJUnit.assertEquals;
 
-import edu.brown.cs.student.Broadband.BroadbandHandler;
-import edu.brown.cs.student.Broadband.Datasources.StateCache;
-import edu.brown.cs.student.Server.CSVHandling.LoadCSVHandler;
-import edu.brown.cs.student.Server.CSVHandling.SearchCSVHandler;
-import edu.brown.cs.student.Server.CSVHandling.SharedData;
-import edu.brown.cs.student.Server.CSVHandling.ViewCSVHandler;
-import edu.brown.cs.student.Server.Server;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,48 +32,39 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import spark.Spark;
 
+
 public class TestHandlersNew {
 
-  private SharedData sharedData;
-  //  private static int port = 2222
-  private Server server;
-
-  @BeforeAll
-  public static void setup_before_everything() {
+    @BeforeAll
+    public static void setup_before_everything() {
     Spark.port(0);
     Logger.getLogger("").setLevel(Level.WARNING); // empty name = root logger
-  }
+    }
 
-  @BeforeEach
-  public void setup() {
-    startServer(new SharedData(new ArrayList<>(), new ArrayList<>()));
-  }
+    @BeforeEach
+    public void setup() {
+      setUpServer();
+    }
 
-  public void startServer(SharedData sd) {
-    this.sharedData = sd;
+    @AfterEach
+    public void teardown() {
+        // Gracefully stop Spark listening on both endpoints after each test
+        Spark.unmap("add-lounge");
+        Spark.unmap("list-lounges");
+        Spark.unmap("clear-user");
 
-    LoadCSVHandler loadCSVHandler = new LoadCSVHandler(sharedData);
+        Spark.unmap("get-user");
+        Spark.unmap("get-recs");
+        Spark.unmap("get-hot");
+        Spark.unmap("get-data");
+        Spark.unmap("get-distance");
+        Spark.unmap("get-reviews");
+        Spark.unmap("add-review");
 
-    Spark.get("loadcsv", loadCSVHandler);
-    Spark.get("viewcsv", new ViewCSVHandler(sharedData));
-    Spark.get("searchcsv", new SearchCSVHandler(sharedData));
-    Spark.get("broadband", new BroadbandHandler(new StateCache()));
-    Spark.init();
-    Spark.awaitInitialization();
-  }
+        Spark.awaitStop(); // don't proceed until the server is stopped
+    }
 
-  @AfterEach
-  public void teardown() {
-    // Gracefully stop Spark listening on both endpoints after each test
-    //    Spark.unmap("loadcsv");
-    //    Spark.unmap("viewcsv");
-    //    Spark.unmap("searchcsv");
-    //    Spark.unmap("broadband");
-    this.server = null;
-    Spark.awaitStop(); // don't proceed until the server is stopped
-  }
-
-  private static HttpURLConnection tryRequest(String apiCall) throws IOException {
+    private static HttpURLConnection tryRequest(String apiCall) throws IOException {
     URL requestURL = new URL("http://localhost:" + Spark.port() + "/" + apiCall);
     HttpURLConnection clientConnection = (HttpURLConnection) requestURL.openConnection();
 
@@ -73,130 +72,23 @@ public class TestHandlersNew {
 
     clientConnection.connect();
     return clientConnection;
-  }
+    }
 
-  /**
-   * testing whether handlers throw errors or not
-   *
-   * @throws IOException
-   */
-  @Test
-  public void testLoadHandler() throws IOException {
-    HttpURLConnection clientConnectionLoad =
-        tryRequest("loadcsv?filename=/stars/ten-star.csv&columnheaders=true");
-    // loading csv
-    assertEquals(200, clientConnectionLoad.getResponseCode());
-    InputStream inputStream = clientConnectionLoad.getInputStream();
-    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-    String output = reader.readLine();
-    reader.close();
-    inputStream.close();
-    assertEquals(output, "/stars/ten-star.csv loaded successfully!");
-    // invalid file name
-    HttpURLConnection clientConnectionLoadInvalidFileName = tryRequest("loadcsv?filename=/star");
-    assertEquals(200, clientConnectionLoadInvalidFileName.getResponseCode());
-    InputStream inputStream2 = clientConnectionLoadInvalidFileName.getInputStream();
-    BufferedReader reader2 = new BufferedReader(new InputStreamReader(inputStream2));
-    String output2 = reader2.readLine();
-    reader2.close();
-    inputStream2.close();
-    assertEquals(
-        output2,
-        "{\"response_type\":\"Error: Specified file not found in the protected data directory.\"}");
-    // new data set, ri_income
-    HttpURLConnection clientConnectionRI = tryRequest("loadcsv?filename=/census/ri_income.csv");
-    assertEquals(200, clientConnectionRI.getResponseCode());
-    InputStream inputStream3 = clientConnectionRI.getInputStream();
-    BufferedReader reader3 = new BufferedReader(new InputStreamReader(inputStream3));
-    String output3 = reader3.readLine();
-    reader3.close();
-    inputStream3.close();
-    assertEquals(output3, "/census/ri_income.csv loaded successfully!");
-    // no parameters, no file name
-    HttpURLConnection clientConnectionNoFile = tryRequest("loadcsv");
-    assertEquals(200, clientConnectionNoFile.getResponseCode());
-    InputStream inputStream4 = clientConnectionNoFile.getInputStream();
-    BufferedReader reader4 = new BufferedReader(new InputStreamReader(inputStream4));
-    String output4 = reader4.readLine();
-    reader4.close();
-    inputStream4.close();
-    assertEquals(output4, "{error_bad_request=no file name specified}");
-  }
+    @Test
+    public void testBasicGetUser() throws IOException {
+        tryRequest("clear-user?uid=mock-user");
+        tryRequest("add-lounge?uid=mock-user&spot-id=2");
+        tryRequest("add-lounge?uid=mock-user&spot-id=4");
+        tryRequest("add-lounge?uid=mock-user&spot-id=5");
+        HttpURLConnection clientConnection = tryRequest("get-user?uid=mock-user");
+        // loading csv
+        assertEquals(200, clientConnection.getResponseCode());
+        InputStream inputStream = clientConnection.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String output = reader.readLine();
+        reader.close();
+        inputStream.close();
+        assertEquals(output, "{\"response_type\":\"success\",\"saved-spots\":[{\"id\":\"2\",\"title\":\"Main Green\",\"building\":\"Outside\",\"Description\":\"\",\"natural_light_level\":\"4\",\"noise_level\":\"2\",\"outlet_availability\":\"0\",\"room_size\":\"2\",\"private\":\"0\",\"food\":\"0\",\"view\":\"0\",\"home\":\"1\",\"latitude\":\"41.82623\",\"longitude\":\"-71.40338\",\"hours_open\":\"n/a\",\"hours_close\":\"n/a\",\"days_open\":\"1111111\",\"hours\":\"\",\"study_room\":\"0\",\"google_link \":\"https://www.google.com/maps/place/John+D.+Rockefeller,+Jr.+Library/@41.8257007,-71.4051436,15z/data=!4m6!3m5!1s0x89e44446ec7c0d51:0x2fde92d441a35057!8m2!3d41.8257007!4d-71.4051436!16s%2Fm%2F047mq5j?entry=ttu\",\"campus_position\":\"south\"},{\"id\":\"4\",\"title\":\"Alphabet Room\",\"building\":\"Pembroke Hall\",\"Description\":\"\",\"natural_light_level\":\"3\",\"noise_level\":\"0\",\"outlet_availability\":\"1\",\"room_size\":\"2\",\"private\":\"1\",\"food\":\"0\",\"view\":\"1\",\"home\":\"2\",\"latitude\":\"41.82918\",\"longitude\":\"-71.40266\",\"hours_open\":\"\",\"hours_close\":\"17:00\",\"days_open\":\"\",\"hours\":\"\",\"study_room\":\"0\",\"google_link \":\"https://www.google.com/maps/place/John+D.+Rockefeller,+Jr.+Library/@41.8257007,-71.4051436,15z/data=!4m6!3m5!1s0x89e44446ec7c0d51:0x2fde92d441a35057!8m2!3d41.8257007!4d-71.4051436!16s%2Fm%2F047mq5j?entry=ttu\",\"campus_position\":\"north\"},{\"id\":\"5\",\"title\":\"Kassar FOX\",\"building\":\"Kassar\",\"Description\":\"\",\"natural_light_level\":\"0\",\"noise_level\":\"1\",\"outlet_availability\":\"1\",\"room_size\":\"2\",\"private\":\"1\",\"food\":\"0\",\"view\":\"0\",\"home\":\"0\",\"latitude\":\"41.82527\",\"longitude\":\"-71.40003\",\"hours_open\":\"\",\"hours_close\":\"17:00\",\"days_open\":\"0111110\",\"hours\":\"\",\"study_room\":\"0\",\"google_link \":\"https://www.google.com/maps/place/John+D.+Rockefeller,+Jr.+Library/@41.8257007,-71.4051436,15z/data=!4m6!3m5!1s0x89e44446ec7c0d51:0x2fde92d441a35057!8m2!3d41.8257007!4d-71.4051436!16s%2Fm%2F047mq5j?entry=ttu\",\"campus_position\":\"south\"}]}");
 
-  @Test
-  public void testViewHandler() throws IOException {
-    HttpURLConnection clientConnectionLoader =
-        tryRequest("loadcsv?filename=/stars/ten-star.csv&columnheaders=true");
-    assertEquals(200, clientConnectionLoader.getResponseCode());
-    // viewing csv
-    HttpURLConnection clientConnectionFile = tryRequest("viewcsv");
-    assertEquals(200, clientConnectionFile.getResponseCode());
-
-    // searching object, found
-    //    tryRequest("loadcsv?filename=/stars/ten-star.csv");
-
-    HttpURLConnection clientConnectionSearch = tryRequest("searchcsv?object=Sol");
-    assertEquals(200, clientConnectionSearch.getResponseCode());
-    InputStream inputStream = clientConnectionSearch.getInputStream();
-    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-    String output = reader.readLine();
-    reader.close();
-    inputStream.close();
-    assertEquals(
-        output,
-        "{\"searchedObject\":\"Sol\",\"responseMap\":{\"found rows\":[[\"0\",\"Sol\",\"0\",\"0\",\"0\"]],\"response_type\":\"'Sol' found in row 0: [0, Sol, 0, 0, 0]\"}}");
-
-    // searching object, not found
-    HttpURLConnection clientConnectionSearch2 = tryRequest("searchcsv?object=NULL");
-    assertEquals(200, clientConnectionSearch2.getResponseCode());
-    // searching object, no parameters
-    HttpURLConnection clientConnectionSearch3 = tryRequest("searchcsv?");
-    assertEquals(200, clientConnectionSearch3.getResponseCode());
-    // searching object, column out of bounds / invalid
-    HttpURLConnection clientConnectionSearch4 = tryRequest("searchcsv?object=Sol&column=10");
-    assertEquals(200, clientConnectionSearch4.getResponseCode());
-    // searching object, column in bounds, found
-    HttpURLConnection clientConnectionSearch5 = tryRequest("searchcsv?object=Sol&column=1");
-    assertEquals(200, clientConnectionSearch5.getResponseCode());
-    // searching object, column in bounds, not found
-    HttpURLConnection clientConnectionSearch6 = tryRequest("searchcsv?object=Sol&column=0");
-    assertEquals(200, clientConnectionSearch6.getResponseCode());
-  }
-
-  @Test
-  public void testBroadbandHandler() throws IOException {
-    // bad county
-    HttpURLConnection clientBroadband = tryRequest("broadband?state=new+york&county=null");
-    assertEquals(200, clientBroadband.getResponseCode());
-
-    //    bad state
-    HttpURLConnection clientBroadband2 =
-        tryRequest("broadband?state=null&county=westchester+county");
-    assertEquals(200, clientBroadband2.getResponseCode());
-
-    // neither state nor county
-    HttpURLConnection clientBroadband3 = tryRequest("broadband");
-    assertEquals(200, clientBroadband3.getResponseCode());
-
-    // no county
-    HttpURLConnection clientBroadband4 = tryRequest("broadband?state=new+york");
-    assertEquals(200, clientBroadband4.getResponseCode());
-
-    // no state
-    HttpURLConnection clientBroadband5 = tryRequest("broadband?county=westchester+county");
-    assertEquals(200, clientBroadband5.getResponseCode());
-
-    // good state
-    HttpURLConnection clientBroadband6 =
-        tryRequest("broadband?county=westchester+county&state=New+York");
-    assertEquals(200, clientBroadband5.getResponseCode());
-    InputStream inputStream = clientBroadband6.getInputStream();
-    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-    String output = reader.readLine();
-    reader.close();
-    inputStream.close();
-    assertEquals(
-        output,
-        "NoBroadbandDataStateResponse[invalid_state=state not found, state=new york, responseMap={result=error_datasource}]");
-  }
+    }
 }

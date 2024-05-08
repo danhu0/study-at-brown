@@ -44,10 +44,6 @@ public class Server {
       //      Spark.get("list-lounges", new ListLoungesHandler(firebaseUtils));
       Spark.get("clear-user", new ClearUserHandler(firebaseUtils));
 
-      //      GeoJsonSharedState sharedState = new GeoJsonSharedState();
-      //      Spark.get("set-geodata", new SetGeoDataHandler(new GeoDatasource(), sharedState));
-      //      Spark.get("get-geodata", new GetGeoDataHandler(sharedState));
-
       Spark.get("get-user", new GetUserDataHandler(firebaseUtils, data));
       Spark.get("get-recs", new GetRecsHandler(firebaseUtils, data));
       Spark.get("get-hot", new HOTStudyHandler(data));
@@ -55,10 +51,6 @@ public class Server {
       Spark.get("get-distance", new DistanceHandler());
       Spark.get("get-reviews", new GetReviewsHandler(firebaseUtils));
       Spark.get("add-review", new AddReviewHandler(firebaseUtils));
-
-      // mocked verison of set-geodata, for testing only
-      // Spark.get("set-geodata", new SetGeoDataHandler(new MockDataSource(),
-      // sharedState));
 
       Spark.notFound(
           (request, response) -> {
