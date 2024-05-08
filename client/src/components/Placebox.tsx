@@ -41,10 +41,21 @@ export interface PlaceboxProps {
 
 
 export default function getLoungeBox(props: PlaceboxProps) {
+  // const [reviews, setReviews] = useState<String[]>([])
+// useEffect(() => {
+//   // Fetch reviews when component mounts or when props.id changes
+//   fetchReviews();
+// }, [props.id]);
+
   async function starButtonHandler() {
-    alert(props.title + " added to favorites");
     await addLounge(props);
+    alert(props.title + " added to favorites");
   }
+
+  // async function fetchReviews() {
+  //   const spotReviews= await getReviews(props.id);
+  //   setReviews(spotReviews)
+  // }
 
   return (
     <div className="placebox" aria-label="placebox">
@@ -77,9 +88,10 @@ export default function getLoungeBox(props: PlaceboxProps) {
         <ImageCarousel images={Images[props.id]} />
         
       </div>
-      <button className="button" onClick={() => getReviews(props.id)}>See Reviews</button>
+      {/* <button className="button" onClick={() => fetchReviews()}>See Reviews</button>
       <text>Leave a review!    </text>
-      <input className="reviewInput"></input>
+      <input className="reviewInput"></input> */}
+      {/* {<p>{reviews.toString()}</p>} */}
     </div>
   );
 }
