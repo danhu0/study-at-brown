@@ -18,6 +18,7 @@ export default function HomePage() {
 
   return (
     <div className="header">
+      <img src="/Brown-University-Logo.png" className="brown-logo"></img>
       <h1
         onClick={() => setSection(Section.SEARCH_AND_CLEAR)}
         aria-label="Page Title"

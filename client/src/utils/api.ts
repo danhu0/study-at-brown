@@ -43,6 +43,18 @@ export async function addLounge(lounge: PlaceboxProps) {
   });
 }
 
+export async function getReviews(id: number) {
+  return await queryAPI("get-reviews", {
+    "spot-id": id.toString(), // what if multiple lounges named same thing?
+  });
+}
+export async function addReview(uid: string=getLoginCookie() || "", id: number, review: string) {
+  return await queryAPI("add-review", {
+    uid: uid,
+    "spot-id": id.toString(), 
+    review: review
+  });
+}
 /**
  * Function which queries the getCoords endpoint. This function is used to get the coordinates from the user's data.
  * @returns a promise that resolves to the response from the server
