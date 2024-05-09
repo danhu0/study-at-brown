@@ -58,7 +58,6 @@ export default function getLoungeBox(props: PlaceboxProps) {
   function popupHandler() {
     return <p>hi</p>;
   }
-  console.log(props);
   return (
     <div className="placebox" aria-label="placebox">
       {/* <li> */}

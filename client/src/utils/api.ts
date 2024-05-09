@@ -12,7 +12,6 @@ async function queryAPI(
   // query_params is a dictionary of key-value pairs that gets added to the URL as query parameters
   // e.g. { foo: "bar", hell: "o" } becomes "?foo=bar&hell=o"
   const paramsString = new URLSearchParams(query_params).toString();
-  console.log(paramsString);
   const url = `${HOST}/${endpoint}?${paramsString}`;
   const response = await fetch(url);
   if (!response.ok) {
@@ -82,7 +81,6 @@ export async function getRecs(attributes: SearchParameters) {
     encodeURIComponent(attributes.home) +
     "&num_spots=7";
 
-  console.log(url);
   const response = await fetch(url);
 
   const json = await response.json();
@@ -101,17 +99,19 @@ async function getUserLocation() {
 export async function deserializeResponse(
   response: any
 ): Promise<PlaceboxProps[]> {
-  console.log("HERE");
+  return await utilHelper(response);
+}
 
-  const loc = userLocation;
-  // const userLocation = await getUserLocation();
+export async function utilHelper(response: any) {
+  const loc = await userLocation;
   const deserializedResponse = await Promise.all(
     response.best_spots.map(async (spot: any) => {
-      const distance = await getDistance(
-        await loc,
-        spot.latitude,
-        spot.longitude
-      );
+      let distance;
+      if (loc) {
+        distance = await getDistance(loc, spot.latitude, spot.longitude);
+      } else {
+        distance = "N/A";
+      }
       return {
         id: spot.id,
         title: spot.title,
@@ -128,7 +128,7 @@ export async function deserializeResponse(
         long: parseFloat(spot.longitude),
         building: spot.building,
         study_room: "", // Add study_room if available
-        google_link: "", // Add google_link if available
+        google_link: spot.google_link, // Add google_link if available
         distance: distance,
       };
     })
@@ -136,25 +136,10 @@ export async function deserializeResponse(
   return deserializedResponse;
 }
 
-export function deserializeFavoritesResponse(response: any): PlaceboxProps[] {
-  return response["saved-spots"].map((spot: any) => ({
-    id: spot.id,
-    title: spot.title,
-    description: "", // Add description if available
-    natural_light_level: parseInt(spot.natural_light_level),
-    noise_level: parseInt(spot.noise_level),
-    outlet_availability: parseInt(spot.outlet_availability),
-    room_size: parseInt(spot.room_size),
-    private: parseInt(spot.private),
-    food: parseInt(spot.food),
-    view: spot.view,
-    comfort: 0, // Add comfort if available
-    lat: parseFloat(spot.latitude),
-    long: parseFloat(spot.longitude),
-    building: spot.building,
-    study_room: "", // Add study_room if available
-    google_link: "", // Add google_link if available
-  }));
+export async function deserializeFavoritesResponse(
+  response: any
+): Promise<PlaceboxProps[]> {
+  return await utilHelper(response["saved-spots"]);
 }
 
 // export async function isFavorited(id: string) { //number in string format
