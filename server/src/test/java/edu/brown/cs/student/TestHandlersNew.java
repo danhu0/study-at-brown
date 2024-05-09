@@ -43,7 +43,7 @@ public class TestHandlersNew {
 
     @BeforeEach
     public void setup() {
-      setUpServer();
+      setUpServer(true);
     }
 
     @AfterEach

@@ -5,6 +5,7 @@ import static spark.Spark.after;
 import edu.brown.cs.student.main.server.constants.Constants;
 import edu.brown.cs.student.main.server.handlers.*;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
+import edu.brown.cs.student.main.server.storage.MockedUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import edu.brown.cs.student.main.server.utils.Utils;
 import edu.brown.cs.student.main.server.utils.VectorizedData;
@@ -14,7 +15,7 @@ import spark.Spark;
 
 /** Top Level class for our project, utilizes spark to create and maintain our server. */
 public class Server {
-  public static void setUpServer() {
+  public static void setUpServer(boolean mock) {
     int port = 3232;
     Spark.port(port);
 
@@ -38,7 +39,11 @@ public class Server {
 
     StorageInterface firebaseUtils;
     try {
-      firebaseUtils = new FirebaseUtilities();
+      if(!mock)
+        firebaseUtils = new FirebaseUtilities();
+      else
+        firebaseUtils = new MockedUtilities();
+
       // Add endpoints
       Spark.get("add-lounge", new AddLoungeHandler(firebaseUtils));
       //      Spark.get("list-lounges", new ListLoungesHandler(firebaseUtils));
@@ -76,7 +81,6 @@ public class Server {
    * @param args none
    */
   public static void main(String[] args) {
-
-    setUpServer();
+    setUpServer(false);
   }
 }
