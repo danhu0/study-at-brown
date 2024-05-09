@@ -39,10 +39,8 @@ public class Server {
 
     StorageInterface firebaseUtils;
     try {
-      if(!mock)
-        firebaseUtils = new FirebaseUtilities();
-      else
-        firebaseUtils = new MockedUtilities();
+      if (!mock) firebaseUtils = new FirebaseUtilities();
+      else firebaseUtils = new MockedUtilities();
 
       // Add endpoints
       Spark.get("add-lounge", new AddLoungeHandler(firebaseUtils));

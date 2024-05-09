@@ -36,7 +36,7 @@ public class GetUserDataHandler implements Route {
       List<Integer> spots =
           vals.stream().map(spot -> Integer.parseInt(spot.get("id").toString())).toList();
       List<Map<String, String>> spotRecords = new ArrayList<>();
-      for (int spotId : spots) { //convert from id to data
+      for (int spotId : spots) { // convert from id to data
         double vector[] = this.data.idsToVector().get(spotId);
         spotRecords.add(this.data.vectorToData().get(vector).toMap());
       }
