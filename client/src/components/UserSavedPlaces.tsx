@@ -46,11 +46,11 @@ export default function GetUserData() {
           <p>data</p>
         </div>
       ))}      */}
-      <p className="reviewprompt">
+      {/* <p className="reviewprompt">
         Review this website/ give us place suggestions!
       </p>
       <input className="reviewInput"></input>
-      <button className="button" onClick={() => {}}>Submit </button>
+      <button className="button" onClick={() => {}}>Submit </button> */}
       {/* Not sure where these suggestions will go yet */}
     </div>
   );
