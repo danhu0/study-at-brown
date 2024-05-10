@@ -53,7 +53,7 @@ public class Server {
       Spark.get("get-hot", new HOTStudyHandler(data));
       Spark.get("get-data", new GetDataHandler(data));
       Spark.get("get-distance", new DistanceHandler());
-      Spark.get("get-reviews", new GetReviewHandler(firebaseUtils));
+      Spark.get("get-reviews", new GetReviewsHandler(firebaseUtils));
       Spark.get("add-review", new AddReviewHandler(firebaseUtils));
 
       // mocked verison of set-geodata, for testing only

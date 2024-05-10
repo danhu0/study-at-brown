@@ -7,7 +7,8 @@ import { addLounge, getReviews } from "../utils/api";
 import { getAttributes } from "./Attributes";
 import ImageCarousel from "./Carousel";
 import { Images } from "./ImageDirectory";
-import Popup from "react-map-gl/dist/esm/components/popup";
+import Reviews from "./Reviews";
+
 
 export enum CampusPosition {
   NORTH = "north campus",
@@ -33,17 +34,28 @@ export interface PlaceboxProps {
   study_room: string;
   google_link: string;
   distance: string;
-
-  // hours: Array<Array<String>>;
-
-  // campusposition: CampusPosition;
 }
 
 export default function getLoungeBox(props: PlaceboxProps) {
+  // const [reviews, setReviews] = useState<boolean>(false)
+  // useEffect(()  => {
+    
+  //   const fetchReviews = async () => {
+  //     const reviews = await getReviews(props.id)
+  //     console.log(reviews)
+  //     setReviews(reviews["reviews"].map((review: { [x: string]: any; }) => review["review"]))
+  //   };
+  // }, []);
+
   async function starButtonHandler() {
-    alert(props.title + " added to favorites");
     await addLounge(props);
+    alert(props.title + " added to favorites");
   }
+
+  // async function fetchReviews() {
+  //   const spotReviews=await getReviews(props.id);
+  //   setReviews(spotReviews["reviews"].map((review: { [x: string]: any; }) => review["review"]))
+  // }
 
   return (
     <div className="placebox" aria-label="placebox">
@@ -71,22 +83,20 @@ export default function getLoungeBox(props: PlaceboxProps) {
       >
         {" "}
         Find it
-      </a>
-      {/* {isFavorited(props.id)} then we can have the button, else remove favorited*/}
 
+      </a>      
       <p></p>
       <div className="carousel-container" aria-label="carousel-container">
         <ImageCarousel images={Images[props.id]} />
+        <p></p><p></p>
+      <Reviews loungeid={props.id}></Reviews>
       </div>
-      <button className="button" onClick={() => getReviews(props.id)}>
-        See Reviews
-      </button>
-      <text>Leave a review! </text>
-      <input className="reviewInput"></input>
+
     </div>
   );
 }
 
+  
 export async function getDistance(
   currentLocation: GeolocationCoordinates,
   targetLat: string,

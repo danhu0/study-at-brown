@@ -4,7 +4,7 @@ import getRelavantLounges, { PlaceboxProps, getDistance } from "./Placebox";
 import { MockedData } from "./MockedData";
 import { useEffect, useState } from "react";
 import getLoungeBox from "./Placebox";
-import { getRecs, deserializeResponse } from "../utils/api";
+import { getRecs, deserializeResponse, getReviews } from "../utils/api";
 import { SearchParameters } from "./SearchParameters";
 
 async function getUserLocation() {
@@ -229,6 +229,7 @@ export default function SearchHomePage() {
           <div className="lounges-container" aria-label="lounges-container">
             {data.map((data, index) => (
               <div className="lounge" key={index}>
+                {/* {<p></p>} */}        
                 {getLoungeBox(data)}
               </div>
             ))}
