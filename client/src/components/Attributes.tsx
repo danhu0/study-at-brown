@@ -13,7 +13,6 @@ export function getAttributes(props: PlaceboxProps): Array<String> {
   //     attributes.push(currentValue + " available");
   //   });
   // }
-
   // Natural Light
   attributes.push(
     strengthThreshold(props.natural_light_level) + " natural light"
@@ -26,7 +25,8 @@ export function getAttributes(props: PlaceboxProps): Array<String> {
   if (props.view) attributes.push("good view");
 
   // Privacy
-  if (props.private) attributes.push("private");
+  // if (props.private) attributes.push("private");
+  attributes.push(strengthThreshold(props.private) + " privacy");
 
   // Comfort
   attributes.push(strengthThreshold(props.comfort) + " comfort");
@@ -43,9 +43,9 @@ export function getAttributes(props: PlaceboxProps): Array<String> {
  * @returns - qualitative interpretation of the quanity
  */
 function strengthThreshold(quantity: number): string {
-  if (quantity <= 3) {
+  if (quantity <= 0) {
     return "little ";
-  } else if (quantity <= 6) {
+  } else if (quantity <= 1) {
     return "moderate ";
   } else {
     return "lots of ";
