@@ -49,9 +49,9 @@ export async function getReviews(id: number) {
     "spot-id": id.toString(), // what if multiple lounges named same thing?
   });
 }
-export async function addReview(uid: string=getLoginCookie() || "", id: number, review: string) {
+export async function addReview(id: number, review: string) {
   return await queryAPI("add-review", {
-    uid: uid,
+    uid: getLoginCookie() || "",
     "spot-id": id.toString(), 
     review: review
   });

@@ -142,7 +142,8 @@ h3 {
   width: 400px;
   max-width: 400px;
   overflow: hidden;
-  height: 400px;
+  height: 600px;
+  max-height: 500px;
 }
 
 .lounges-container {
@@ -160,6 +161,50 @@ h3 {
 .starbutton {
   background-color: transparent;
   border-color: transparent;
+}
+.reviews {
+  position: relative;
+}
+
+.reviews-scroll {
+  max-height: 100px;
+  /* overflow: auto; */
+  margin-bottom: 20px;
+}
+
+.reviewinput {
+  position: absolute;
+  bottom: -100px;
+  left: 0;
+  width: 100%;
+  /* background-color: #fff; */
+  padding-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.reviewslist {
+  list-style-type: square;
+  margin-left: 0;
+  padding-left: 00px;
+  padding-right:30px;
+  /* width: 80%; */
+  background-color: aliceblue;
+  border-top: 1px solid #282c34;
+  max-height: 80px;
+  overflow:scroll
+}
+.listreviews{
+  margin-left: 0;
+  text-align: left;
+  border-radius: 8px;
+  border: 3px solid;
+}
+
+.showReviewsButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
 }
 
 .attributes {
@@ -257,7 +302,7 @@ h3 {
 .carousel-container {
   width: 400px;
   max-width: 400px;
-  overflow: hidden;
+  overflow:scroll;
   height: 400px;
 }
 
@@ -292,10 +337,10 @@ h3 {
   max-width: 100%;
 }
 
-.reviewprompt {
+/* .reviewprompt {
   font-size: 15px;
   background-color: aquamarine;
-}
+} */
 
 .loading-text {
   /* display: flex;

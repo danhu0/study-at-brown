@@ -7,7 +7,8 @@ import { addLounge, getReviews } from "../utils/api";
 import { getAttributes } from "./Attributes";
 import ImageCarousel from "./Carousel";
 import { Images } from "./ImageDirectory";
-import Popup from "react-map-gl/dist/esm/components/popup";
+import Reviews from "./Reviews";
+
 
 export enum CampusPosition {
   NORTH = "north campus",
@@ -33,19 +34,19 @@ export interface PlaceboxProps {
   study_room: string;
   google_link: string;
   distance: string;
-
-  // hours: Array<Array<String>>;
-
-  // campusposition: CampusPosition;
 }
 
 
 export default function getLoungeBox(props: PlaceboxProps) {
-  // const [reviews, setReviews] = useState<String[]>([])
-// useEffect(() => {
-//   // Fetch reviews when component mounts or when props.id changes
-//   fetchReviews();
-// }, [props.id]);
+  // const [reviews, setReviews] = useState<boolean>(false)
+  // useEffect(()  => {
+    
+  //   const fetchReviews = async () => {
+  //     const reviews = await getReviews(props.id)
+  //     console.log(reviews)
+  //     setReviews(reviews["reviews"].map((review: { [x: string]: any; }) => review["review"]))
+  //   };
+  // }, []);
 
   async function starButtonHandler() {
     await addLounge(props);
@@ -53,8 +54,8 @@ export default function getLoungeBox(props: PlaceboxProps) {
   }
 
   // async function fetchReviews() {
-  //   const spotReviews= await getReviews(props.id);
-  //   setReviews(spotReviews)
+  //   const spotReviews=await getReviews(props.id);
+  //   setReviews(spotReviews["reviews"].map((review: { [x: string]: any; }) => review["review"]))
   // }
 
   return (
@@ -80,22 +81,18 @@ export default function getLoungeBox(props: PlaceboxProps) {
       >
         {" "}
         Find it
-      </a>
-      {/* {isFavorited(props.id)} then we can have the button, else remove favorited*/}
-      
+      </a>      
       <p></p>
       <div className="carousel-container" aria-label="carousel-container">
         <ImageCarousel images={Images[props.id]} />
-        
+        <p></p><p></p>
+      <Reviews loungeid={props.id}></Reviews>
       </div>
-      {/* <button className="button" onClick={() => fetchReviews()}>See Reviews</button>
-      <text>Leave a review!    </text>
-      <input className="reviewInput"></input> */}
-      {/* {<p>{reviews.toString()}</p>} */}
     </div>
   );
 }
 
+  
 export async function getDistance(
   currentLocation: GeolocationCoordinates,
   targetLat: string,

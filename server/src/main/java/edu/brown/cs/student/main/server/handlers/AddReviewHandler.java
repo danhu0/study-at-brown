@@ -53,8 +53,10 @@ public class AddReviewHandler implements Route {
 
       System.out.println("adding review: (" + review + ") for user: " + uid);
       // use the storage handler to add the document to the database
-      this.storageHandler.addDocument("reviews", loungeID, loungeID + "-reviews", data);
+      int reviewCount = this.storageHandler.getCollection("reviews", loungeID + "-reviews").size();
 
+      this.storageHandler.addDocument(
+          "reviews", loungeID + "-reviews", "review-" + reviewCount, data);
       responseMap.put("response_type", "success");
       responseMap.put("review", data);
       responseMap.put("spot-id", id);

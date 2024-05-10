@@ -41,7 +41,8 @@ public class GetReviewsHandler implements Route {
       // get the current word count to make a unique word_id by index.
       // System.out.println(this.storageHandler.getCollection(uid, "saved-spots").);
       // get all the spots for the user
-      List<Map<String, Object>> vals = this.storageHandler.getCollection("reviews", "spot-" + id);
+      List<Map<String, Object>> vals =
+          this.storageHandler.getCollection("reviews", "spot-" + id + "-reviews");
 
       // convert the key,value map to just a list of the spots.
       //      List<String> spots = vals.stream().map(spot -> spot.get("name").toString()).toList();
