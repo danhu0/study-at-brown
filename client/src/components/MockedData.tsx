@@ -1,4 +1,4 @@
-import { CampusPosition, PlaceboxProps } from "./Placebox";
+import { CampusPosition, PlaceboxProps } from "./placebox/Placebox";
 
 export const MockedData: PlaceboxProps[] = [
   {

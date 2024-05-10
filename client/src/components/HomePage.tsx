@@ -1,8 +1,6 @@
 import { useState } from "react";
-import ClearPins from "./SearchLounge";
-// import Mapbox from "./Mapbox";
-import SearchLounge from "./SearchLounge";
-import UserSavedPlaces from "./UserSavedPlaces";
+import SearchLounge from "./search/SearchLounge";
+import UserSavedPlaces from "./favorites/UserSavedPlaces";
 
 enum Section {
   SEARCH_AND_CLEAR = "SEARCH_AND_CLEAR",
@@ -10,8 +8,9 @@ enum Section {
   SAVED_PLACES = "SAVED_PLACES",
 }
 /**
- *  Maps component displays a div with buttons and a map.
- * @returns a div with buttons and a map
+ * This component is essentially the "home" or default view
+ *
+ * @returns a div with buttons and the infrastructure for searching
  */
 export default function HomePage() {
   const [section, setSection] = useState<Section>(Section.SEARCH_AND_CLEAR);

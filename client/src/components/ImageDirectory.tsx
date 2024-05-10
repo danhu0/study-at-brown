@@ -2,8 +2,11 @@ export type ImagesType = {
   [key: number]: string[];
 };
 
+/**
+ * Images directory mapping image ids to their file paths
+ */
 export const Images: ImagesType = {
-  1: ["src/MockedAssets/3/Rock.jpg"],
+  1: ["src/MockedAssets/1/PhilosophyLibrary.jpg"],
   2: ["src/MockedAssets/2/MainGreen.jpg"],
   3: ["src/MockedAssets/3/134C.jpg"],
   4: ["src/MockedAssets/4/AlphabetRoom.jpg"],

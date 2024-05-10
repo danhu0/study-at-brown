@@ -1,10 +1,16 @@
-import { Attributes } from "react";
-import { PlaceboxProps, getDistance } from "../components/Placebox";
+import { PlaceboxProps, getDistance } from "../components/placebox/Placebox";
 import { getLoginCookie } from "./cookie";
-import { SearchParameters } from "../components/SearchParameters";
-import { userLocation } from "../components/SearchLounge";
+import { SearchParameters } from "../components/search/SearchParameters";
+import { userLocation } from "../components/search/SearchLounge";
 const HOST = "http://localhost:3232";
 
+/**
+ * Easy API Query function
+ *
+ * @param endpoint
+ * @param query_params
+ * @returns the result of the query
+ */
 async function queryAPI(
   endpoint: string,
   query_params: Record<string, string>
@@ -32,7 +38,8 @@ export async function clearUser(uid: string = getLoginCookie() || "") {
 }
 
 /**
- * Function which queries the addCoords endpoint. This function is used to add coordinates to the user's data.
+ * Function which queries the add-lounge endpoint
+ *
  * @param lat latitude
  * @param long longitude
  */
@@ -43,20 +50,35 @@ export async function addLounge(lounge: PlaceboxProps) {
   });
 }
 
+/**
+ * Queries the get-reviews for a specific place
+ *
+ * @param id - the id of a location
+ * @returns the reviews associated with that location
+ */
 export async function getReviews(id: number) {
   return await queryAPI("get-reviews", {
     "spot-id": id.toString(), // what if multiple lounges named same thing?
   });
 }
+
+/**
+ * Queries the backend API to add a review
+ *
+ * @param id - the id of the place we're reviewing
+ * @param review - the content of the review
+ * @returns the result of the query
+ */
 export async function addReview(id: number, review: string) {
   return await queryAPI("add-review", {
     uid: getLoginCookie() || "",
-    "spot-id": id.toString(), 
-    review: review
+    "spot-id": id.toString(),
+    review: review,
   });
 }
+
 /**
- * Function which queries the getCoords endpoint. This function is used to get the coordinates from the user's data.
+ * Function which queries the get-user endpoint.
  * @returns a promise that resolves to the response from the server
  */
 export async function getLounges() {
@@ -65,6 +87,13 @@ export async function getLounges() {
   });
 }
 
+/**
+ * Queries the backend API to get data for a lounge id
+ *
+ * @param id - the id of the place we're reviewing
+ * @param review - the content of the review
+ * @returns the result of the query
+ */
 export async function getLoungeData(id: string) {
   //number in string format
   return await queryAPI("get-data", {
@@ -72,6 +101,13 @@ export async function getLoungeData(id: string) {
   });
 }
 
+/**
+ * Queries the backend API to get reccomendations given attributes
+ *
+ * @param id - the id of the place we're reviewing
+ * @param review - the content of the review
+ * @returns the result of the query
+ */
 export async function getRecs(attributes: SearchParameters) {
   const url =
     "http://localhost:3232/get-recs?" +
@@ -99,26 +135,13 @@ export async function getRecs(attributes: SearchParameters) {
   return deserializeResponse(json, "best_spots");
 }
 
-async function getUserLocation() {
-  const location = await new Promise<GeolocationPosition>((resolve, reject) => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(resolve, reject);
-    }
-  });
-  return location.coords;
-}
-
-// export async function deserializeResponse(
-//   response: any
-// ): Promise<PlaceboxProps[]> {
-//   return await utilHelper(response, "best_spots");
-// }
-// export async function deserializeFavoritesResponse(
-//   response: any
-// ): Promise<PlaceboxProps[]> {
-//   return await utilHelper(response, "saved-spots");
-// }
-export async function deserializeResponse(response: any, spotsType:string) {
+/**
+ * Converts the response into Placebox Props so we can construct a Placebox
+ * @param response - the response from the API
+ * @param spotsType
+ * @returns - the deserialized response
+ */
+export async function deserializeResponse(response: any, spotsType: string) {
   const loc = await userLocation;
   const deserializedResponse = await Promise.all(
     response[spotsType].map(async (spot: any) => {
@@ -131,7 +154,7 @@ export async function deserializeResponse(response: any, spotsType:string) {
       return {
         id: spot.id,
         title: spot.title,
-        description: "", // Add description if available
+        description: "", // Description functionality not currently used
         natural_light_level: parseInt(spot.natural_light_level),
         noise_level: parseInt(spot.noise_level),
         outlet_availability: parseInt(spot.outlet_availability),
@@ -139,45 +162,16 @@ export async function deserializeResponse(response: any, spotsType:string) {
         private: parseInt(spot.private),
         food: parseInt(spot.food),
         view: spot.view,
-        comfort: 0, // Add comfort if available
+        comfort: spot.home,
         lat: parseFloat(spot.latitude),
         long: parseFloat(spot.longitude),
         building: spot.building,
-        study_room: "", // Add study_room if available
-        google_link: spot.google_link, // Add google_link if available
+        study_room: "", // Future potential functionality involving study rooms
+        google_link: spot.google_link,
         distance: distance,
+        campus_position: spot.campus_position,
       };
     })
   );
   return deserializedResponse;
 }
-
-
-
-// export async function isFavorited(id: string) { //number in string format
-//   return await queryAPI("is-favorited", {
-//     uid: getLoginCookie() || "",
-//     id: id,
-//   });
-// }
-// /**
-//  * Function which queries the addWord endpoint. This function is used to add a word to the user's data.
-//  * @param word the word to add
-//  * @returns a promise that resolves to the response from the server
-//  */
-// export async function addWord(word: string) {
-//   return await queryAPI("add-word", {
-//     uid: getLoginCookie() || "",
-//     word: word,
-//   });
-// }
-
-// /**
-//  * Function which queries the getWords endpoint. This function is used to get the words from the user's data.
-//  * @returns a promise that resolves to the response from the server
-//  */
-// export async function getWords() {
-//   return await queryAPI("list-words", {
-//     uid: getLoginCookie() || "",
-//   });
-// }

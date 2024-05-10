@@ -3,10 +3,6 @@ import "../styles/App.css";
 import Maps from "./HomePage";
 import AuthRoute from "./auth/AuthRoute";
 
-// REMEMBER TO PUT YOUR API KEY IN A FOLDER THAT IS GITIGNORED!!
-// (for instance, /src/private/api_key.tsx)
-// import {API_KEY} from "./private/api_key"
-
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,
@@ -18,6 +14,11 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 
+/**
+ * Top level app function
+ *
+ * @returns the app
+ */
 function App() {
   return (
     <div className="App">

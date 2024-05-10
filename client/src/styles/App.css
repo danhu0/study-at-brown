@@ -27,7 +27,7 @@ h3 {
   color: white;
 }
 
-.brown-logo{
+.brown-logo {
   block-size: 100px;
   position: absolute;
   top: 8px;
@@ -133,9 +133,15 @@ h3 {
   border-width: 15px;
 }
 
-.placebox img {
+.placebox {
   width: 100%;
   max-width: 350px;
+}
+
+.placecard-image {
+  width: 300px;
+  height: 250px;
+  object-fit: cover;
 }
 
 .carousel-container {
@@ -182,18 +188,33 @@ h3 {
   box-sizing: border-box;
 }
 
+.reviewInput {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-weight: 500;
+  color: darkslategrey;
+
+  border-radius: 8px;
+  border: 3px solid;
+  padding: 0.6em 1.2em;
+  font-size: 0.95em;
+  margin: 5px 5px;
+  cursor: pointer;
+}
+
 .reviewslist {
   list-style-type: square;
   margin-left: 0;
   padding-left: 00px;
-  padding-right:30px;
+  padding-right: 30px;
   /* width: 80%; */
   background-color: aliceblue;
   border-top: 1px solid #282c34;
   max-height: 80px;
-  overflow:scroll
+  overflow: scroll;
 }
-.listreviews{
+.listreviews {
   margin-left: 0;
   text-align: left;
   border-radius: 8px;
@@ -266,23 +287,20 @@ h3 {
   color: white;
 }
 
-
 .button {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   font-weight: 500;
-  color:darkslategrey;
+  color: darkslategrey;
   background-color: white;
-  
 }
-
 
 .search-choices {
   text-align: center;
 }
 .placebox {
-  background-color:rgba(236, 241, 236, 0.722);
+  background-color: rgba(236, 241, 236, 0.722);
   width: fit-content;
   max-width: 400px;
   height: 600px;
@@ -290,7 +308,7 @@ h3 {
   align-items: center;
   text-align: center;
   border-radius: 20px;
-  border-style:double;
+  border-style: double;
   border-width: 15px;
 }
 
@@ -302,8 +320,8 @@ h3 {
 .carousel-container {
   width: 400px;
   max-width: 400px;
-  overflow:scroll;
-  height: 400px;
+  overflow: scroll;
+  height: 435px;
 }
 
 .lounges-container {
@@ -319,7 +337,6 @@ h3 {
 }
 
 .starbutton {
-  
   border-radius: 40px;
   background-color: transparent;
   border-color: transparent;
