@@ -48,9 +48,9 @@ export async function getReviews(id: number) {
     "spot-id": id.toString(), // what if multiple lounges named same thing?
   });
 }
-export async function addReview(uid: string=getLoginCookie() || "", id: number, review: string) {
+export async function addReview(id: number, review: string) {
   return await queryAPI("add-review", {
-    uid: uid,
+    uid: getLoginCookie() || "",
     "spot-id": id.toString(), 
     review: review
   });
@@ -96,7 +96,7 @@ export async function getRecs(attributes: SearchParameters) {
   const response = await fetch(url);
 
   const json = await response.json();
-  return deserializeResponse(json);
+  return deserializeResponse(json, "best_spots");
 }
 
 async function getUserLocation() {
@@ -108,16 +108,20 @@ async function getUserLocation() {
   return location.coords;
 }
 
-export async function deserializeResponse(
-  response: any
-): Promise<PlaceboxProps[]> {
-  return await utilHelper(response);
-}
-
-export async function utilHelper(response: any) {
+// export async function deserializeResponse(
+//   response: any
+// ): Promise<PlaceboxProps[]> {
+//   return await utilHelper(response, "best_spots");
+// }
+// export async function deserializeFavoritesResponse(
+//   response: any
+// ): Promise<PlaceboxProps[]> {
+//   return await utilHelper(response, "saved-spots");
+// }
+export async function deserializeResponse(response: any, spotsType:string) {
   const loc = await userLocation;
   const deserializedResponse = await Promise.all(
-    response.best_spots.map(async (spot: any) => {
+    response[spotsType].map(async (spot: any) => {
       let distance;
       if (loc) {
         distance = await getDistance(loc, spot.latitude, spot.longitude);
@@ -148,11 +152,7 @@ export async function utilHelper(response: any) {
   return deserializedResponse;
 }
 
-export async function deserializeFavoritesResponse(
-  response: any
-): Promise<PlaceboxProps[]> {
-  return await utilHelper(response["saved-spots"]);
-}
+
 
 // export async function isFavorited(id: string) { //number in string format
 //   return await queryAPI("is-favorited", {
