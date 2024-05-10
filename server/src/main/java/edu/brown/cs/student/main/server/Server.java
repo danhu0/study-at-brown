@@ -55,6 +55,7 @@ public class Server {
       Spark.get("get-distance", new DistanceHandler());
       Spark.get("get-reviews", new GetReviewsHandler(firebaseUtils));
       Spark.get("add-review", new AddReviewHandler(firebaseUtils));
+      Spark.get("is-favorited", new UserFavoritedHandler(firebaseUtils));
 
       // mocked verison of set-geodata, for testing only
       // Spark.get("set-geodata", new SetGeoDataHandler(new MockDataSource(),
