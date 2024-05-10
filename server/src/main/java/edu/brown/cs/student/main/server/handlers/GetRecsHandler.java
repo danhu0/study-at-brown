@@ -20,18 +20,6 @@ public class GetRecsHandler implements Route {
     this.storageHandler = storageHandler;
   }
 
-  //    try
-  //    {
-  //      double[] thing = this.getUserTasteProfile("mock-user");
-  //      for(double thinG: thing) {
-  //        System.out.print(thinG+", ");
-  //      }
-  //      System.out.println();
-  //    }
-  //    catch(Exception e){
-  //      e.printStackTrace();
-  //    }
-
   /**
    * Set up query vector for a request based on the included attributes specified in the Constants
    * class.

@@ -5,6 +5,7 @@ import static spark.Spark.after;
 import edu.brown.cs.student.main.server.constants.Constants;
 import edu.brown.cs.student.main.server.handlers.*;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
+import edu.brown.cs.student.main.server.storage.MockedUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import edu.brown.cs.student.main.server.utils.Utils;
 import edu.brown.cs.student.main.server.utils.VectorizedData;
@@ -14,7 +15,7 @@ import spark.Spark;
 
 /** Top Level class for our project, utilizes spark to create and maintain our server. */
 public class Server {
-  public static void setUpServer() {
+  public static void setUpServer(boolean mock) {
     int port = 3232;
     Spark.port(port);
 
@@ -38,15 +39,13 @@ public class Server {
 
     StorageInterface firebaseUtils;
     try {
-      firebaseUtils = new FirebaseUtilities();
+      if (!mock) firebaseUtils = new FirebaseUtilities();
+      else firebaseUtils = new MockedUtilities();
+
       // Add endpoints
       Spark.get("add-lounge", new AddLoungeHandler(firebaseUtils));
       //      Spark.get("list-lounges", new ListLoungesHandler(firebaseUtils));
       Spark.get("clear-user", new ClearUserHandler(firebaseUtils));
-
-      //      GeoJsonSharedState sharedState = new GeoJsonSharedState();
-      //      Spark.get("set-geodata", new SetGeoDataHandler(new GeoDatasource(), sharedState));
-      //      Spark.get("get-geodata", new GetGeoDataHandler(sharedState));
 
       Spark.get("get-user", new GetUserDataHandler(firebaseUtils, data));
       Spark.get("get-recs", new GetRecsHandler(firebaseUtils, data));
@@ -56,10 +55,6 @@ public class Server {
       Spark.get("get-reviews", new GetReviewsHandler(firebaseUtils));
       Spark.get("add-review", new AddReviewHandler(firebaseUtils));
       Spark.get("is-favorited", new UserFavoritedHandler(firebaseUtils));
-
-      // mocked verison of set-geodata, for testing only
-      // Spark.get("set-geodata", new SetGeoDataHandler(new MockDataSource(),
-      // sharedState));
 
       Spark.notFound(
           (request, response) -> {
@@ -85,7 +80,6 @@ public class Server {
    * @param args none
    */
   public static void main(String[] args) {
-
-    setUpServer();
+    setUpServer(true);
   }
 }
