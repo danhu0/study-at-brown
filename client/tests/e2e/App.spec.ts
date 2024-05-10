@@ -1,14 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { clearUser } from "../../src/utils/api";
 
-/**
-  The general shapes of tests in Playwright Test are:
-    1. Navigate to a URL
-    2. Interact with the page
-    3. Assert something about the page against your expectations
-  Look for this pattern in the tests below!
- */
-
 const SPOOF_UID = "mock-user-id";
 
 test.beforeEach(
@@ -28,18 +20,13 @@ test.beforeEach(
   }
 );
 
-/**
- * Don't worry about the "async" yet. We'll cover it in more detail
- * for the next sprint. For now, just think about "await" as something
- * you put before parts of your test that might take time to run,
- * like any interaction with the page.
- */
 test("on page load, I see the home screen and skip auth.", async ({ page }) => {
   // Notice: http, not https! Our front-end is not set up for HTTPs.
   await page.goto("http://localhost:8000/");
   await expect(page.getByText("Study @ Brown")).toBeVisible();
   await expect(page.getByText("Home")).toBeVisible();
   await expect(page.getByText("User's Favorites")).toBeVisible();
+  await expect(page.getByText("Send search to backend")).toBeVisible();
   await expect(page.getByText("Noise Level")).toBeVisible();
   await expect(page.getByText("Sign Out")).toBeVisible();
 
@@ -75,6 +62,7 @@ test("after favoriting a lounge, it shows up in user favorites section", async (
   // Notice: http, not https! Our front-end is not set up for HTTPs.
   await page.goto("http://localhost:8000/");
 
+  await expect(page.getByLabel("star-button")).toHaveCount(3);
   await page.getByLabel("star-button").first().click();
   await page.getByLabel("User-favorites-button").click();
 
@@ -91,4 +79,48 @@ test("load the page, sign out, google logged out page", async ({ page }) => {
   await expect(page.getByLabel("logout-button")).toBeVisible();
   await page.getByLabel("logout-button").click();
   await expect(page.getByLabel("login-button")).toBeVisible();
+});
+
+test("basic input to backend", async ({ page }) => {
+  // Notice: http, not https! Our front-end is not set up for HTTPs.
+  await page.goto("http://localhost:8000/");
+
+  await page.getByText("Send Search To Backend").click();
+
+  await expect(page.getByLabel("placebox")).toHaveCount(7);
+
+  await expect(page.getByText("Blue Room")).toBeVisible();
+});
+
+test("input to backend using an attribute", async ({ page }) => {
+  // Notice: http, not https! Our front-end is not set up for HTTPs.
+  await page.goto("http://localhost:8000/");
+
+  await page.getByLabel("noisedropdown").selectOption("2");
+
+  await page.getByText("Send Search To Backend").click();
+
+  await expect(page.getByLabel("placebox")).toHaveCount(7);
+
+  await expect(page.getByText("Blue Room")).toBeVisible();
+
+  await expect(page.getByText("Bolt")).toBeVisible();
+
+  await expect(page.getByText("Ceremony")).toBeVisible();
+});
+
+test("input to backend using two attributes", async ({ page }) => {
+  // Notice: http, not https! Our front-end is not set up for HTTPs.
+  await page.goto("http://localhost:8000/");
+
+  await page.getByLabel("noisedropdown").selectOption("0");
+  await page.getByLabel("natlightdropdown").selectOption("3");
+
+  await page.getByText("Send Search To Backend").click();
+
+  await expect(page.getByLabel("placebox")).toHaveCount(7);
+
+  await expect(page.getByText("The Hay")).toBeVisible();
+
+  await expect(page.getByText("Rhode Island Hall")).toBeVisible();
 });

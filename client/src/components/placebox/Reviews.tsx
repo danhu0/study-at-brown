@@ -69,7 +69,6 @@ export default function Reviews(props: ReviewsProps) {
             </ul>
           </div>
         )}
-        <p></p>
       </div>
       <div className="reviewinput">
         <input

@@ -41,8 +41,11 @@ public class MockedUtilities implements StorageInterface {
   public List<Map<String, Object>> getCollection(String uid, String collection_id)
       throws InterruptedException, ExecutionException {
     List<Map<String, Object>> data = new ArrayList<>();
-    for (Map m : this.userData.get(uid).get(collection_id).values()) {
-      data.add(m);
+    System.out.println(this.userData.get(uid).get(collection_id));
+    if (this.userData.get(uid).get(collection_id).values() != null) {
+      for (Map m : this.userData.get(uid).get(collection_id).values()) {
+        data.add(m);
+      }
     }
     return data;
   }
