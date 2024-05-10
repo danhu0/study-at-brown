@@ -19,7 +19,8 @@ export function getAttributes(props: PlaceboxProps): Array<String> {
   if (props.view) attributes.push("good view");
 
   // Privacy
-  if (props.private) attributes.push("private");
+  // if (props.private) attributes.push("private");
+  attributes.push(strengthThreshold(props.private) + " privacy");
 
   // Comfort
   attributes.push(strengthThreshold(props.comfort) + " comfort");

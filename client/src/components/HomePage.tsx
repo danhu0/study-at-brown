@@ -4,7 +4,6 @@ import UserSavedPlaces from "./favorites/UserSavedPlaces";
 
 enum Section {
   SEARCH_AND_CLEAR = "SEARCH_AND_CLEAR",
-  MAP = "MAP",
   SAVED_PLACES = "SAVED_PLACES",
 }
 /**

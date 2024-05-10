@@ -160,7 +160,7 @@ h3 {
 }
 
 .lounge {
-  flex: 1; /* Adjust flex properties as needed */
+  flex: 1;
   margin: 20px;
 }
 
@@ -168,13 +168,18 @@ h3 {
   background-color: transparent;
   border-color: transparent;
 }
+.favoritedstar {
+  border-radius: 40px;
+  background-color: gold;
+  border-color: gold;
+}
+
 .reviews {
   position: relative;
 }
 
 .reviews-scroll {
   max-height: 100px;
-  /* overflow: auto; */
   margin-bottom: 20px;
 }
 
@@ -183,7 +188,6 @@ h3 {
   bottom: -100px;
   left: 0;
   width: 100%;
-  /* background-color: #fff; */
   padding-bottom: 10px;
   box-sizing: border-box;
 }
@@ -332,7 +336,7 @@ h3 {
 }
 
 .lounge {
-  flex: 1; /* Adjust flex properties as needed */
+  flex: 1;
   margin: 20px;
 }
 
@@ -354,16 +358,7 @@ h3 {
   max-width: 100%;
 }
 
-/* .reviewprompt {
-  font-size: 15px;
-  background-color: aquamarine;
-} */
-
 .loading-text {
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   text-align: center;
-  /* width: 100%; */
   width: 300px;
 }

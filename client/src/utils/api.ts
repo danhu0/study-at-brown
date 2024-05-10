@@ -38,36 +38,33 @@ export async function clearUser(uid: string = getLoginCookie() || "") {
 }
 
 /**
- * Function which queries the add-lounge endpoint
- *
- * @param lat latitude
- * @param long longitude
+ * Function which queries the addLounge endpoint. This function is used to add lounges to the user's favorited data.
+ * @param lounge: PlaceboxProps
  */
 export async function addLounge(lounge: PlaceboxProps) {
   return await queryAPI("add-lounge", {
     uid: getLoginCookie() || "",
-    "spot-id": lounge.id.toString(), // what if multiple lounges named same thing?
+    "spot-id": lounge.id.toString(),
   });
 }
 
 /**
- * Queries the get-reviews for a specific place
- *
- * @param id - the id of a location
- * @returns the reviews associated with that location
+ * Function which queries the getReviews endpoint. This function is used to get
+ * all the given reviews for a lounge
+ * @param id: number, the lounge id
  */
 export async function getReviews(id: number) {
   return await queryAPI("get-reviews", {
-    "spot-id": id.toString(), // what if multiple lounges named same thing?
+    "spot-id": id.toString(),
   });
 }
 
 /**
- * Queries the backend API to add a review
+ * Function which queries the addReview endpoint. This function is used to add
+ * reviews to the lounge. It will be linked to the user's uid so admin may
+ * know who added the review
  *
- * @param id - the id of the place we're reviewing
- * @param review - the content of the review
- * @returns the result of the query
+ * @param lounge: PlaceboxProps
  */
 export async function addReview(id: number, review: string) {
   return await queryAPI("add-review", {
@@ -79,6 +76,9 @@ export async function addReview(id: number, review: string) {
 
 /**
  * Function which queries the get-user endpoint.
+ * Function which queries the getLounges endpoint. This function is used to
+ * get the lounges from the user's favorites.
+ *
  * @returns a promise that resolves to the response from the server
  */
 export async function getLounges() {
@@ -88,25 +88,22 @@ export async function getLounges() {
 }
 
 /**
- * Queries the backend API to get data for a lounge id
+ * Function which queries the getLounge endpoint.
+ * This function is used to receive the lounge data from a specific lounge
  *
- * @param id - the id of the place we're reviewing
- * @param review - the content of the review
- * @returns the result of the query
+ * @param id: string, the loung id
  */
 export async function getLoungeData(id: string) {
-  //number in string format
   return await queryAPI("get-data", {
     id: id,
   });
 }
 
 /**
- * Queries the backend API to get reccomendations given attributes
- *
- * @param id - the id of the place we're reviewing
- * @param review - the content of the review
- * @returns the result of the query
+ * Function which queries the get-recs endpoint. This function is
+ * used to input the search into the backend given the user's parameters
+ * using the dropdown interface
+ * @param attributes: SearchParameters
  */
 export async function getRecs(attributes: SearchParameters) {
   const url =
@@ -135,12 +132,15 @@ export async function getRecs(attributes: SearchParameters) {
   return deserializeResponse(json, "best_spots");
 }
 
-/**
- * Converts the response into Placebox Props so we can construct a Placebox
- * @param response - the response from the API
- * @param spotsType
- * @returns - the deserialized response
- */
+async function getUserLocation() {
+  const location = await new Promise<GeolocationPosition>((resolve, reject) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    }
+  });
+  return location.coords;
+}
+
 export async function deserializeResponse(response: any, spotsType: string) {
   const loc = await userLocation;
   const deserializedResponse = await Promise.all(
@@ -174,4 +174,12 @@ export async function deserializeResponse(response: any, spotsType: string) {
     })
   );
   return deserializedResponse;
+}
+
+export async function isFavorited(id: number) {
+  //number in string format
+  return await queryAPI("is-favorited", {
+    uid: getLoginCookie() || "",
+    "spot-id": id.toString(),
+  });
 }

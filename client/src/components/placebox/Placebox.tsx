@@ -3,6 +3,7 @@
  */
 
 import { addLounge } from "../../utils/api";
+import FavoriteStar from "./FavoriteStar";
 import { Images } from "../ImageDirectory";
 import { getAttributes } from "./Attributes";
 import Carousel from "./Carousel/Carousel";
@@ -50,14 +51,7 @@ export default function getLoungeBox(props: PlaceboxProps) {
     <div className="placebox" aria-label="placebox">
       <h3>
         {props.title + " [" + props.distance + "]"}
-        <button
-          onClick={() => starButtonHandler()}
-          className="starbutton"
-          aria-label="star-button" //allows user to add to favorites list
-        >
-          {" "}
-          ⭐{" "}
-        </button>
+        <FavoriteStar lounge={props}></FavoriteStar>
       </h3>
       <p>{props.description}</p>
       <div className="attributes-container" aria-label="attributes-container">
