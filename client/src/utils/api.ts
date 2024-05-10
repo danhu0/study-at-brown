@@ -111,13 +111,17 @@ async function getUserLocation() {
 export async function deserializeResponse(
   response: any
 ): Promise<PlaceboxProps[]> {
-  return await utilHelper(response);
+  return await utilHelper(response, "best_spots");
 }
-
-export async function utilHelper(response: any) {
+export async function deserializeFavoritesResponse(
+  response: any
+): Promise<PlaceboxProps[]> {
+  return await utilHelper(response, "saved-spots");
+}
+export async function utilHelper(response: any, spotsType:string) {
   const loc = await userLocation;
   const deserializedResponse = await Promise.all(
-    response.best_spots.map(async (spot: any) => {
+    response[spotsType].map(async (spot: any) => {
       let distance;
       if (loc) {
         distance = await getDistance(loc, spot.latitude, spot.longitude);
@@ -148,11 +152,7 @@ export async function utilHelper(response: any) {
   return deserializedResponse;
 }
 
-export async function deserializeFavoritesResponse(
-  response: any
-): Promise<PlaceboxProps[]> {
-  return await utilHelper(response["saved-spots"]);
-}
+
 
 // export async function isFavorited(id: string) { //number in string format
 //   return await queryAPI("is-favorited", {
