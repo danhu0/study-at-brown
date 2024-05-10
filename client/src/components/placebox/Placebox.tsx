@@ -70,8 +70,6 @@ export default function getLoungeBox(props: PlaceboxProps) {
       <p></p>
       <div className="carousel-container" aria-label="carousel-container">
         <Carousel images={Images[props.id]} />
-        <p></p>
-        <p></p>
         <Reviews loungeid={props.id}></Reviews>
       </div>
     </div>

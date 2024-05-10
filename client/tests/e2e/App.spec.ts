@@ -37,11 +37,9 @@ test.beforeEach(
 test("on page load, I see the home screen and skip auth.", async ({ page }) => {
   // Notice: http, not https! Our front-end is not set up for HTTPs.
   await page.goto("http://localhost:8000/");
-  await expect(page.getByText("Lounge Locator")).toBeVisible();
+  await expect(page.getByText("Study @ Brown")).toBeVisible();
   await expect(page.getByText("Home")).toBeVisible();
   await expect(page.getByText("User's Favorites")).toBeVisible();
-  await expect(page.getByText("Quiet Level")).toBeVisible();
-  await expect(page.getByText("Natural Light")).toBeVisible();
   await expect(page.getByText("Noise Level")).toBeVisible();
   await expect(page.getByText("Sign Out")).toBeVisible();
 
@@ -54,33 +52,22 @@ test("load the page, click the user's favorites button, i see that page", async 
   // Notice: http, not https! Our front-end is not set up for HTTPs.
   await page.goto("http://localhost:8000/");
   await page.click("text=User's Favorites");
-  await expect(page.getByTitle);
+  expect(page.getByTitle);
   await expect(page.getByText("Clear Favorites")).toBeVisible();
-  await expect(
-    page.getByText("Review this website/ give us place suggestions!")
-  ).toBeVisible();
   await expect(page.getByText("Sign Out")).toBeVisible();
-  await expect(page.getByText("Lounge Locator")).toBeVisible();
+  await expect(page.getByText("Study @ Brown")).toBeVisible();
 
   // now when i go back to home page, goes there
   await page.click("text=Home");
-  await expect(page.getByText("Quiet Level")).toBeVisible();
+  await expect(page.getByText("Noise Level")).toBeVisible();
 });
 
-test("load the page, default random places are listed", async ({
-  page,
-}) => {
+test("load the page, default random places are listed", async ({ page }) => {
   // Notice: http, not https! Our front-end is not set up for HTTPs.
   await page.goto("http://localhost:8000/");
-  await expect(page.getByLabel("lounges-container")).toBeVisible();
-  await expect(page.getByLabel("placebox")).toBeVisible();
-  await expect(page.getByLabel("lounge-image")).toBeVisible();
-  await expect(page.getByLabel("attributes")).toBeVisible();
-
-  //if star-button is visible, placebox is visible too presumably
-  await expect(page.getByLabel("star-button")).toBeVisible()
+  await expect(page.getByLabel("placebox")).toHaveCount(3);
+  await expect(page.getByLabel("star-button")).toHaveCount(3);
 });
-
 
 test("after favoriting a lounge, it shows up in user favorites section", async ({
   page,
@@ -88,24 +75,20 @@ test("after favoriting a lounge, it shows up in user favorites section", async (
   // Notice: http, not https! Our front-end is not set up for HTTPs.
   await page.goto("http://localhost:8000/");
 
-  await page.getByLabel("star-button").click()
+  await page.getByLabel("star-button").first().click();
   await page.getByLabel("User-favorites-button").click();
 
-  await expect(page.getByLabel("lounges-container")).toBeVisible();
-  await expect(page.getByLabel("placebox")).toBeVisible();
+  await expect(page.getByLabel("placebox")).toHaveCount(1);
   await expect(page.getByLabel("lounge-image")).toBeVisible();
-  await expect(page.getByLabel("attributes")).toBeVisible();
 
   //if star-button is visible, placebox is visible too presumably
-  await expect(page.getByLabel("star-button")).toBeVisible()
+  await expect(page.getByLabel("star-button")).toBeVisible();
 });
 
-test("load the page, sign out, google logged out page", async ({
-  page,
-}) => {
+test("load the page, sign out, google logged out page", async ({ page }) => {
   // Notice: http, not https! Our front-end is not set up for HTTPs.
   await page.goto("http://localhost:8000/");
   await expect(page.getByLabel("logout-button")).toBeVisible();
-  await page.getByLabel("logout-button").click()
+  await page.getByLabel("logout-button").click();
   await expect(page.getByLabel("login-button")).toBeVisible();
 });

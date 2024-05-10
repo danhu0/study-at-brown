@@ -26,9 +26,13 @@ export default function FavoriteStar(props: FavoriteStarProps) {
   return (
     <div onClick={toggleFavorite}>
       {favorited ? (
-        <text className="favoritedstar">⭐</text>
+        <text aria-label="star-button" className="favoritedstar">
+          ⭐
+        </text>
       ) : (
-        <text className="NOTfavoritedstar">⭐</text>
+        <text aria-label="star-button" className="NOTfavoritedstar">
+          ⭐
+        </text>
       )}
     </div>
   );

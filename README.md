@@ -1,4 +1,5 @@
 # Project Details
+
 Project name: Study @ Brown @ courses@brown.cs.edu.com (Vesuvius Challenge Grand Prize Winner)
 
 Team members: Eitan Zemel (ezemel), Daniel Hu (dhu34), Christopher Butulis (cbutulis), Elizabeth Gresalfi (ergresalf)
@@ -6,6 +7,7 @@ Team members: Eitan Zemel (ezemel), Daniel Hu (dhu34), Christopher Butulis (cbut
 Link to repo: https://github.com/danhu0/study-at-brown
 
 # Design Choices
+
 This project is a lounge locator. Its purpose is for when you need to find a spot to study and you're in Brown University and you can't decide where to plop your stuff down. This is for you.
 
 The webpage opens to a random assortment of study spots. The user can search for spots based on certain criteria such as natural light level, noise level, outlet availability, etc. The user can favorite certain spots that they especially like, which will be tied to their Brown account and saved across sessions. If the user allows location access, each spot will display walking distance from the user in minutes. Users can leave reviews on spots that will show up publicly.
@@ -19,21 +21,27 @@ Project uses Moshi for ease of JSON parsing, Apache Commons CSV for CSV parsing,
 For accessibility, the project uses aria-labels and aria-descriptions for integration with screen readers.
 
 # Errors/Bugs
+
 Running the full backend JUnit test suite runs into server issues, so the tests must be run individually.
 
 # Tests
+
 Frontend tests use playwright, integration tests use vite, and backend tests use JUnit.
 
 Frontend:
+First comment out these imports in Carousel.tsx:
+`import "slick-carousel/slick/slick.css";`
+`import "slick-carousel/slick/slick-theme.css";`
 To run, cd into client and run
-    `npx playwright install`
-    `npm run test`
+`npx playwright install`
+`npm run test`
 Unit tests are in tests/unit and end to end tests are in tests/e2e. Both test files use Playwright.
 
 Backend:
 Tests are found in server/src/test/java/edu/brown/cs/student/. To run, each test must be run individually.
 
 # How to
+
 To run the backend server, navigate to the server directory and run `./run`.
 To run the front end, navigate to the client directory, then run `npm install` and then `npm run start`.
 
@@ -53,7 +61,7 @@ clear-user: uid*
 get-data: id*
 get-distance: current_lat*, current_long*, target_lat*, target_long*
 add-review: uid*, spot-id*, review*
-get-reviews: spot-id*
+get-reviews: spot-id\*
 
 Example queries:
 
@@ -62,5 +70,5 @@ Example queries:
 For the jsons returned, `response_type` will be set to either "success" or "failure". On success, there will be a "result" field with the json, and on failure, there will be an "error" field with the error message.
 
 # Collaboration
-none
 
+Used React slick [documentation](https://www.npmjs.com/package/react-slick) to implement image carousels.
