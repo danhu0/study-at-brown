@@ -18,7 +18,7 @@ export default function GetUserData() {
   async function handleSearchSubmit() {
     setMocked(true);
   }
-
+  console.log("here we go")
   useEffect(() => {
     async function fetchData() {
       const data = await getLounges();
@@ -31,6 +31,11 @@ export default function GetUserData() {
     fetchData();
   }, []);
 
+  const handleClearFavorites = () => {
+    clearUser();
+    setLounges([]);
+  };
+
   return (
     <div>
       <button className="button" onClick={() => handleClearFavorites()}>
@@ -38,6 +43,7 @@ export default function GetUserData() {
       </button>
       <div className="lounges-container">
         {lounges.map((lounge, index) => (
+          
           <div key={index}>{getLoungeBox(lounge)}</div>
         ))}
       </div>
