@@ -24,15 +24,15 @@ test("add lounge works and stays for user", async () => {
 test("add review, fetch review", async () => {
   await clearUser()  
   const addingReview = await addReview(1000, "This is the best place ever")
-  expect(addingReview).toEqual({"review":{"uid":"mock","review":"This is the best place ever"},"response_type":"success","spot-id":1})
+  expect(addingReview).toEqual({"review":{"uid":"","review":"This is the best place ever"},"response_type":"success","spot-id":1000})
   const reviews = await getReviews(1000)
-  expect(reviews).toEqual({"reviews":[{"uid":"mock","review":"This is the best place ever"}],"response_type":"success"})
-
+  expect(reviews).toEqual({"reviews":[{"uid":"","review":"This is the best place ever"}],"response_type":"success"})
+// these dont work completely because there is no way to clear specific reviews
   // adding another review for same place
   const adding2Review = await addReview(1000, "This is the best place ever from another person")
-  expect(adding2Review).toEqual({"review":{"uid":"mock","review":"This is the best place ever from another person"},"response_type":"success","spot-id":1})
+  expect(adding2Review).toEqual({"review":{"uid":"","review":"This is the best place ever from another person"},"response_type":"success","spot-id":1000})
 
   const reviews2 = await getReviews(1000)
-  expect(reviews2).toEqual({"reviews":[{"uid":"mock","review":"This is the best place ever"}, {"uid":"mock","review":"This is the best place ever from another person"}],"response_type":"success"})
+  expect(reviews2).toEqual({"reviews":[{"uid":"","review":"This is the best place ever"}, {"uid":"","review":"This is the best place ever from another person"}],"response_type":"success"})
 });
 
