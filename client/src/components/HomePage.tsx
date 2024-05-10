@@ -6,12 +6,10 @@ import UserSavedPlaces from "./UserSavedPlaces";
 
 enum Section {
   SEARCH_AND_CLEAR = "SEARCH_AND_CLEAR",
-  MAP = "MAP",
   SAVED_PLACES = "SAVED_PLACES",
 }
 /**
- *  Maps component displays a div with buttons and a map.
- * @returns a div with buttons and a map
+ *  Homepage component displays a div with buttons and a search query.
  */
 export default function HomePage() {
   const [section, setSection] = useState<Section>(Section.SEARCH_AND_CLEAR);
