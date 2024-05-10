@@ -1,0 +1,41 @@
+ ,title,building,Description,natural_light_level,noise_level,outlet_availability,room_size,private,food,view,home,latitude,longitude,hours_open,hours_close,days_open,hours,study_room,google_link ,campus_position
+1,Third Floor Library,Philosophy Department,,2,0,1,0,0,0,1,2,41.82792,-71.40355,8:30,17:00,0111110,"[
+      [""9:30"", ""17:00""],
+      [""9:30"", ""17:00""],
+      [""9:30"", ""17:00""],
+      [""9:30"", ""17:00""],
+      [""9:30"", ""17:00""],
+      [""9:30"", ""17:00""],
+      [""9:30"", ""17:00""],
+    ]",0,"https://www.google.com/maps/place/John+D.+Rockefeller,+Jr.+Library/@41.8257007,-71.4051436,15z/data=!4m6!3m5!1s0x89e44446ec7c0d51:0x2fde92d441a35057!8m2!3d41.8257007!4d-71.4051436!16s%2Fm%2F047mq5j?entry=ttu",south
+2,Main Green,Outside,,4,2,0,2,0,0,0,1,41.82623,-71.40338,n/a,n/a,1111111,,0,"https://www.google.com/maps/place/John+D.+Rockefeller,+Jr.+Library/@41.8257007,-71.4051436,15z/data=!4m6!3m5!1s0x89e44446ec7c0d51:0x2fde92d441a35057!8m2!3d41.8257007!4d-71.4051436!16s%2Fm%2F047mq5j?entry=ttu",south
+3,134C,The Rock,,1,0,2,0,2,1,0,0,41.82568,-71.40502,8:00,2:00 AM,1111111,,1,"https://www.google.com/maps/place/John+D.+Rockefeller,+Jr.+Library/@41.8257007,-71.4051436,15z/data=!4m6!3m5!1s0x89e44446ec7c0d51:0x2fde92d441a35057!8m2!3d41.8257007!4d-71.4051436!16s%2Fm%2F047mq5j?entry=ttu",south
+4,Alphabet Room,Pembroke Hall,,3,0,1,2,1,0,1,2,41.82918,-71.40266,,17:00,,,0,"https://www.google.com/maps/place/John+D.+Rockefeller,+Jr.+Library/@41.8257007,-71.4051436,15z/data=!4m6!3m5!1s0x89e44446ec7c0d51:0x2fde92d441a35057!8m2!3d41.8257007!4d-71.4051436!16s%2Fm%2F047mq5j?entry=ttu",north
+5,Kassar FOX,Kassar House ,,0,1,1,2,1,0,0,0,41.82527,-71.40003,,17:00,0111110,,0,"https://www.google.com/maps/place/John+D.+Rockefeller,+Jr.+Library/@41.8257007,-71.4051436,15z/data=!4m6!3m5!1s0x89e44446ec7c0d51:0x2fde92d441a35057!8m2!3d41.8257007!4d-71.4051436!16s%2Fm%2F047mq5j?entry=ttu",south
+6,German Studies Library,190 Hope St,,3,1,1,1,1,0,1,3,41.82709859,-71.39958376,8:00,17:00,111110,,0,"https://www.google.com/maps/place/Thomas+J.+Watson+Sr.+Center+for+Information+Technology,+115+Waterman+St,+Providence,+RI+02912/@41.8269387,-71.4021372,17z/data=!3m1!4b1!4m6!3m5!1s0x89e4453b529c2f87:0x99037ce1419dbf7c!8m2!3d41.8269387!4d-71.3995623!16s%2Fg%2F1v2kyfqz?entry=ttu",south
+7,CIT Lobby,CIT,,1,1,1,2,1,1,0,1,41.82709859,-71.39958376,8:00,17:00,111110,,1,"https://www.google.com/maps/place/Thomas+J.+Watson+Sr.+Center+for+Information+Technology,+115+Waterman+St,+Providence,+RI+02912/@41.8269387,-71.4021372,17z/data=!3m1!4b1!4m6!3m5!1s0x89e4453b529c2f87:0x99037ce1419dbf7c!8m2!3d41.8269387!4d-71.3995623!16s%2Fg%2F1v2kyfqz?entry=ttu",south
+8,Ceremony,Ceremony ,,3,2,2,1,0,2,0,2,41.82867741,-71.3996425,8:00,17:00,111110,,0,"https://www.google.com/maps/place/Ceremony/@41.8285895,-71.3997176,15z/data=!4m2!3m1!1s0x0:0x3eb1e5885a840ab8?sa=X&ved=1t:2428&ictx=111&cshid=1713672763848988",off
+9,Carr Haus ,Carr Haus,,3,2,2,1,0,2,1,3,41.824138,-71.401485,,,,,0,https://www.google.com/maps/search/?api=1&query=Carr+Haus+Providence,off
+10,Bolt,RISD Museum,,2,2,1,2,0,2,0,1,41.824269,-71.402164,,,,,0,https://www.google.com/maps/search/?api=1&query=Bolt+Providence,off
+11,The Hay,John Hay Library,,2,0,2,2,0,0,0,3,41.826416,-71.401661,,,,,0,https://www.google.com/maps/search/?api=1&query=The+Hay+Providence,south
+12,The Watson,IAPA Department,,2,1,1,1,1,0,0,1,41.826112,-71.400646,,,,,0,https://www.google.com/maps/search/?api=1&query=The+Watson+Providence,south
+13,Orwig Library,Orwig,,2,1,1,1,1,0,0,0,41.826356,-71.400804,,,,,0,https://www.google.com/maps/search/?api=1&query=Orwig+Library+Providence,south
+14,SciLi,The Sciences Library,,1,0,2,2,1,1,1,0,41.826733,-71.401349,,,,,0,https://www.google.com/maps/search/?api=1&query=SciLi+Providence,south
+15,Leung Family Gallery,Faunce,,2,1,1,2,0,2,1,2,41.826959,-71.401901,,,,,0,https://www.google.com/maps/search/?api=1&query=Leung+Family+Gallery+Providence,south
+16,Blue Room,Faunce,,3,2,0,2,0,2,1,1,41.826831,-71.400793,,,,,0,https://www.google.com/maps/search/?api=1&query=Blue+Room+Providence,south
+17,Underground,Faunce,,1,2,0,1,0,1,0,2,41.826831,-71.400793,,,,,0,https://www.google.com/maps/search/?api=1&query=Underground+Providence,south
+18,Mochamp Lounge,Morris Champlin,,2,2,2,1,1,0,0,0,41.827569,-71.401317,,,,,0,https://www.google.com/maps/search/?api=1&query=Mochamp+Lounge+Providence,north
+19,Andrews Commons,Andrews Hall,,1,1,1,2,1,2,0,1,41.826472,-71.401577,,,,,0,https://www.google.com/maps/search/?api=1&query=Andrews+Commons+Providence,north
+20,Rhode Island Hall,Department of Archaeology,,3,1,2,1,2,0,1,2,41.828819,-71.401014,,,,,0,https://www.google.com/maps/search/?api=1&query=Rhode+Island+Hall+Providence,south
+21,Coffee Exchange,Coffee Exchange,,2,2,1,1,0,1,0,3,41.828156,-71.399974,,,,,0,https://www.google.com/maps/search/?api=1&query=Coffee+Exchange+Providence,off
+22,Small Point Cafe,Small Point Cafe,,2,2,1,1,0,1,0,3,41.828353,-71.399707,,,,,0,https://www.google.com/maps/search/?api=1&query=Small+Point+Cafe+Providence,off
+23,Sydney,New Pembroke 4,,2,2,1,1,0,1,0,2,41.827426,-71.400759,,,,,0,https://www.google.com/maps/search/?api=1&query=Sydney+Providence,north
+24,Zinnekin's ,Zinnekin's,,2,2,1,1,0,2,0,1,41.828211,-71.399851,,,,,0,https://www.google.com/maps/search/?api=1&query=Zinnekin%27s+Providence,off
+25,Tea in Sahara,Tea in Sahara,,2,1,2,1,1,2,0,3,41.828469,-71.399618,,,,,0,https://www.google.com/maps/search/?api=1&query=Tea+in+Sahara+Providence,off
+26,Alleppo Sweets,Alleppo Sweets,,2,2,1,1,1,2,0,3,41.827903,-71.399568,,,,,0,https://www.google.com/maps/search/?api=1&query=Alleppo+Sweets+Providence,off
+27,Starbucks,Starbucks,,3,2,2,1,0,1,0,1,41.827345,-71.399971,,,,,0,https://www.google.com/maps/search/?api=1&query=Starbucks+Providence,off
+28,Granoff Lobby ,Granoff Center,,1,1,2,2,2,0,0,0,41.827667,-71.40032,,,,,0,https://www.google.com/maps/search/?api=1&query=Granoff+Lobby+Providence,north
+29,Smitty B Classrooms,Smitty B,,1,0,2,1,2,0,0,1,41.827948,-71.399479,,,,,0,https://www.google.com/maps/search/?api=1&query=Smitty+B+Classrooms+Providence,north
+30,Ten One Tea,Ten One Tea,,3,2,1,0,0,0,0,0,41.82805,-71.400021,,,,,0,https://www.google.com/maps/search/?api=1&query=Ten+One+Tea+Providence,off
+31,Sydney Frank Lobby,Sydney Frank Hall ,,3,1,1,2,2,1,0,1,41.829194,-71.399459,,,,,0,https://www.google.com/maps/search/?api=1&query=Sydney+Frank+Lobby+Providence,north
+32,Metcalf Basement ,Metcalf Hall ,,1,1,1,1,2,0,0,1,41.8288,-71.399106,,,,,0,https://www.google.com/maps/search/?api=1&query=Metcalf+Basement+Providence,south

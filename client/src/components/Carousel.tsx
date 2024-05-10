@@ -16,15 +16,21 @@ export default function Carousel(props: CarouselProps) {
     slidesToScroll: 1,
   };
   return (
-    <Slider {...settings}>
-      {props.images.map((image, index) => (
-        <img
-        aria-label="lounge-image"
-          key={index}
-          src={image}
-          alt={"Image " + index + " of this study spot"}
-        />
-      ))}
-    </Slider>
+    <div>
+      {props.images != null && props.images.length != 0 ? (
+        <Slider {...settings}>
+          {props.images.map((image, index) => (
+            <img
+              aria-label="lounge-image"
+              key={index}
+              src={image}
+              alt={"Image " + index + " of this study spot"}
+            />
+          ))}
+        </Slider>
+      ) : (
+        <p>Image not found</p>
+      )}
+    </div>
   );
 }

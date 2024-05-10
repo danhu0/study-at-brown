@@ -52,6 +52,7 @@ export default function SearchHomePage() {
       setLoading(true);
       const response = await fetch("http://localhost:3232/get-hot");
       const json = await response.json();
+      console.log(json);
       setData(await deserializeResponse(json));
       setLoading(false);
     };
@@ -104,7 +105,6 @@ export default function SearchHomePage() {
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
-
           </select>
         </div>
         <div className="search-choices">
