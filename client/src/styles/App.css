@@ -162,6 +162,16 @@ h3 {
   background-color: transparent;
   border-color: transparent;
 }
+.favoritedstar{
+  border-radius: 40px;
+  /* border-radius: 20px; */
+  background-color: gold;
+  /* border-radius: 200px; */
+  border-color: gold
+}
+.NOTfavoritedstar{
+  /* background-color: chartreuse; */
+}
 .reviews {
   position: relative;
 }

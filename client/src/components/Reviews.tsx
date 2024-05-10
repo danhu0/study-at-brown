@@ -5,6 +5,12 @@ import { addReview, getReviews } from "../utils/api";
 export interface ReviewsProps {
   loungeid: number;
 }
+/**
+ * 
+ * @param props loungeid, number
+ * @returns the web items which show the user the reviews for each lounge
+ * and also gives them the opportunity to leave reviews of their own
+ */
 export default function Reviews(props: ReviewsProps) {
   const [reviews, setReviews] = useState<string[]>([]);
   const [showReviews, setShowReviews] = useState<boolean>(false);
@@ -18,12 +24,6 @@ export default function Reviews(props: ReviewsProps) {
       fetchData();
     }, []);
   const handleShowReviewButton = async () => {
-    // const response = await getReviews(props.loungeid);
-    // setReviews(
-    //   response["reviews"].map(
-    //     (review: { [x: string]: any }) => review["review"]
-    //   )
-    // );
     setShowReviews(!showReviews);
     if (reviews.length == 0) {
       setReviews(["No available reviews for lounge"]);

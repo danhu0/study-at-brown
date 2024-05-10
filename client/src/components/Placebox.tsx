@@ -8,6 +8,7 @@ import { getAttributes } from "./Attributes";
 import ImageCarousel from "./Carousel";
 import { Images } from "./ImageDirectory";
 import Reviews from "./Reviews";
+import FavoriteStar from "./FavoriteStar";
 
 
 export enum CampusPosition {
@@ -37,39 +38,12 @@ export interface PlaceboxProps {
 }
 
 export default function getLoungeBox(props: PlaceboxProps) {
-  // const [reviews, setReviews] = useState<boolean>(false)
-  // useEffect(()  => {
-    
-  //   const fetchReviews = async () => {
-  //     const reviews = await getReviews(props.id)
-  //     console.log(reviews)
-  //     setReviews(reviews["reviews"].map((review: { [x: string]: any; }) => review["review"]))
-  //   };
-  // }, []);
-
-  async function starButtonHandler() {
-    await addLounge(props);
-    alert(props.title + " added to favorites");
-  }
-
-  // async function fetchReviews() {
-  //   const spotReviews=await getReviews(props.id);
-  //   setReviews(spotReviews["reviews"].map((review: { [x: string]: any; }) => review["review"]))
-  // }
-
   return (
     <div className="placebox" aria-label="placebox">
       <h3>
         {props.title + " [" + props.distance + "]"}
-        <button
-          onClick={() => starButtonHandler()}
-          className="starbutton"
-          aria-label="star-button" //allows user to add to favorites list
-        >
-          {" "}
-          ⭐{" "}
-        </button>
-      </h3>
+          <FavoriteStar lounge={props}></FavoriteStar>
+                </h3>
       <p>{props.description}</p>
       <div className="attributes-container" aria-label="attributes-container">
         <p className="attributes" aria-label="attributes">

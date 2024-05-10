@@ -32,22 +32,33 @@ export async function clearUser(uid: string = getLoginCookie() || "") {
 }
 
 /**
- * Function which queries the addCoords endpoint. This function is used to add coordinates to the user's data.
- * @param lat latitude
- * @param long longitude
+ * Function which queries the addLounge endpoint. This function is used to add lounges to the user's favorited data.
+ * @param lounge: PlaceboxProps
  */
 export async function addLounge(lounge: PlaceboxProps) {
   return await queryAPI("add-lounge", {
     uid: getLoginCookie() || "",
-    "spot-id": lounge.id.toString(), // what if multiple lounges named same thing?
+    "spot-id": lounge.id.toString(), 
   });
 }
 
+/**
+ * Function which queries the getReviews endpoint. This function is used to get
+ * all the given reviews for a lounge
+ * @param id: number, the lounge id
+ */
 export async function getReviews(id: number) {
   return await queryAPI("get-reviews", {
-    "spot-id": id.toString(), // what if multiple lounges named same thing?
+    "spot-id": id.toString(), 
   });
 }
+
+/**
+ * Function which queries the addReview endpoint. This function is used to add 
+ * reviews to the lounge. It will be linked to the user's uid so admin may
+ * know who added the review 
+ * @param lounge: PlaceboxProps
+ */
 export async function addReview(id: number, review: string) {
   return await queryAPI("add-review", {
     uid: getLoginCookie() || "",
@@ -55,8 +66,10 @@ export async function addReview(id: number, review: string) {
     review: review
   });
 }
+
 /**
- * Function which queries the getCoords endpoint. This function is used to get the coordinates from the user's data.
+ * Function which queries the getLounges endpoint. This function is used to 
+ * get the lounges from the user's favorites.
  * @returns a promise that resolves to the response from the server
  */
 export async function getLounges() {
@@ -65,13 +78,23 @@ export async function getLounges() {
   });
 }
 
+/**
+ * Function which queries the getLounge endpoint. 
+ * This function is used to receive the lounge data from a specific lounge
+ * @param id: string, the loung id
+ */
 export async function getLoungeData(id: string) {
-  //number in string format
   return await queryAPI("get-data", {
     id: id,
   });
 }
 
+/**
+ * Function which queries the get-recs endpoint. This function is 
+ * used to input the search into the backend given the user's parameters
+ * using the dropdown interface
+ * @param attributes: SearchParameters
+ */
 export async function getRecs(attributes: SearchParameters) {
   const url =
     "http://localhost:3232/get-recs?" +
@@ -99,6 +122,7 @@ export async function getRecs(attributes: SearchParameters) {
   return deserializeResponse(json, "best_spots");
 }
 
+
 async function getUserLocation() {
   const location = await new Promise<GeolocationPosition>((resolve, reject) => {
     if (navigator.geolocation) {
@@ -108,16 +132,7 @@ async function getUserLocation() {
   return location.coords;
 }
 
-// export async function deserializeResponse(
-//   response: any
-// ): Promise<PlaceboxProps[]> {
-//   return await utilHelper(response, "best_spots");
-// }
-// export async function deserializeFavoritesResponse(
-//   response: any
-// ): Promise<PlaceboxProps[]> {
-//   return await utilHelper(response, "saved-spots");
-// }
+
 export async function deserializeResponse(response: any, spotsType:string) {
   const loc = await userLocation;
   const deserializedResponse = await Promise.all(
@@ -154,12 +169,12 @@ export async function deserializeResponse(response: any, spotsType:string) {
 
 
 
-// export async function isFavorited(id: string) { //number in string format
-//   return await queryAPI("is-favorited", {
-//     uid: getLoginCookie() || "",
-//     id: id,
-//   });
-// }
+export async function isFavorited(id: number) { //number in string format
+  return await queryAPI("is-favorited", {
+    uid: getLoginCookie() || "",
+    "spot-id": id.toString(),
+  });
+}
 // /**
 //  * Function which queries the addWord endpoint. This function is used to add a word to the user's data.
 //  * @param word the word to add
