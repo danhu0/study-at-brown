@@ -18,7 +18,7 @@ export default function GetUserData() {
   async function handleSearchSubmit() {
     setMocked(true);
   }
-
+  console.log("here we go")
   useEffect(() => {
     async function fetchData() {
       const data = await getLounges();
@@ -31,6 +31,11 @@ export default function GetUserData() {
     fetchData();
   }, []);
 
+  const handleClearFavorites = () => {
+    clearUser();
+    setLounges([]);
+  };
+
   return (
     <div>
       <button className="button" onClick={() => handleClearFavorites()}>
@@ -38,6 +43,7 @@ export default function GetUserData() {
       </button>
       <div className="lounges-container">
         {lounges.map((lounge, index) => (
+          
           <div key={index}>{getLoungeBox(lounge)}</div>
         ))}
       </div>
@@ -51,13 +57,11 @@ export default function GetUserData() {
           <p>data</p>
         </div>
       ))}      */}
-      <p className="reviewprompt">
+      {/* <p className="reviewprompt">
         Review this website/ give us place suggestions!
       </p>
       <input className="reviewInput"></input>
-      <button className="button" onClick={() => {}}>
-        Submit{" "}
-      </button>
+      <button className="button" onClick={() => {}}>Submit </button> */}
       {/* Not sure where these suggestions will go yet */}
     </div>
   );
