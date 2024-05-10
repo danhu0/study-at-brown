@@ -80,6 +80,6 @@ public class Server {
    * @param args none
    */
   public static void main(String[] args) {
-    setUpServer(true);
+    setUpServer(false);
   }
 }
