@@ -36,7 +36,6 @@ export interface PlaceboxProps {
   distance: string;
 }
 
-
 export default function getLoungeBox(props: PlaceboxProps) {
   // const [reviews, setReviews] = useState<boolean>(false)
   // useEffect(()  => {
@@ -60,14 +59,17 @@ export default function getLoungeBox(props: PlaceboxProps) {
 
   return (
     <div className="placebox" aria-label="placebox">
-
-            <h3>{props.title + " [" + props.distance + "]"}<button
-        onClick={() => starButtonHandler()}
-        className="starbutton" aria-label="star-button"//allows user to add to favorites list
-      >
-        {" "}
-        ⭐{" "}
-      </button></h3>
+      <h3>
+        {props.title + " [" + props.distance + "]"}
+        <button
+          onClick={() => starButtonHandler()}
+          className="starbutton"
+          aria-label="star-button" //allows user to add to favorites list
+        >
+          {" "}
+          ⭐{" "}
+        </button>
+      </h3>
       <p>{props.description}</p>
       <div className="attributes-container" aria-label="attributes-container">
         <p className="attributes" aria-label="attributes">
@@ -81,6 +83,7 @@ export default function getLoungeBox(props: PlaceboxProps) {
       >
         {" "}
         Find it
+
       </a>      
       <p></p>
       <div className="carousel-container" aria-label="carousel-container">
@@ -88,6 +91,7 @@ export default function getLoungeBox(props: PlaceboxProps) {
         <p></p><p></p>
       <Reviews loungeid={props.id}></Reviews>
       </div>
+
     </div>
   );
 }

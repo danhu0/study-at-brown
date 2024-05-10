@@ -8,12 +8,18 @@ import { getRecs, deserializeResponse, getReviews } from "../utils/api";
 import { SearchParameters } from "./SearchParameters";
 
 async function getUserLocation() {
-  const location = await new Promise<GeolocationPosition>((resolve, reject) => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(resolve, reject);
-    }
-  });
-  return location.coords;
+  try {
+    const location = await new Promise<GeolocationPosition>(
+      (resolve, reject) => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        }
+      }
+    );
+    return location.coords;
+  } catch (error) {
+    return null;
+  }
 }
 
 export const userLocation = getUserLocation();
@@ -82,20 +88,6 @@ export default function SearchHomePage() {
       </button>
       <p></p>
       <div className="search-choices-container">
-        <div className="search-choices">
-          <label className="search-label">Quiet Level</label>
-          <select
-            className="search-choices-selector"
-            onChange={(e) => {
-              updateSearchParameters("noise_level", e.target.value);
-            }}
-          >
-            <option value="">--</option>
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-          </select>
-        </div>
         <div className="search-choices">
           <label className="search-label">Natural Light</label>
 

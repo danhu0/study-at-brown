@@ -216,10 +216,10 @@ h3 {
   max-width: 100%;
 }
 
-.loading-text,
 .loading-container {
-  text-align: center;
+  display: flex;
   justify-content: center;
+  border-radius: 20px;
 }
 
 .loading-text {

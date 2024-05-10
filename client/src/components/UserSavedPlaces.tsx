@@ -1,12 +1,18 @@
 import { Key, useEffect, useState } from "react";
 import { MockedData } from "./MockedData";
-import { addLounge, clearUser, deserializeFavoritesResponse, getLoungeData, getLounges } from "../utils/api";
+import {
+  addLounge,
+  clearUser,
+  deserializeFavoritesResponse,
+  getLoungeData,
+  getLounges,
+} from "../utils/api";
 import getLoungeBox, { PlaceboxProps } from "./Placebox";
 
 export default function GetUserData() {
   //   const USER_ID = getLoginCookie() || "";
   const [mocked, setMocked] = useState(false);
-    const [lounges, setLounges] = useState<PlaceboxProps[]>([]);
+  const [lounges, setLounges] = useState<PlaceboxProps[]>([]);
   const [loungeIDS, setLoungeIDS] = useState<string[]>([]);
   // list of ids
   async function handleSearchSubmit() {
@@ -14,28 +20,27 @@ export default function GetUserData() {
   }
 
   useEffect(() => {
-    getLounges().then((data) => {
+    async function fetchData() {
+      const data = await getLounges();
       if (data["saved-spots"]) {
-        setLounges(deserializeFavoritesResponse(data))
+        setLounges(await deserializeFavoritesResponse(data));
         // setLounges(data["saved-spots"])
       }
-    });
+    }
+
+    fetchData();
   }, []);
-  const handleClearFavorites = () => {
-    clearUser();
-    setLounges([]);
-  };
 
   return (
     <div>
-      <button className="button" onClick={() => handleClearFavorites()}>Clear Favorites </button>
+      <button className="button" onClick={() => handleClearFavorites()}>
+        Clear Favorites{" "}
+      </button>
       <div className="lounges-container">
-      {lounges.map((lounge, index) => (
-        <div key={index}>
-            {getLoungeBox(lounge)}
-        </div> 
-        
-      ))}</div>
+        {lounges.map((lounge, index) => (
+          <div key={index}>{getLoungeBox(lounge)}</div>
+        ))}
+      </div>
       {/* {lounges.map((data: PlaceboxProps, index: number) => (
         <div className="lounge" key={index}>
           {getLoungeBox(data)}

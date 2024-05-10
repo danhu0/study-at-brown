@@ -1,4 +1,4 @@
-id,title,building,Description,natural_light_level,noise_level,outlet_availability,room_size,private,food,view,home,latitude,longitude,hours_open,hours_close,days_open,hours,study_room,google_link ,campus_position
+id,title,building,Description,natural_light_level,noise_level,outlet_availability,room_size,private,food,view,home,latitude,longitude,hours_open,hours_close,days_open,hours,study_room,google_link,campus_position
 1,Third Floor Library,Philosophy Department Building,,2,0,1,0,0,0,1,2,41.82792,-71.40355,8:30,17:00,0111110,"[
       [""9:30"", ""17:00""],
       [""9:30"", ""17:00""],
