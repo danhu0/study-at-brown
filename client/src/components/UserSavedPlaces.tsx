@@ -18,7 +18,6 @@ export default function GetUserData() {
   async function handleSearchSubmit() {
     setMocked(true);
   }
-  console.log("here we go")
   useEffect(() => {
     async function fetchData() {
       const data = await getLounges();

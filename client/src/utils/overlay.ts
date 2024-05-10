@@ -10,9 +10,7 @@ const get_geodata: Promise<string | string[][]> = new Promise(async (resolve) =>
   const response = await fetch("http://localhost:3232/get-geodata");
   const json = await response.json();
   const responseType = json["response_type"]
-  // console.log(json.type)
   if(responseType == "failure") {
-    // console.log("sdfghjkjhgfdsfghjkjhgfdsdfghjkjhgfdsfghj")
     rl_data =  undefined
     resolve("error")
   }
