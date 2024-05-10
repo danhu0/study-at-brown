@@ -4,7 +4,7 @@ import getRelavantLounges, { PlaceboxProps, getDistance } from "./Placebox";
 import { MockedData } from "./MockedData";
 import { useEffect, useState } from "react";
 import getLoungeBox from "./Placebox";
-import { getRecs, deserializeResponse, getReviews } from "../utils/api";
+import { deserializeResponse, getRecs, getReviews } from "../utils/api";
 import { SearchParameters } from "./SearchParameters";
 
 async function getUserLocation() {
@@ -52,7 +52,7 @@ export default function SearchHomePage() {
       setLoading(true);
       const response = await fetch("http://localhost:3232/get-hot");
       const json = await response.json();
-      setData(await deserializeResponse(json));
+      setData(await deserializeResponse(json, "best_spots"));
       setLoading(false);
     };
     fetchData();

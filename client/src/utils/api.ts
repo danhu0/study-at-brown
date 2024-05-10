@@ -96,7 +96,7 @@ export async function getRecs(attributes: SearchParameters) {
   const response = await fetch(url);
 
   const json = await response.json();
-  return deserializeResponse(json);
+  return deserializeResponse(json, "best_spots");
 }
 
 async function getUserLocation() {
@@ -108,17 +108,17 @@ async function getUserLocation() {
   return location.coords;
 }
 
-export async function deserializeResponse(
-  response: any
-): Promise<PlaceboxProps[]> {
-  return await utilHelper(response, "best_spots");
-}
-export async function deserializeFavoritesResponse(
-  response: any
-): Promise<PlaceboxProps[]> {
-  return await utilHelper(response, "saved-spots");
-}
-export async function utilHelper(response: any, spotsType:string) {
+// export async function deserializeResponse(
+//   response: any
+// ): Promise<PlaceboxProps[]> {
+//   return await utilHelper(response, "best_spots");
+// }
+// export async function deserializeFavoritesResponse(
+//   response: any
+// ): Promise<PlaceboxProps[]> {
+//   return await utilHelper(response, "saved-spots");
+// }
+export async function deserializeResponse(response: any, spotsType:string) {
   const loc = await userLocation;
   const deserializedResponse = await Promise.all(
     response[spotsType].map(async (spot: any) => {

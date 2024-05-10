@@ -3,7 +3,7 @@ import { MockedData } from "./MockedData";
 import {
   addLounge,
   clearUser,
-  deserializeFavoritesResponse,
+  deserializeResponse,
   getLoungeData,
   getLounges,
 } from "../utils/api";
@@ -23,7 +23,7 @@ export default function GetUserData() {
     async function fetchData() {
       const data = await getLounges();
       if (data["saved-spots"]) {
-        setLounges(await deserializeFavoritesResponse(data));
+        setLounges(await deserializeResponse(data, "saved-spots"));
         // setLounges(data["saved-spots"])
       }
     }
