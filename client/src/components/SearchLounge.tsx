@@ -52,6 +52,7 @@ export default function SearchHomePage() {
       setLoading(true);
       const response = await fetch("http://localhost:3232/get-hot");
       const json = await response.json();
+
       setData(await deserializeResponse(json, "best_spots"));
       setLoading(false);
     };
@@ -104,7 +105,6 @@ export default function SearchHomePage() {
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
-
           </select>
         </div>
         <div className="search-choices">
@@ -229,7 +229,7 @@ export default function SearchHomePage() {
           <div className="lounges-container" aria-label="lounges-container">
             {data.map((data, index) => (
               <div className="lounge" key={index}>
-                {/* {<p></p>} */}        
+                {/* {<p></p>} */}
                 {getLoungeBox(data)}
               </div>
             ))}
